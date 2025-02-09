@@ -12,9 +12,16 @@
 		"lint:fix": "eslint --ext . --fix "
 	},
 	"dependencies": {
+		"@expo-google-fonts/birthstone-bounce": "0.2.3",
+		"@expo-google-fonts/plus-jakarta-sans": "0.2.3",
+		"@expo-google-fonts/roboto": "0.2.3",
+		"@expo-google-fonts/sacramento": "0.2.3",
+		"@mosmmy/shortname-js": "1.0.5",
 		"expo": "~52.0.31",
+		"expo-app-loading": "2.1.1",
 		"expo-constants": "~17.0.5",
 		"expo-dev-client": "~5.0.11",
+		"expo-font": "13.0.3",
 		"expo-linking": "~7.0.5",
 		"expo-router": "~4.0.17",
 		"expo-status-bar": "~2.0.1",

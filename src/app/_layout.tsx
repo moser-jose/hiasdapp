@@ -16,8 +16,8 @@ function App() {
 const RootNavigation = () =>{
 	return (<Stack>
 				<Stack.Screen name='(tabs)' options={{
-					headerShown: false
-				}}/>
+					headerShown: false,
+				}} />
  			</Stack>)
 }
 
