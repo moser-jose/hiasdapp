@@ -1,0 +1,12 @@
+{
+  "colors" : [
+    {
+      "filename" : "AppIcon-60@3x~car.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
