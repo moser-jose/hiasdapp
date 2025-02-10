@@ -1,12 +1,12 @@
 const colors={
-    primary:'#393365',
+    primary:'#3A3845',
     second:'#94A3B8',
     third:'#F0F2F5',
     fourth:'#61788A',
     background:'#FFFFFF',
-    text: '#393365',
+    text: '#3A3845',
 	textMuted: '#6B7280',
-	icon: '#393365',
+	icon: '#3A3845',
     favorites:'#29C17E',
     favoriteMuted:'#6FCF97',
     favoritesRGBA:'rgba(100, 207, 151, 0.35)'

@@ -101,3 +101,53 @@ export const hymnsCard=StyleSheet.create({
 		bottom: -20
 	}
 });
+
+export const hymnsItem=StyleSheet.create({
+	container: {
+		position:'relative',
+		justifyContent: 'space-between',
+		flexDirection:'row',
+		alignItems: 'center',
+		marginHorizontal:16,
+		marginRight:16,
+	},
+	number:{
+		fontSize:fontSize.base,
+		fontWeight:'500',
+		color:colors.primary
+	},
+	cardMore:{
+		flex:1
+	},
+	numberCard:{
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap:6,
+	},
+	card: {
+		position:'relative',
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap:16,
+	},
+	ViewCard:{
+		flex:1
+	},
+	cardTittle:{
+		position:'relative',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	title:{
+		fontSize:fontSize.base,
+		color:colors.text
+	},
+	baseTitle:{
+		fontSize:fontSize.xss,
+		color:colors.textMuted
+	},
+	play:{
+		
+	}
+});

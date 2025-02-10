@@ -5,10 +5,17 @@ export interface HymnsTypes extends SvgProps {
   ingles?: string;
   numero?: number;
   numero_view?: string;
+  texto_biblico?:string
   categoria:{
     id:number;
     idsubcategoria:number
   },
+  coro?:[
+	{
+		"nome_coro": string,
+		"coro": string
+	}
+  ]
   autores:[{
     nome:string
   }],

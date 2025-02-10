@@ -1,4 +1,3 @@
-import { StackScreenWithSearchBar } from "@/constants/layout"
 import { colors } from "@/constants/styles"
 import { defaultStyles } from "@/styles"
 import { Stack } from "expo-router"
@@ -17,8 +16,9 @@ const HymnsScreenLayout = ()=>{
                 },
                 headerTintColor:colors.text,
                 headerBlurEffect:'prominent',
-                headerShadowVisible:false,
+                headerShadowVisible:true,
                 headerTransparent:true,
+
                 headerTitle:'Hinos'
             }}/>
         </Stack>

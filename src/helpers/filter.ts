@@ -1,0 +1,1 @@
+export const ListHymnsFilter=(title:string)=>(hymn:any)=>hymn.title?.toLowerCase().includes(title.toLowerCase())
