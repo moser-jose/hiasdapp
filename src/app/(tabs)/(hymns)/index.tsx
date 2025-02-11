@@ -1,8 +1,8 @@
 import { ListHymns } from "@/components/util/ListHymns"
 import { useNavigationSearch } from "@/hooks/useNavigationSearch"
 import { defaultStyles } from "@/styles"
-import { View,Text, ScrollView } from "react-native"
-import HinosAntigo from '../../../api/hiasd-antigo.json'
+import { View, ScrollView } from "react-native"
+import HinosAntigo from '@/api/hiasd-antigo.json'
 import { ListHymnsFilter } from "@/helpers/filter"
 import { useMemo } from "react"
 const HymnsScreen=()=>{
