@@ -13,8 +13,6 @@ const ItemDivider =()=>{
 }
 export const ListHymns = ({hymns,...listHymnsProps}:ListHymnsProps)=>{
     
-    
-
     const handleHymnSelect= async (hymn:Track)=>{
        await TrackPlayer.load(hymn)
     }
@@ -22,15 +20,14 @@ export const ListHymns = ({hymns,...listHymnsProps}:ListHymnsProps)=>{
     return <FlatList
     contentContainerStyle={{paddingTop:16, paddingBottom:128}}
     ListFooterComponent={ItemDivider}
-      data={hymns}
-      ItemSeparatorComponent={ItemDivider}
-      ListEmptyComponent={
+    data={hymns}
+    ItemSeparatorComponent={ItemDivider}
+    ListEmptyComponent={
         <View>
             <Text style={utilsStyles.emptyContentText}>No hymns found</Text>
         </View>
     }
-      //keyExtractor={(item, index) => item.id === index}
-      renderItem={({item:hymn})=><HymnsItem hymn={hymn} onHymnSelect={handleHymnSelect}/>}
-      {...listHymnsProps}
+    renderItem={({item:hymn})=><HymnsItem hymn={hymn} onHymnSelect={handleHymnSelect}/>}
+    {...listHymnsProps}
     />
 }

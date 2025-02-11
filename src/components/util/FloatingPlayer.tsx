@@ -1,51 +1,42 @@
 import { colors } from "@/constants/styles"
-import { defaultStyles, hymnsItem } from "@/styles"
+import { defaultStyles} from "@/styles"
 import { ViewProps,TouchableOpacity, View,StyleSheet, Text } from "react-native"
 import { Track, useActiveTrack } from "react-native-track-player"
 import {PlayPauseButton, SkipToNextButton} from '@/components/util/PlayerControls'
 import FastImage from "react-native-fast-image"
 import { logoApp } from "@/constants/images"
-import { shortName } from "@mosmmy/shortname-js"
+import Authors from "./Authors"
+import { HymnTrackType } from "@/types/hymnsTypes"
 
 const FloatingPlayer = ({style}:ViewProps)=>{
 
     const activeHymn=useActiveTrack()
-    console.log(activeHymn, "ol")
-    const displayedHymn:Track = activeHymn ?? {
+    const displayedHymn:HymnTrackType = activeHymn ?? {
         title: "This is a just a song",
     } 
     console.log(displayedHymn)
     if(!displayedHymn) return null
 
-    
-
     return (
         <TouchableOpacity activeOpacity={0.8} style={[styles.container, style]}>
             
-            <FastImage
+            {/* <FastImage
 					source={{
-						uri: /* displayedTrack.artwork ?? */ logoApp,
+						uri: logoApp,
 					}}
 					style={styles.trackArtworkImage}
-				/>
+				/> */}
+                <View>
+                <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
+            </View>
             <View style={styles.hymnTitleContainer}>
                 <Text style={styles.hymnTitle}>{displayedHymn.title}</Text>
                 <Text style={styles.hymnTitleBase}>{displayedHymn.titleIngles}</Text>
-                <View style={{flexDirection:'row',gap:5}}>
-                {
-                        displayedHymn.authors?.map((item, index) => {
-                            const isLastItem = index === displayedHymn.authors.length - 1; 
-                            const nome =item.nome ? shortName(item.nome) : 'Desconhecido'
-                            const separator = !isLastItem ? ', ' : '';
-                            return  (
-                                <Text key={index} style={styles.hymnTitleBase}>
-                                    { nome+''+separator}
-                                </Text>
-                                )
-                            })
-                    }
-                    </View>
+                <Authors authors={displayedHymn.authors} card={false}/>
             </View>
+           {/*  <View>
+                <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
+            </View> */}
             <View style={styles.hymnControlsContainer}>
                 <PlayPauseButton/>
                 <SkipToNextButton/>
@@ -79,6 +70,8 @@ const styles=StyleSheet.create({
     hymnTitleBase:{
         color:colors.textMuted,
         fontSize:12,
+        flex:1,
+        width:'100%',
     },
     hymnTitleContainer:{
         flex:1,

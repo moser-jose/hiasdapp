@@ -1,4 +1,4 @@
-import LogoSVG from "@/components/svg/logoSVG";
+import LogoSVG from "@/components/svg/LogoSVG";
 import { defaultStyles } from "@/styles"
 import { Stack } from "expo-router"
 import { View,Text,SafeAreaView, TouchableOpacity, ScrollView } from "react-native"
@@ -9,9 +9,9 @@ import { PlusJakartaSans_500Medium, } from '@expo-google-fonts/plus-jakarta-sans
 
 
 import { colors } from "@/constants/styles";
-import ChangeHymnsSVG from "@/components/svg/changeHymnsSVG";
-import Topic from "@/components/util/topic";
-import Header from "@/components/util/header";
+import ChangeHymnsSVG from "@/components/svg/ChangeHymnsSVG";
+import Topic from "@/components/util/Topic";
+import Header from "@/components/util/Header";
 
 
 

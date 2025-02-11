@@ -1,7 +1,7 @@
 import { TouchableOpacity, View,Text,StyleSheet } from "react-native"
-import LogoSVG from "../svg/logoSVG"
-import ChangeHymnsSVG from "../svg/changeHymnsSVG"
-import Topic from "./topic"
+import LogoSVG from "../svg/LogoSVG"
+import ChangeHymnsSVG from "../svg/ChangeHymnsSVG"
+import Topic from "./Topic"
 import { colors } from "@/constants/styles"
 
 const Header=({title,text,year}:{title:string,text:string,year:string})=>{

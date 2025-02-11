@@ -1,12 +1,10 @@
 
-import HymnsCard from "@/components/util/hymnsCard"
-import Separator from "@/components/util/separator"
-import { screenPadding } from "@/constants/styles"
+import HymnsCard from "@/components/util/HymnsCard"
+import Separator from "@/components/util/Separator"
 import { defaultStyles, scrollViewHorizontal } from "@/styles"
 import { View,Text,ScrollView, FlatList, FlatListProps } from "react-native"
-import HiasdAntigo from '../../../api/hiasd-antigo.json'
-import HiasdNovo from '../../../api/hiasd-novo.json'
-import { HymnsTypes } from "@/types/hymnsTypes"
+import HiasdAntigo from '@/api/hiasd-antigo.json'
+import HiasdNovo from '@/api/hiasd-novo.json'
 import { useMemo,memo } from "react"
 
 export type ListHymnsProps = Partial<FlatListProps<unknown>>
