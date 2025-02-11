@@ -1,4 +1,3 @@
-import { SvgProps } from 'react-native-svg';
 import { Track } from 'react-native-track-player';
 
 interface HymnsTypes {
@@ -29,7 +28,7 @@ interface HymnsTypes {
 		estrofe:string;
 	}],
   }
-  onHymnSelect:(hymn:Track)=>void
+  onHymnSelect:(hymn:HymnTrackType)=>void
 }
 
 interface HymnTrackType extends Track{
