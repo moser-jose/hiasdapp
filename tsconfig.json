@@ -36,7 +36,7 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/api/*": ["./api/*"],
-			"@/assets/*": ["./src/assets/*"],
+			"@/assets/*": ["./assets/*"],
 			"@/tests/*": ["./tests/*"],
 			"@/components/*": ["./src/components/*"],
 			"@/constants/*": ["./src/constants/*"],

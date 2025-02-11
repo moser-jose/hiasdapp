@@ -16,7 +16,11 @@
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.moserjose.hiasdapp"
+			"bundleIdentifier": "com.moserjose.hiasdapp",
+			"infoPlist": {
+				"NSMicrophoneUsageDescription": "Este app precisa de acesso ao microfone para reproduzir áudio.",
+				"UIBackgroundModes": ["audio"]
+			}
 		},
 		"android": {
 			"adaptiveIcon": {

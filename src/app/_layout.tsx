@@ -1,10 +1,24 @@
+import useLogHymnPlayerState from '@/hooks/useLogSetupHymnPlayer'
+import useSetupHymnPlayer from '@/hooks/useSetupHymnPlayer'
 import { defaultStyles } from '@/styles'
-import { Stack } from 'expo-router'
+import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { useCallback } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+SplashScreen.preventAutoHideAsync()
+
 function App() {
+	const handleHymnPlayerLoaded=useCallback(()=>{
+		SplashScreen.hideAsync()
+	},[])
+
+	useSetupHymnPlayer({
+		onLoad:handleHymnPlayerLoaded
+	})
+
+	useLogHymnPlayerState()
+	
 	return (
 		<SafeAreaProvider style={defaultStyles.container}>
 			<RootNavigation/>

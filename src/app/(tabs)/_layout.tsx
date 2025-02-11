@@ -5,10 +5,15 @@ import HomeSVG from '@/components/svg/homeSvg'
 import { colors, fontSize } from '@/constants/styles'
 import { Tabs } from 'expo-router'
 import PlaylistsSVG from '@/components/svg/playListsSVG'
+import FloatingPlayer from '@/components/util/FloatingPlayer'
+import { TouchableOpacity } from 'react-native'
 
 const TabsNavigation = ()=>{
+    
     return (
-        <Tabs
+        
+        <>
+            <Tabs
         initialRouteName='home'
         screenOptions={{
             tabBarActiveTintColor: colors.primary,
@@ -47,6 +52,15 @@ const TabsNavigation = ()=>{
                 tabBarIcon: ({color}) => <ConfigurationsSVG color={color}/>
             }}/>
         </Tabs>
+
+        <FloatingPlayer style={{
+            position:'absolute',
+            left: 8,
+            right: 8,
+            borderRadius:8,
+            bottom: 94
+        }}/>
+        </>
     )
 }
 
