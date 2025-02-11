@@ -1,5 +1,5 @@
 import { TouchableOpacity, View, ViewStyle } from "react-native"
-import TrackPlayer, { isPlaying, useIsPlaying } from "react-native-track-player"
+import TrackPlayer, { useIsPlaying } from "react-native-track-player"
 import PlayButtonSVG from "../svg/PlayButtonSvg"
 import PauseButtonSVG from "../svg/PauseButtonSvg"
 import { colors } from "@/constants/styles"
