@@ -12,7 +12,6 @@ import Authors from "./Authors"
 
 const HymnsCard =({hymn,style}:{style?:any,hymn:HymnsTypes['hymn']})=>{
 
-    const [nameAutor, setNameAutor]=useState('')
     return <TouchableOpacity style={[hymnsCard.container,style]}> 
         <View style={hymnsCard.card}>
             <Text style={hymnsCard.number}>{hymn.numero}</Text>
