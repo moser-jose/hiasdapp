@@ -1,49 +1,30 @@
-
-import HymnsCard from "@/components/util/HymnsCard"
 import Separator from "@/components/util/Separator"
-import { defaultStyles, scrollViewHorizontal } from "@/styles"
-import { View,Text,ScrollView, FlatList, FlatListProps } from "react-native"
-import HiasdAntigo from '@/api/hiasd-antigo.json'
-import HiasdNovo from '@/api/hiasd-novo.json'
-import { useMemo,memo } from "react"
+import { defaultStyles} from "@/styles"
+import { View,Text,ScrollView} from "react-native"
+import { Track } from "react-native-track-player"
+import TrackPlayer from "react-native-track-player/lib/src/trackPlayer"
+import { ListHymnsCard } from "@/components/util/ListHymnsCard"
+import HinosAntigo from '@/api/hiasd-antigo.json'
+import { memo, useMemo } from "react"
 
-export type ListHymnsProps = Partial<FlatListProps<unknown>>
-const HomeScreen=({...listHymnsProps}:ListHymnsProps)=>{
+const HomeScreen=()=>{
 
-    const Hinos=useMemo(() => {
-        return HiasdAntigo
-    },[])
+  const hymns = useMemo(()=>{
+    return HinosAntigo.hinos
+  },[]);
 
+    const handleHymnSelect= async (hymn:Track)=>{
+       await TrackPlayer.load(hymn)
+    }
 
     return <View style={defaultStyles.container}>
         <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-         /* style={{paddingHorizontal: screenPadding.horizontal}} */>
-        <Text style={defaultStyles.text}>Home Screen</Text>
-        <Separator title="Hinos"/>
-        <ScrollView
-        style={scrollViewHorizontal.horizontal}
-         horizontal={true}
-         showsHorizontalScrollIndicator={false}>
-
-    <FlatList
-      scrollEnabled={false}
-      data={Hinos.hinos}    
-      horizontal
-      renderItem={({item:HymnsTypes,index})=><HymnsCard
-      style={[{ marginLeft: index === 0 ? 16 : 16, 
-        marginRight: index === Hinos.hinos.length - 1 ? 16 : 0, },
-    ]} hymn={
-        {...HymnsTypes}
-      }/>}
-      {...listHymnsProps}
-    />
+          contentInsetAdjustmentBehavior="automatic">
+          <Text style={defaultStyles.text}>Home Screen</Text>
+          <Separator title="Hinos"/>
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
         </ScrollView>
-    </ScrollView>
     </View>
-
-    
 }
 
-
-export default HomeScreen
+export default memo(HomeScreen)

@@ -1,14 +1,15 @@
-import { Track } from 'react-native-track-player';
+import { Track } from 'react-native-track-player'
 
 interface HymnsTypes {
   hymn:{
-	title: string;
-	ingles?: string;
-	numero?: number;
-	numero_view?: string;
+	id:number
+	title: string
+	ingles?: string
+	numero?: number
+	numero_view?: string
 	texto_biblico?:string
 	categoria:{
-		id:number;
+		id:number
 		idsubcategoria:number
 	},
 	coro?:[
@@ -24,11 +25,12 @@ interface HymnsTypes {
 		nome:string
 	}],
 	estrofes:[{
-		numero:string;
-		estrofe:string;
+		numero:string
+		estrofe:string
 	}],
   }
   onHymnSelect:(hymn:HymnTrackType)=>void
+  style?:any
 }
 
 interface HymnTrackType extends Track{
@@ -42,5 +44,10 @@ interface HymnTrackType extends Track{
 	artist:string
 }
 
+type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
+    hymns:HymnsTypes['hymn'][]
+}
 
-export {HymnsTypes,HymnTrackType}
+
+
+export {HymnsTypes,HymnTrackType, ListHymnsProps}
