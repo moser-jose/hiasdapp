@@ -2,9 +2,9 @@ import { SVGIconProps } from '@/types/svgTypes';
 import React from 'react';
 import Svg, { Path, Mask, Rect, } from 'react-native-svg';
 
-const PauseCardSVG: React.FC<SVGIconProps> =  ({color, width, height}) =>{
+const PauseCardSVG: React.FC<SVGIconProps> =  ({color, width=45, height=45}) =>{
   return (
-    <Svg width={width ?? "45"}  height={height ?? "45"} viewBox='0 0 24 24' fill={color}>
+    <Svg width={width}  height={height} viewBox='0 0 24 24' fill={color}>
       <Mask id="path-1-outside-1_131_19901" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24" fill="black">
       <Rect fill="white" width="24" height="24"/>
       <Path fillRule="evenodd" clipRule="evenodd" d="M2 12C2 6.47979 6.48 2 12 2C17.52 2 22 6.47979 22 12C22 17.5202 17.52 22 12 22C6.48 22 2 17.5202 2 12ZM9 8H10.5V16H9V8ZM15 8H13.5V16H15V8Z"/>

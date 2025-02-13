@@ -2,9 +2,9 @@ import { SVGIconProps } from '@/types/svgTypes';
 import React from 'react';
 import Svg, {Rect, Path,Mask } from 'react-native-svg';
 
-const PlayCardSVG: React.FC<SVGIconProps> =  ({color, width, height}) =>{
+const PlayCardSVG: React.FC<SVGIconProps> =  ({color, width=45, height=45}) =>{
   return (
-    <Svg width={width ?? "45"}  height={height ?? "45"} viewBox='0 0 24 24' fill={color}>
+    <Svg width={width}  height={height} viewBox='0 0 24 24' fill={color}>
       <Mask id="path-1-outside-1_100_19942" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24" >
         <Rect fill="white" width="24" height="24"/>
         <Path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 15.5V8.5C10 8.09 10.47 7.85 10.8 8.1L15.47 11.6C15.74 11.8 15.74 12.2 15.47 12.4L10.8 15.9C10.47 16.15 10 15.91 10 15.5Z"/>
