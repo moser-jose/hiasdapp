@@ -12,11 +12,11 @@ const HymnsScreen=()=>{
         }
     })
 
-    const filteredSearch = useMemo(()=>{
-        if(!search) return HinosAntigo.hinos
-        return HinosAntigo.hinos.filter(ListHymnsFilter(search))
-
-    },[search]);
+    const filteredSearch = useMemo(() => {
+        if (!search) return HinosAntigo.hinos;
+        const filterPredicate = ListHymnsFilter(search);
+        return HinosAntigo.hinos.filter(hymn => Boolean(filterPredicate(hymn)));
+    }, [search]);
 
     return <View style={defaultStyles.container}>
         <ScrollView contentInsetAdjustmentBehavior="automatic">

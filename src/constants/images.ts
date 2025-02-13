@@ -37,3 +37,34 @@ export const vidaCristaImage = Image.resolveAssetSource(vidaCrista).uri
 //Novo
 export const categoryImage = Image.resolveAssetSource(categoryGod).uri
 export const sonGodImage = Image.resolveAssetSource(sonGod).uri
+
+
+
+
+export const categoryImagesAntigo = {
+    'Adoração': adoracaoImage,
+    'Deus, o Pai': deusOPaiImage,
+    'Jesus Cristo': jesusCristoImage,
+    'Espirito Santo': espiritoSantoImage,
+    'Santa Escritura': SantaEscrituraImage,
+    'O Evangelho': OEvangelhoImage,
+    'Lar Cristão': larCristaoImage,
+    'Igreja e Doutrina': igrejaDoutrinaImage,
+    'Cânticos Responsivos': canticosResponsivosImage,
+    'Améns': AmenImage,
+    'Vida Cristã': vidaCristaImage,
+  };
+
+export const categoryImagesNovo = {
+'Adoração': adoracaoImage,
+'Deus, o Pai': deusOPaiImage,
+'Jesus Cristo': jesusCristoImage,
+'Espirito Santo': espiritoSantoImage,
+'Santa Escritura': SantaEscrituraImage,
+'O Evangelho': OEvangelhoImage,
+'Lar Cristão': larCristaoImage,
+'Igreja e Doutrina': igrejaDoutrinaImage,
+'Cânticos Responsivos': canticosResponsivosImage,
+'Améns': AmenImage,
+'Vida Cristã': vidaCristaImage,
+};

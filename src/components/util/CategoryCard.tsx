@@ -1,40 +1,27 @@
-import { adoracaoImage, AmenImage, canticosResponsivosImage, categoryImage, deusOPaiImage, espiritoSantoImage, igrejaDoutrinaImage, jesusCristoImage, larCristaoImage, logoApp, OEvangelhoImage, SantaEscrituraImage, sonGodImage, vidaCristaImage } from '@/constants/images';
-import { HymnsCategoriesTypes, HymnsTypes } from '@/types/hymnsTypes';
+import {categoryImagesAntigo, categoryImagesNovo} from '@/constants/images';
+import { fontSize } from '@/constants/styles';
+import { HymnsCategoriesTypes} from '@/types/hymnsTypes';
 
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 
-
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const CategoryCard = ({data,index}:{data:HymnsCategoriesTypes,index:number}) => {
-    const categoryImages = {
-        'Adoração': adoracaoImage,
-        'Deus, o Pai': deusOPaiImage,
-        'Jesus Cristo': jesusCristoImage,
-        'Espirito Santo': espiritoSantoImage,
-        'Santa Escritura': SantaEscrituraImage,
-        'O Evangelho': OEvangelhoImage,
-        'Lar Cristão': larCristaoImage,
-        'Igreja e Doutrina': igrejaDoutrinaImage,
-        'Cânticos Responsivos': canticosResponsivosImage,
-        'Améns': AmenImage,
-        'Vida Cristã': vidaCristaImage,
-      };
+    const novo=true;
+    const categoryImages=novo?categoryImagesAntigo:categoryImagesNovo
       const getBackgroundSource = (category: string) =>
           categoryImages[category as keyof typeof categoryImages] || logoApp;
-      
   return (
     
     <TouchableOpacity activeOpacity={0.8} style={[styles.container,index % 1 !== 0 && styles.spacingLeft]}>
-      {/* Imagem de fundo */}
+     
       <FastImage
         source={{ uri: getBackgroundSource(data.categoria) }}
         style={styles.backgroundImage}
         resizeMode={FastImage.resizeMode.cover} 
-        
       />
         <LinearGradient
         colors={["rgba(28, 26, 26, 0.6)", "transparent"]}
@@ -73,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize:fontSize.base,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

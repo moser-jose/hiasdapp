@@ -24,11 +24,8 @@ const CategoriesScreen=()=>{
       scrollEnabled={false}
       data={categoriesData}
       numColumns={2}
-      //keyExtractor={(item, index) => item.categoria}
       renderItem={({item:HymnsCategoriesTypes,index})=><CategoryCard index={index % 2 !== 0} data={HymnsCategoriesTypes}
-      /* style={[{ marginLeft: index === 0 ? 16 : 16, 
-        marginRight: index === categoriesData.length - 1 ? 16 : 0, },
-    ]} *//>}
+      />}
     />
         </ScrollView>
     </View>

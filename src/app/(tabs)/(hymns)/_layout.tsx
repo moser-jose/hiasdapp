@@ -18,7 +18,7 @@ const HymnsScreenLayout = ()=>{
                 headerBlurEffect:'prominent',
                 headerShadowVisible:true,
                 headerTransparent:true,
-
+                
                 headerTitle:'Hinos'
             }}/>
         </Stack>
