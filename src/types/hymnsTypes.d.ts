@@ -60,10 +60,17 @@ type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
     hymns:HymnsTypes['hymn'][]
 }
 
+type ListHymns = Partial<HymnsTypes['hymn']>&{
+    hymns:HymnsTypes['hymn'][]
+}
+
 type ListCategoriesProps = Partial<FlatListProps<HymnsCategoriesTypes>>&{
     category:HymnsCategoriesTypes
 }
 
+type ListCategories = Partial<HymnsCategoriesTypes[]>&{
+    category:HymnsCategoriesTypes[]
+}
 
 
-export {HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}
+export {ListCategories,ListHymns,HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}
