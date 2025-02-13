@@ -29,21 +29,20 @@ interface HymnsTypes {
 		estrofe:string
 	}],
   }
-  onHymnSelect:(hymn:HymnTrackType)=>void
+  onHymnSelect:(hymn:HymnTrackType<Track>)=>void
   style?:any
 }
 
 interface HymnsCategoriesTypes{
-		id: number,
-		categoria: string,
-		background: string,
-		sub_categorias: [
-			{
-				title: string,
-				hinos: string
-			}
-		]
-	
+	id: number,
+	categoria: string,
+	background: string,
+	sub_categorias: [
+		{
+			title: string,
+			hinos: string
+		}
+	]
 }
 
 interface HymnTrackType extends Track{
@@ -61,6 +60,10 @@ type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
     hymns:HymnsTypes['hymn'][]
 }
 
+type ListCategoriesProps = Partial<FlatListProps<HymnsCategoriesTypes>>&{
+    category:HymnsCategoriesTypes
+}
 
 
-export {HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes}
+
+export {HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}

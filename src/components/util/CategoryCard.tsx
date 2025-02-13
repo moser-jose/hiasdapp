@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
-const CategoryCard = ({data,index,style}:{data:HymnsCategoriesTypes,index:number,style?:any}) => {
+const CategoryCard = ({category,index,style}:{category:HymnsCategoriesTypes,index:boolean,style?:any}) => {
     const novo=true;
     const categoryImages=novo?categoryImagesAntigo:categoryImagesNovo
       const getBackgroundSource = (category: string) =>
@@ -17,7 +17,7 @@ const CategoryCard = ({data,index,style}:{data:HymnsCategoriesTypes,index:number
   return (
     <TouchableOpacity activeOpacity={0.8} style={[styles.container, index % 1 !== 0 && styles.spacingLeft, style]}>
       <FastImage
-        source={{ uri: getBackgroundSource(data.categoria) }}
+        source={{ uri: getBackgroundSource(category.categoria) }}
         style={styles.backgroundImage}
         resizeMode={FastImage.resizeMode.cover} 
       />
@@ -26,7 +26,7 @@ const CategoryCard = ({data,index,style}:{data:HymnsCategoriesTypes,index:number
         style={styles.backgroundImage}
       />
       <View style={styles.content}>
-        <Text style={styles.text}>{data.categoria}</Text>
+        <Text style={styles.text}>{category.categoria}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -3,7 +3,6 @@ import {ListHymnsProps} from "@/types/hymnsTypes"
 import TrackPlayer, { Track, useIsPlaying } from "react-native-track-player"
 import HymnsCard from "./HymnsCard"
 
-
 export const ListHymnsCard = ({hymns,...listHymnsProps}:ListHymnsProps)=>{
     const { playing  } = useIsPlaying()
 

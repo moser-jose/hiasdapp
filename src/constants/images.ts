@@ -19,27 +19,22 @@ import sonGod from '@/assets/app/categories/sonGod.jpg';
 
 export const logoApp = Image.resolveAssetSource(logo).uri
 
-
-export const adoracaoImage = Image.resolveAssetSource(adoracao).uri
-export const AmenImage = Image.resolveAssetSource(amen).uri
-export const canticosResponsivosImage = Image.resolveAssetSource(canticosResponsivos).uri
-export const deusOPaiImage = Image.resolveAssetSource(deusOPai).uri
-export const espiritoSantoImage = Image.resolveAssetSource(espiritoSanto).uri
-export const igrejaDoutrinaImage = Image.resolveAssetSource(igrejaDoutrina).uri
-export const jesusCristoImage = Image.resolveAssetSource(jesusCristo).uri
-export const larCristaoImage = Image.resolveAssetSource(larCristao).uri
-export const OEvangelhoImage = Image.resolveAssetSource(OEvangelho).uri
-export const SantaEscrituraImage = Image.resolveAssetSource(SantaEscritura).uri
-export const vidaCristaImage = Image.resolveAssetSource(vidaCrista).uri
-
-
+// Antigo
+const adoracaoImage = Image.resolveAssetSource(adoracao).uri
+const AmenImage = Image.resolveAssetSource(amen).uri
+const canticosResponsivosImage = Image.resolveAssetSource(canticosResponsivos).uri
+const deusOPaiImage = Image.resolveAssetSource(deusOPai).uri
+const espiritoSantoImage = Image.resolveAssetSource(espiritoSanto).uri
+const igrejaDoutrinaImage = Image.resolveAssetSource(igrejaDoutrina).uri
+const jesusCristoImage = Image.resolveAssetSource(jesusCristo).uri
+const larCristaoImage = Image.resolveAssetSource(larCristao).uri
+const OEvangelhoImage = Image.resolveAssetSource(OEvangelho).uri
+const SantaEscrituraImage = Image.resolveAssetSource(SantaEscritura).uri
+const vidaCristaImage = Image.resolveAssetSource(vidaCrista).uri
 
 //Novo
-export const categoryImage = Image.resolveAssetSource(categoryGod).uri
-export const sonGodImage = Image.resolveAssetSource(sonGod).uri
-
-
-
+const categoryImage = Image.resolveAssetSource(categoryGod).uri
+const sonGodImage = Image.resolveAssetSource(sonGod).uri
 
 export const categoryImagesAntigo = {
     'Adoração': adoracaoImage,
@@ -53,7 +48,7 @@ export const categoryImagesAntigo = {
     'Cânticos Responsivos': canticosResponsivosImage,
     'Améns': AmenImage,
     'Vida Cristã': vidaCristaImage,
-  };
+};
 
 export const categoryImagesNovo = {
 'Adoração': adoracaoImage,
