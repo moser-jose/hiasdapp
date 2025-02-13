@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { HymnsCategoriesTypes, HymnsTypes, ListCategories, ListCategoriesProps, ListHymns } from "@/types/hymnsTypes";
+import { HymnsTypes, ListCategories, ListCategoriesProps, ListHymns } from "@/types/hymnsTypes";
 import PlayCardSVG from "../svg/PlayCardSvg";
 import { colors, fontSize } from "@/constants/styles";
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
 import SpreedSVG from "../svg/SpreedSvg";
 import LinearGradient from "react-native-linear-gradient";
-import { sonGodImage } from "@/constants/images";
 import FastImage from "react-native-fast-image";
 import Authors from "./Authors";
 import { getBackgroundSource } from "@/helpers/getBackgroundSource";
+import { dateFormat } from "@/helpers/dateFormat";
 
 const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategories}) => {
   const [hymn, setHymn] = useState<HymnsTypes['hymn'] | void>();
-
-  const formatarData=(date:Date|number)=> {
-    const dataNow =new Intl.DateTimeFormat('pt-BR', { 
-        weekday: 'long', day: '2-digit', month: 'long'
-    }).format(date);
-    return dataNow.charAt(0).toUpperCase() + dataNow.slice(1)
-    }
-    
 
   useEffect(() => {
     const fetchHymn = async () => {
@@ -32,11 +24,10 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
   }, [hymns]);
 
   const categoryUri=()=> {
-    //console.log(categories,hymn?.categoria)
-    const categoryFound=categories.filter((item:ListCategoriesProps)=>item.categoria==hymn?.categoria)
-    console.log(categoryFound[0],hymn?.categoria)
-    return getBackgroundSource(categoryFound[0].categoria)
-}
+    const categoryFound =categories.filter((item:ListCategoriesProps)=>item.categoria==hymn?.categoria)
+    return getBackgroundSource(categoryFound?.[0]?.categoria ?? '')
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         {hymn ?
@@ -58,7 +49,7 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
                     <Text style={styles.titleText}>Hino do Dia</Text>
                     <Text style={styles.titleAno}>{new Date().getFullYear()}</Text>
                   </View>
-                  <Text style={styles.titleDate}>{formatarData(new Date())}</Text>
+                  <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
                 </View>
                 <TouchableOpacity activeOpacity={.8}>
                   <SpreedSVG color="white" />
