@@ -26,7 +26,7 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
             artist:hymn.artist
     }
 
-    return <TouchableOpacity  style={hymnsItem.container} onPress={()=>handleHymnSelect(track)}>
+    return <TouchableOpacity  style={hymnsItem.container}>
             <View style={hymnsItem.card}>
             <SpreedSVG color={colors.textMuted}/>
             <View style={hymnsItem.cardMore}>
@@ -42,7 +42,7 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
                 </View>
             </View>
             <TouchableHighlight ><HeartSVG color={colors.favorites}/></TouchableHighlight>
-            <TouchableHighlight style={hymnsItem.play}><PlayCardSVG width={35} height={35} color={colors.primary}/></TouchableHighlight>
+            <TouchableHighlight style={hymnsItem.play}  onPress={()=>handleHymnSelect(track)}><PlayCardSVG width={35} height={35} color={colors.primary}/></TouchableHighlight>
             </View>
         </TouchableOpacity>
 }

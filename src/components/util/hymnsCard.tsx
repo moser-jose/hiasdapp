@@ -1,4 +1,4 @@
-import { memo, useState } from "react"
+import { memo } from "react"
 import { hymnsCard } from "@/styles"
 import { Text, TouchableOpacity, View } from "react-native"
 import HeartSVG from "../svg/HeartSvg"

@@ -120,6 +120,6 @@
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+	"include": ["src", "declarations.d.ts","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
 	"exclude": ["node_modules"]
 }

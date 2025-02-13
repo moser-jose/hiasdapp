@@ -33,15 +33,28 @@ interface HymnsTypes {
   style?:any
 }
 
+interface HymnsCategoriesTypes{
+		id: number,
+		categoria: string,
+		background: string,
+		sub_categorias: [
+			{
+				title: string,
+				hinos: string
+			}
+		]
+	
+}
+
 interface HymnTrackType extends Track{
 	id?:number,
 	numberView?:string,
 	titleIngles?:string,
 	authors?:[{nome:string}],
 	title:string,
-	url:string,
-	artwork:string,
-	artist:string
+	url?:string,
+	artwork?:string,
+	artist?:string
 }
 
 type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
@@ -50,4 +63,4 @@ type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
 
 
 
-export {HymnsTypes,HymnTrackType, ListHymnsProps}
+export {HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes}
