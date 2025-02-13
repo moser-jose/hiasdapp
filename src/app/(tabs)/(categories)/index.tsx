@@ -25,6 +25,7 @@ const CategoriesScreen=()=>{
       data={categoriesData}
       numColumns={2}
       renderItem={({item:HymnsCategoriesTypes,index})=><CategoryCard index={index % 2 !== 0} data={HymnsCategoriesTypes}
+      
       />}
     />
         </ScrollView>

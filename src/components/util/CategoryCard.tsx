@@ -1,4 +1,4 @@
-import {categoryImagesAntigo, categoryImagesNovo} from '@/constants/images';
+import {categoryImagesAntigo, categoryImagesNovo, logoApp} from '@/constants/images';
 import { fontSize } from '@/constants/styles';
 import { HymnsCategoriesTypes} from '@/types/hymnsTypes';
 
@@ -9,15 +9,13 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
-const CategoryCard = ({data,index}:{data:HymnsCategoriesTypes,index:number}) => {
+const CategoryCard = ({data,index,style}:{data:HymnsCategoriesTypes,index:number,style?:any}) => {
     const novo=true;
     const categoryImages=novo?categoryImagesAntigo:categoryImagesNovo
       const getBackgroundSource = (category: string) =>
           categoryImages[category as keyof typeof categoryImages] || logoApp;
   return (
-    
-    <TouchableOpacity activeOpacity={0.8} style={[styles.container,index % 1 !== 0 && styles.spacingLeft]}>
-     
+    <TouchableOpacity activeOpacity={0.8} style={[styles.container, index % 1 !== 0 && styles.spacingLeft, style]}>
       <FastImage
         source={{ uri: getBackgroundSource(data.categoria) }}
         style={styles.backgroundImage}

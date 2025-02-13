@@ -36,6 +36,9 @@ const HomeScreen=()=>{
           showsHorizontalScrollIndicator={false}
           data={categoriesData}
           renderItem={({item:HymnsCategoriesTypes,index})=><CategoryCard index={index % 2 !==0} data={HymnsCategoriesTypes}
+          style={[{ 
+            marginRight: index === categoriesData.length - 1 ? 16 : 0, },
+        ]}
         />}
   />
       </ScrollView>
