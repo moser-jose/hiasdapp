@@ -1,10 +1,8 @@
 import { colors } from "@/constants/styles"
 import { defaultStyles} from "@/styles"
 import { ViewProps,TouchableOpacity, View,StyleSheet, Text } from "react-native"
-import { Track, useActiveTrack } from "react-native-track-player"
+import { useActiveTrack } from "react-native-track-player"
 import {PlayPauseButton, SkipToNextButton} from '@/components/util/PlayerControls'
-import FastImage from "react-native-fast-image"
-import { logoApp } from "@/constants/images"
 import Authors from "./Authors"
 import { HymnTrackType } from "@/types/hymnsTypes"
 
@@ -33,9 +31,6 @@ const FloatingPlayer = ({style}:ViewProps)=>{
                 <Text style={styles.hymnTitleBase}>{displayedHymn.titleIngles}</Text>
                 <Authors authors={displayedHymn.authors} card={false}/>
             </View>
-           {/*  <View>
-                <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
-            </View> */}
             <View style={styles.hymnControlsContainer}>
                 <PlayPauseButton/>
                 <SkipToNextButton/>

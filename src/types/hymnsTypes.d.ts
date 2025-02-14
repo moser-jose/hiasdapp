@@ -1,5 +1,4 @@
 import { Track } from 'react-native-track-player'
-
 interface HymnsTypes {
   hymn:{
 	id:number
@@ -8,10 +7,12 @@ interface HymnsTypes {
 	numero?: number
 	numero_view?: string
 	texto_biblico?:string
-	categoria:{
+	categoria: string,
+	sub_categoria: string,
+	/* categoria:{
 		id:number
 		idsubcategoria:number
-	},
+	}, */
 	coro?:[
 		{
 			nome_coro: string,
@@ -64,7 +65,7 @@ type ListHymns = Partial<HymnsTypes['hymn'][]>&{
     hymns:HymnsTypes['hymn'][]
 }
 
-type ListCategoriesProps = Partial<FlatListProps<HymnsCategoriesTypes>>&{
+type ListCategoriesProps = Partial<FlatListProps<HymnsCategoriesTypes>> &  {
     category:HymnsCategoriesTypes
 }
 
