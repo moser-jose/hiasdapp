@@ -56,11 +56,11 @@ interface HymnTrackType extends Track{
 	artist?:string
 }
 
-type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn']>>&{
+type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn'][]>>&{
     hymns:HymnsTypes['hymn'][]
 }
 
-type ListHymns = Partial<HymnsTypes['hymn']>&{
+type ListHymns = Partial<HymnsTypes['hymn'][]>&{
     hymns:HymnsTypes['hymn'][]
 }
 

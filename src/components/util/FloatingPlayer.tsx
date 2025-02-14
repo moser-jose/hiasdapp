@@ -14,7 +14,6 @@ const FloatingPlayer = ({style}:ViewProps)=>{
     const displayedHymn:HymnTrackType = activeHymn ?? {
         title: "This is a just a song",
     } 
-    console.log(displayedHymn)
     if(!displayedHymn) return null
 
     return (

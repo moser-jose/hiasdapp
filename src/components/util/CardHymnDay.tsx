@@ -11,6 +11,7 @@ import FastImage from "react-native-fast-image";
 import Authors from "./Authors";
 import { getBackgroundSource } from "@/helpers/getBackgroundSource";
 import { dateFormat } from "@/helpers/dateFormat";
+import { truncateText } from "@/helpers/textsWords";
 
 const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategories}) => {
   const [hymn, setHymn] = useState<HymnsTypes['hymn'] | void>();
@@ -33,12 +34,12 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
         {hymn ?
         <View style={styles.container}>
             <FastImage
-            source={{ uri: categoryUri()}}
+            source={{ uri:  categoryUri()}}
             style={styles.backgroundImage}
             resizeMode={FastImage.resizeMode.cover} 
           />
             <LinearGradient
-            colors={["rgba(0, 0, 0, 0.69)", "transparent"]}
+            colors={["rgba(0, 0, 0, 0.43)", "rgba(71, 70, 70, 0.7)"]}
             style={styles.backgroundImage}
           />
           <View style={styles.content}>
@@ -48,6 +49,7 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
                   <View style={styles.title}>
                     <Text style={styles.titleText}>Hino do Dia</Text>
                     <Text style={styles.titleAno}>{new Date().getFullYear()}</Text>
+                    <Text style={styles.titleCategoria}>{truncateText(hymn.categoria,12)}</Text>
                   </View>
                   <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
                 </View>
@@ -66,6 +68,7 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
                   <Text style={styles.hymnTitleNumber}>{hymn.numero_view}</Text>
                   <Authors styleText={styles.hymnTitleAuthor} authors={hymn.autores} card={false}/>
                 </View>
+                
                 <View style={{justifyContent:'flex-end'}}>
                   <TouchableOpacity activeOpacity={.8} style={styles.hymnTitlePlay}>
                     <Text style={styles.hymnTitlePlayText}>Tocar Agora</Text>
@@ -129,6 +132,14 @@ const styles = StyleSheet.create({
       fontWeight:'600',
       borderRadius:8,
       fontSize:12
+    },
+    titleCategoria:{
+        color:'white',
+        padding:3,
+        fontWeight:'600',
+        borderRadius:8,
+        fontSize:12,
+        backgroundColor:colors.cards
     },
     titleDate:{
       color:'white',

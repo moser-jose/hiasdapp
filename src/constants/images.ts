@@ -34,7 +34,7 @@ const vidaCristaImage = Image.resolveAssetSource(vidaCrista).uri
 
 //Novo
 const categoryImage = Image.resolveAssetSource(categoryGod).uri
-export const sonGodImage = Image.resolveAssetSource(sonGod).uri
+const sonGodImage = Image.resolveAssetSource(sonGod).uri
 
 export const categoryImagesAntigo = {
     'Adoração': adoracaoImage,

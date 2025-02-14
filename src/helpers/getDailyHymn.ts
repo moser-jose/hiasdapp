@@ -12,9 +12,7 @@ export const getDailyHymn = async (hymns:ListHymns) => {
       if (storedData) {
         const { date, hymn } = JSON.parse(storedData)
         if (date === today) {
-          console.log(storedData,hymns)
-            const hymnDay=hymns.filter((item:HymnsTypes['hymn'])=>item.id==hymn)
-            
+            const hymnDay=hymns.filter((item?:HymnsTypes['hymn'])=>item?.id==hymn)
             return hymnDay[0] 
         }
       }

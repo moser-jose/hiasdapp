@@ -9,7 +9,8 @@ const colors={
 	icon: '#3A3845',
     favorites:'#29C17E',
     favoriteMuted:'#6FCF97',
-    favoritesRGBA:'rgba(100, 207, 151, 0.35)'
+    favoritesRGBA:'rgba(100, 207, 151, 0.35)',
+    cards:'rgba(199,77,79,.36)'
 }
 
 const fontSize = {
