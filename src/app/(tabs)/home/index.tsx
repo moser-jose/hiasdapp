@@ -54,7 +54,7 @@ const HomeScreen=()=>{
           contentInsetAdjustmentBehavior="automatic">
           <Separator title="Hinos"/>
           <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
-          <Separator title="Categorias"/>
+          <Separator title="Categorias" more/>
           <ListCategories categories={categories}
           horizontal 
           showsHorizontalScrollIndicator={false}/>
