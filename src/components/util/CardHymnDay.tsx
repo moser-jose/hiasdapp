@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
       flex:1,
       height:180,
       position: "relative",
-      margin:16,
+      marginHorizontal:16,
+      marginTop:16,
     },
     backgroundImage: {
       ...StyleSheet.absoluteFillObject, 
