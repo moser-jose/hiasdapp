@@ -9,5 +9,4 @@ const truncateTextWords=(text: string, maxWords: number = 0): string=> {
     return text;
 }
 
-
 export {truncateTextWords,truncateText}
