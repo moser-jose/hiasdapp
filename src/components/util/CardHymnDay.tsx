@@ -131,20 +131,20 @@ const styles = StyleSheet.create({
       padding:3,
       fontWeight:'600',
       borderRadius:8,
-      fontSize:12
+      fontSize:fontSize.xs
     },
     titleCategoria:{
         color:'white',
         padding:3,
         fontWeight:'600',
         borderRadius:8,
-        fontSize:12,
+        fontSize:fontSize.xs,
         backgroundColor:colors.cards
     },
     titleDate:{
       color:'white',
       marginTop:-5,
-      fontSize:12
+      fontSize:fontSize.xs
     },
     hymnHeaderContentTitle:{
       flexDirection:'row',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     },
     hymnTitleAuthor:{
       color:colors.third,
-      fontSize:12
+      fontSize:fontSize.xs
     },
     hymnTitlePlay:{
       backgroundColor:colors.favorites,
