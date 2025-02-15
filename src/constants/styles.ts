@@ -21,6 +21,8 @@ const fontSize = {
 	base: 20,
     blg: 22,
 	lg: 24,
+    xl:28,
+    xxl:30,
 }
 
 const screenPadding = {
