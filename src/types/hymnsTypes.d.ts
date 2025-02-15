@@ -73,5 +73,9 @@ type ListCategories = Partial<HymnsCategoriesTypes[]>&{
     category:HymnsCategoriesTypes[]
 }
 
+type ListPlaylistsProps = Partial<FlatListProps<unknown>>&{
+    hymns:any
+}
 
-export {ListCategories,ListHymns,HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}
+
+export {ListPlaylistsProps,ListCategories,ListHymns,HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}

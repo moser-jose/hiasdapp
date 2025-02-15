@@ -17,6 +17,7 @@ import {
 import AppLoading from "expo-app-loading"
 import CardHymnDay from "@/components/util/CardHymnDay"
 import PlaylistCard from "@/components/util/PlaylistCard"
+import { ListPlaylistsCard } from "@/components/util/ListPlaylistsCard"
 
 type dat=[
     {
@@ -77,15 +78,8 @@ const HomeScreen=()=>{
 
           <CardHymnDay hymns={hymns} categories={categories}  />
 
-          <Separator title="Playlists"/>
-          <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={data}
-          renderItem={({item:dat,index})=><PlaylistCard playlist={dat}
-          style={[{marginLeft: index === 0 ? 16 : 0}]}/>}
-          />
-
+          <Separator title="Coletâneas"/>
+          <ListPlaylistsCard playlist={data}/>
       </ScrollView>
     </View>
   }

@@ -9,8 +9,11 @@ import SpreedSVG from "../svg/SpreedSvg"
 import Authors from "./Authors"
 import { truncateText } from "@/helpers/textsWords"
 import { StyleSheet } from "react-native"
+import { useState } from "react"
+import HeartFullSVG from "../svg/HeartFullSvg"
 
 const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
+	const [favorites, setFavorites] =useState(false)
     const { playing } = useIsPlaying()
     
     const isActiveHymn=useActiveTrack()?.url===hymn.url
@@ -25,6 +28,8 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
             artwork:hymn.artwork,
             artist:hymn.artist
     }
+
+	
 
     return <TouchableOpacity  style={styles.container}>
             <View style={styles.card}>
@@ -43,7 +48,11 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
                     <Authors authors={hymn.autores} card={false}/>
                 </View>
             </View>
-            <TouchableHighlight ><HeartSVG color={colors.favorites}/></TouchableHighlight>
+            <TouchableOpacity activeOpacity={.8} onPress={()=>setFavorites(!favorites)} >
+				{
+					favorites===true ? <HeartFullSVG color={colors.favorites}/>:<HeartSVG color={colors.favorites}/>
+				}
+			</TouchableOpacity>
             <TouchableHighlight  onPress={()=>handleHymnSelect(track)}><PlayCardSVG width={35} height={35} color={colors.primary}/></TouchableHighlight>
             </View>
         </TouchableOpacity>

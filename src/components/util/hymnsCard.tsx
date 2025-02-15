@@ -1,4 +1,4 @@
-import { memo } from "react"
+import { memo, useState } from "react"
 import { hymnsCard } from "@/styles"
 import { Text, TouchableOpacity, View } from "react-native"
 import HeartSVG from "../svg/HeartSvg"
@@ -10,9 +10,10 @@ import { truncateText } from "@/helpers/textsWords"
 import Authors from "./Authors"
 import { useActiveTrack, useIsPlaying } from "react-native-track-player"
 import PauseCardSVG from "../svg/PauseCardSvg"
+import HeartFullSVG from "../svg/HeartFullSvg"
 
 const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
-
+    const [favorites, setFavorites] =useState(false)
     const { playing } = useIsPlaying()
     
     const isActiveHymn=useActiveTrack()?.url===hymn.url
@@ -37,7 +38,11 @@ const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
                         <Text style={hymnsCard.title}>{truncateText(hymn.title,13)}</Text>
                         <ActiveHymnsDownloadSVG color={colors.favorites}/>
                     </View>
-                    <TouchableOpacity><HeartSVG color={colors.favorites}/></TouchableOpacity>
+                    <TouchableOpacity activeOpacity={.8} onPress={()=>setFavorites(!favorites)} >
+                        {
+                            favorites===true ? <HeartFullSVG color={colors.favorites}/>:<HeartSVG color={colors.favorites}/>
+                        }
+                    </TouchableOpacity>
                 </View>
                 
                 <Text style={hymnsCard.baseTitle}>{hymn.ingles}</Text>
