@@ -19,7 +19,7 @@ const PlaylistsScreenLayout = ()=>{
                     headerBlurEffect:'prominent',
                     headerShadowVisible:false,
                     headerTransparent:true,
-                headerTitle:'PlayListas'
+                headerTitle:'Coletâneas'
             }}/>
         </Stack>
     </View>

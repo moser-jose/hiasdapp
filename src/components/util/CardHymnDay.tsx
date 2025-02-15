@@ -24,6 +24,7 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
     fetchHymn();
   }, [hymns]);
 
+
   const categoryUri=()=> {
     const categoryFound =categories.filter((item:ListCategoriesProps)=>item.categoria==hymn?.categoria)
     return getBackgroundSource(categoryFound?.[0]?.categoria ?? '')
@@ -53,7 +54,7 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
                   </View>
                   <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={.8}>
+                <TouchableOpacity activeOpacity={.8} style={{padding:8}}>
                   <SpreedSVG color="white" />
                 </TouchableOpacity>
               </View>
