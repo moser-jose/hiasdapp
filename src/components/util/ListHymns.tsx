@@ -10,6 +10,7 @@ export const ListHymns = ({hymns,...listHymnsProps}:ListHymnsProps)=>{
     
     const handleHymnSelect= async (hymn:Track)=>{
        await TrackPlayer.load(hymn)
+       await TrackPlayer.play()
     }
     
     return <FlatList

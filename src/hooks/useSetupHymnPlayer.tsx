@@ -8,6 +8,7 @@ const setupPlayer = async () => {
 
     await TrackPlayer.setVolume(0.8)
     await TrackPlayer.setRepeatMode(RepeatMode.Queue)
+    
 }
 
 const useSetupHymnPlayer =({onLoad}:{onLoad?:()=>void})=>{
