@@ -8,6 +8,7 @@ export const ListHymnsCard = ({hymns,...listHymnsProps}:ListHymnsProps)=>{
 
     const handleHymnSelect= async (hymn:Track)=>{
        await TrackPlayer.load(hymn)
+       if (playing) await TrackPlayer.pause(); else await TrackPlayer.play()
     }
     
     return <FlatList

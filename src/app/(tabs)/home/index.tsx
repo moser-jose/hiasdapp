@@ -1,6 +1,6 @@
 import Separator from "@/components/util/Separator"
 import { defaultStyles} from "@/styles"
-import { View,ScrollView, FlatList} from "react-native"
+import { View,ScrollView} from "react-native"
 import { Track } from "react-native-track-player"
 import TrackPlayer from "react-native-track-player/lib/src/trackPlayer"
 import { ListHymnsCard } from "@/components/util/ListHymnsCard"
@@ -16,8 +16,10 @@ import {
 } from '@expo-google-fonts/plus-jakarta-sans';
 import AppLoading from "expo-app-loading"
 import CardHymnDay from "@/components/util/CardHymnDay"
-import PlaylistCard from "@/components/util/PlaylistCard"
 import { ListPlaylistsCard } from "@/components/util/ListPlaylistsCard"
+import HeartFullSVG from "@/components/svg/HeartFullSvg"
+import { colors } from "@/constants/styles"
+import DownloadSVG from "@/components/svg/DownloadSvg"
 
 type dat=[
     {
@@ -26,8 +28,6 @@ type dat=[
     }
 
 ]
-
-
 
 const HomeScreen=()=>{
 
@@ -80,6 +80,19 @@ const HomeScreen=()=>{
 
           <Separator title="Coletâneas"/>
           <ListPlaylistsCard playlist={data}/>
+
+          <Separator title="Favoritos"  more>
+            <HeartFullSVG color={colors.favorites} height={16} width={16}/>
+          </Separator>
+
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
+
+          <Separator title="Hinos baixados"  more>
+            <DownloadSVG color={colors.favorites} height={16} width={16}/>
+          </Separator>
+
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
+
       </ScrollView>
     </View>
   }

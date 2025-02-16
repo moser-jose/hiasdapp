@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SVGIconProps } from '@/types/svgTypes';
-import Svg, { Path, Circle } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 const  SpreedSVG:React.FC<SVGIconProps> = ({color,width,height})=>{
   return (
