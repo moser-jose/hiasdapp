@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { HymnsTypes, ListCategories, ListCategoriesProps, ListHymns } from "@/types/hymnsTypes";
+import { ListCategories, ListHymns, Hymn, HymnCategory } from "@/types/hymnsTypes";
 import PlayCardSVG from "../svg/PlayCardSvg";
 import { colors, fontSize } from "@/constants/styles";
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
@@ -13,8 +13,13 @@ import { getBackgroundSource } from "@/helpers/getBackgroundSource";
 import { dateFormat } from "@/helpers/dateFormat";
 import { truncateText } from "@/helpers/textsWords";
 
-const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategories}) => {
-  const [hymn, setHymn] = useState<HymnsTypes['hymn'] | void>();
+interface CardHymnDayProps {
+  hymns: ListHymns
+  categories: HymnCategory[]
+}
+
+const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
+  const [hymn, setHymn] = useState<Hymn | undefined>();
 
   useEffect(() => {
     const fetchHymn = async () => {
@@ -25,9 +30,9 @@ const CardHymnDay = ({hymns,categories}:{hymns:ListHymns,categories:ListCategori
   }, [hymns]);
 
 
-  const categoryUri=()=> {
-    const categoryFound =categories.filter((item:ListCategoriesProps)=>item.categoria==hymn?.categoria)
-    return getBackgroundSource(categoryFound?.[0]?.categoria ?? '')
+  const categoryUri = () => {
+    const categoryFound = categories.filter((item: HymnCategory) => item.categoria === hymn?.categoria);
+    return getBackgroundSource(categoryFound?.[0]?.categoria ?? '');
   }
 
   return (

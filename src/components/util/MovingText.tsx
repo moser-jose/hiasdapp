@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { TextStyle } from 'react-native'
+import { StyleProp } from 'react-native'
 import Animated, {
 	Easing,
 	StyleProps,
@@ -11,9 +13,9 @@ import Animated, {
 } from 'react-native-reanimated'
 
 export type MovingTextProps = {
-	text: string
+	text?: string
 	animationThreshold: number
-	style?: StyleProps
+	style?: StyleProp<TextStyle>
 }
 
 export const MovingText = ({ text, animationThreshold, style }: MovingTextProps) => {
@@ -56,8 +58,8 @@ export const MovingText = ({ text, animationThreshold, style }: MovingTextProps)
 				style,
 				animatedStyle,
 				shouldAnimate && {
-					width: 9999, // preventing the ellipsis from appearing
-					paddingLeft: 16, // avoid the initial character being barely visible
+					width: 9999, 
+					paddingLeft: 16,
 				},
 			]}
 		>

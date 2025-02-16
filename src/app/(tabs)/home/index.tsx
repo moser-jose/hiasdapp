@@ -21,13 +21,12 @@ import HeartFullSVG from "@/components/svg/HeartFullSvg"
 import { colors } from "@/constants/styles"
 import DownloadSVG from "@/components/svg/DownloadSvg"
 
-type dat=[
-    {
-      title:string
-      hymns:number
-    }
+type Playlist = {
+  title: string
+  hymns: number
+}
 
-]
+type dat = Playlist[]
 
 const HomeScreen=()=>{
 
@@ -50,14 +49,15 @@ const HomeScreen=()=>{
     return HinosAntigo.hinos
   },[]);
 
-  const data:dat=[
+  const data: dat = [
     {
-      title:'Amor da vida',
-      hymns:34
-    },{
-      title:'Fé e oração',
-      hymns:346
+      title: 'Amor da vida',
+      hymns: 34
     },
+    {
+      title: 'Fé e oração',
+      hymns: 346
+    }
   ]
 
   if (!fontsLoaded) {
@@ -76,10 +76,10 @@ const HomeScreen=()=>{
           horizontal 
           showsHorizontalScrollIndicator={false}/>
 
-          <CardHymnDay hymns={hymns} categories={categories}  />
+          <CardHymnDay hymns={hymns} categories={categories} />
 
           <Separator title="Coletâneas"/>
-          <ListPlaylistsCard playlist={data}/>
+          <ListPlaylistsCard hymns={hymns} data={data}/>
 
           <Separator title="Favoritos"  more>
             <HeartFullSVG color={colors.favorites} height={16} width={16}/>

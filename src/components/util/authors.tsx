@@ -1,15 +1,15 @@
 import { colors } from "@/constants/styles";
 import { truncateText } from "@/helpers/textsWords";
-import { HymnTrackType } from "@/types/hymnsTypes";
+import { Author } from "@/types/hymnsTypes";
 import { shortName } from "@mosmmy/shortname-js";
 import { Text, View,StyleSheet, StyleProp, TextStyle } from "react-native";
 
-const Authors =({authors,styleText, card}:{authors:HymnTrackType['hymn']['authors'],card:boolean,styleText?:StyleProp<TextStyle>})=>{
+const Authors =({authors,styleText, card}:{authors:Author[],card:boolean,styleText?:StyleProp<TextStyle>})=>{
 
     return (
         <View style={styles.container}>
             {
-                authors?.map((item:HymnTrackType, index:number) => {
+                authors?.map((item:Author, index:number) => {
                     const isLastItem = index === authors.length - 1; 
                     const nome =item.nome ? shortName(item.nome) : 'Desconhecido'
                     const separator = !isLastItem ? ', ' : '';

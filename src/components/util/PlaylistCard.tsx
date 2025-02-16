@@ -1,4 +1,4 @@
-import {Text,TouchableOpacity, View, ViewStyle } from "react-native"
+import {StyleProp, Text,TouchableOpacity, View, ViewStyle } from "react-native"
 
 import {truncateTextWords } from "@/helpers/textsWords"
 import { StyleSheet } from "react-native"
@@ -10,7 +10,12 @@ type dat=
       hymns:number
     }
 
-const PlaylistCard=({playlist, style}:{style:ViewStyle, playlist:dat})=>{
+interface PlaylistCardProps{
+    playlist:dat,
+    style?:StyleProp<ViewStyle> 
+}
+
+const PlaylistCard=({playlist, style}:PlaylistCardProps)=>{
    
     return <TouchableOpacity activeOpacity={.8}  style={[styles.container, style]}>
             <View style={styles.icon}>

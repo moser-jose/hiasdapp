@@ -4,7 +4,6 @@ import { ViewProps,TouchableOpacity, View,StyleSheet, Text } from "react-native"
 import { useActiveTrack } from "react-native-track-player"
 import {PlayPauseButton, SkipToNextButton} from '@/components/util/PlayerControls'
 import Authors from "./Authors"
-import { HymnTrackType } from "@/types/hymnsTypes"
 import { useLastActiveHymn } from "@/hooks/useLastActiveHymn"
 import { MovingText } from "./MovingText"
 

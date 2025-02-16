@@ -4,19 +4,20 @@ import CategoryCard from "./CategoryCard"
 import { useEffect, useRef, useState } from "react";
 
 export const ListCategories = ({categories,...listCategoriesProps}:ListCategoriesProps)=>{
-    const[flatList, setFlatList] = useState(undefined)
-    const flatListRef = useRef(null);
+    const [flatList, setFlatList] = useState<boolean | undefined>(undefined)
+    const flatListRef = useRef<FlatList>(null);
 
     useEffect(() => {
       if (flatListRef.current) {
-        setFlatList(flatListRef.current.props.horizontal)
+        const isHorizontal = flatListRef.current.props.horizontal ?? undefined;
+        setFlatList(isHorizontal);
       }
     }, []);
 
     return <FlatList
     ref={flatListRef}
     data={categories}
-    renderItem={({item:category, index}) => <CategoryCard index={index % 2 !== 0} category={category}
+    renderItem={({item:category, index}) => <CategoryCard index={index} category={category}
     style={[flatList && {marginRight: index === categories.length - 1 ? 16 : 0, marginTop: 0}]}
     />}
     {...listCategoriesProps}
