@@ -5,20 +5,20 @@ import HeartSVG from "../svg/HeartSvg"
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg"
 import PlayCardSVG from "../svg/PlayCardSvg"
 import { colors } from "@/constants/styles"
-import { HymnsTypes, HymnTrackType } from "@/types/hymnsTypes"
 import { truncateText } from "@/helpers/textsWords"
 import Authors from "./Authors"
 import { useActiveTrack, useIsPlaying } from "react-native-track-player"
 import PauseCardSVG from "../svg/PauseCardSvg"
 import HeartFullSVG from "../svg/HeartFullSvg"
+import { HymnsProps, HymnTrack } from "@/types/hymnsTypes"
 
-const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
+const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsProps)=>{
     const [favorites, setFavorites] =useState(false)
     const { playing } = useIsPlaying()
     
     const isActiveHymn=useActiveTrack()?.url===hymn.url
 
-    const track:HymnTrackType={
+    const track:HymnTrack={
             id:hymn.numero,
             numberView:hymn.numero_view,
             titleIngles:hymn.ingles,

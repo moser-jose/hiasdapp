@@ -12,7 +12,6 @@ const useLogHymnPlayerState=()=>{
             console.warn('Playback state:',event.state)
         }
         
-
         if(event.type === Event.PlaybackActiveTrackChanged){
             console.warn('Hymn changed:',event.index)
         }

@@ -1,81 +1,116 @@
 import { Track } from 'react-native-track-player'
-interface HymnsTypes {
-  hymn:{
-	id:number
-	title: string
-	ingles?: string
-	numero?: number
-	numero_view?: string
-	texto_biblico?:string
-	categoria: string,
-	sub_categoria: string,
-	/* categoria:{
-		id:number
-		idsubcategoria:number
-	}, */
-	coro?:[
-		{
-			nome_coro: string,
-			coro: string
-		}
-	],
-	url: string,
-	artwork:string,
-	artist: string,
-	autores:[{
-		nome:string
-	}],
-	estrofes:[{
-		numero:string
-		estrofe:string
-	}],
-  }
-  onHymnSelect:(hymn:HymnTrackType<Track>)=>void
-  style?:any
+import { FlatListProps, StyleProp } from 'react-native'
+import { ViewStyle } from 'react-native'
+
+// Interfaces básicas
+interface Author {
+  nome: string
 }
 
-interface HymnsCategoriesTypes{
-	id: number,
-	categoria: string,
-	background: string,
-	sub_categorias: [
-		{
-			title: string,
-			hinos: string
-		}
-	]
+interface Verse {
+  numero: string
+  estrofe: string
 }
 
-interface HymnTrackType extends Track{
-	id?:number,
-	numberView?:string,
-	titleIngles?:string,
-	authors?:[{nome:string}],
-	title:string,
-	url?:string,
-	artwork?:string,
-	artist?:string
+interface Chorus {
+  nome_coro: string | null
+  coro: string | null
 }
 
-type ListHymnsProps = Partial<FlatListProps<HymnsTypes['hymn'][]>>&{
-    hymns:HymnsTypes['hymn'][]
+interface SubCategory {
+  title: string | null
+  hinos: string | null
 }
 
-type ListHymns = Partial<HymnsTypes['hymn'][]>&{
-    hymns:HymnsTypes['hymn'][]
+// Interface principal do Hino
+interface Hymn {
+  id: number
+  title: string
+  ingles?: string
+  numero?: number
+  numero_view?: string
+  texto_biblico?: string
+  categoria: string
+  sub_categoria: string
+  coro?: Chorus[]
+  url: string
+  artwork: string
+  artist: string
+  autores: Author[]
+  estrofes: Verse[]
 }
 
-type ListCategoriesProps = Partial<FlatListProps<HymnsCategoriesTypes>> &  {
-    category:HymnsCategoriesTypes
+// Interface para categorias
+interface HymnCategory {
+  id: number
+  categoria: string
+  background: string
+  sub_categorias: SubCategory[]
 }
 
-type ListCategories = Partial<HymnsCategoriesTypes[]>&{
-    category:HymnsCategoriesTypes[]
+// Interface que estende Track do player
+interface HymnTrack extends Track {
+  id?: number
+  numberView?: string
+  titleIngles?: string
+  authors?: Author[]
+  title: string
+  url: string
+  artwork: string
+  artist: string
 }
 
-type ListPlaylistsProps = Partial<FlatListProps<unknown>>&{
-    hymns:any
+// Props interfaces
+interface HymnsProps {
+  hymn: Hymn
+  onHymnSelect: (hymn: HymnTrack) => void
+  style?: StyleProp<ViewStyle>
 }
 
+// List Props Types
+type ListHymnsProps = Partial<FlatListProps<Hymn>> & {
+  hymns: Hymn[]
+}
 
-export {ListPlaylistsProps,ListCategories,ListHymns,HymnsTypes,HymnTrackType, ListHymnsProps,HymnsCategoriesTypes,ListCategoriesProps}
+type ListCategoriesProps = Partial<FlatListProps<Category>> & {
+  categories: Category[]
+}
+
+type ListPlaylistsProps = Partial<FlatListProps<unknown>> & {
+  hymns: Hymn[]
+  data: Playlist[]
+}
+
+// List Types
+type ListHymns = Hymn[]
+
+type ListCategories = Partial<HymnCategory[]> & {
+  category: HymnCategory[]
+}
+
+interface Category {
+  categoria: string
+  // add other category properties as needed
+}
+
+interface Playlist {
+  title: string
+  hymns: number
+}
+
+export {
+  Hymn,
+  HymnCategory,
+  HymnTrack,
+  HymnsProps,
+  ListPlaylistsProps,
+  ListCategories,
+  ListHymns,
+  ListHymnsProps,
+  ListCategoriesProps,
+  Author,
+  Verse,
+  Category,
+  Chorus,
+  SubCategory
+}
