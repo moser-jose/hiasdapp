@@ -1,11 +1,24 @@
 import { View,Text, StyleSheet, TouchableOpacity } from "react-native"
 import { fontSize } from "@/constants/styles"
+import React, { FC, ReactNode } from "react";
 
-const Separator = ({title,more}:{title:string,more?:boolean})=>{
+interface ContainerProps {
+    title: string 
+    more?:boolean
+    children?: ReactNode
+  }
+  
+const Separator: FC<ContainerProps> = ({title,more,children}:ContainerProps)=>{
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
-            {more && <TouchableOpacity activeOpacity={0.8}><Text style={styles.more}>Ver mais</Text></TouchableOpacity>}
+            <View style={styles.children}>
+                {children} 
+                <Text style={styles.title}>{title}</Text>
+            </View>
+            {more && 
+            <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.more}>Ver mais</Text>
+            </TouchableOpacity>}
         </View>
     )
 }
@@ -16,7 +29,12 @@ const styles=StyleSheet.create({
         flexDirection:'row',
         paddingHorizontal:fontSize.sm,
         justifyContent:'space-between',
-        marginVertical:8
+        marginVertical:10
+    },
+    children:{
+        flexDirection:'row',
+        alignItems: 'center',
+        gap:8
     },
     title:{
         fontSize:fontSize.base,
