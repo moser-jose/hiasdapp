@@ -11,7 +11,7 @@ import { truncateText } from "@/helpers/textsWords"
 import { StyleSheet } from "react-native"
 import { useState } from "react"
 import HeartFullSVG from "../svg/HeartFullSvg"
-
+import LoaderKit from 'react-native-loader-kit'
 const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
 	const [favorites, setFavorites] =useState(false)
     const { playing } = useIsPlaying()
@@ -29,8 +29,6 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
             artist:hymn.artist
     }
 
-	
-
     return <TouchableOpacity  style={styles.container}>
             <View style={styles.card}>
                 <View style={styles.cardSpreed}>
@@ -43,7 +41,7 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
                     {hymn.texto_biblico &&<Text style={styles.baseTitle}>{hymn.texto_biblico}</Text>}
                 </View>
                 <View style={styles.ViewCard}>
-                    <Text style={styles.title}>{truncateText(hymn.title,29)}</Text>
+                    <Text style={{...styles.title,fontWeight:isActiveHymn ? '500':'normal', color:isActiveHymn?colors.active:colors.text}}>{truncateText(hymn.title,29)}</Text>
                     <Text style={styles.baseTitle}>{hymn.ingles}</Text>
                     <Authors authors={hymn.autores} card={false}/>
                 </View>
@@ -53,7 +51,14 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
 					favorites===true ? <HeartFullSVG color={colors.favorites}/>:<HeartSVG color={colors.favorites}/>
 				}
 			</TouchableOpacity>
-            <TouchableHighlight  onPress={()=>handleHymnSelect(track)}><PlayCardSVG width={35} height={35} color={colors.primary}/></TouchableHighlight>
+            <TouchableOpacity 
+			
+				onPress={()=>handleHymnSelect(track)}>
+					{isActiveHymn && playing ? (
+					<LoaderKit style={{ width: 25, height: 25 }} name="LineScaleParty" color={colors.icon}/>)
+				:(<PlayCardSVG width={35} height={35} color={colors.primary}/>)
+				}
+			</TouchableOpacity>
             </View>
         </TouchableOpacity>
 }
@@ -108,7 +113,9 @@ const styles=StyleSheet.create({
 	},
 	title:{
 		fontSize:fontSize.base,
-		color:colors.text
+		color:colors.text,
+		fontFamily:'PlusJakartaSans_500Regular',
+		
 	},
 	baseTitle:{
 		fontSize:fontSize.xss,

@@ -5,13 +5,14 @@ import { useActiveTrack } from "react-native-track-player"
 import {PlayPauseButton, SkipToNextButton} from '@/components/util/PlayerControls'
 import Authors from "./Authors"
 import { HymnTrackType } from "@/types/hymnsTypes"
+import { useLastActiveHymn } from "@/hooks/useLastActiveHymn"
+import { MovingText } from "./MovingText"
 
 const FloatingPlayer = ({style}:ViewProps)=>{
-
     const activeHymn=useActiveTrack()
-    const displayedHymn:HymnTrackType = activeHymn ?? {
-        title: "This is a just a song",
-    } 
+    const lastActiveHymn=useLastActiveHymn()
+
+    const displayedHymn = activeHymn ?? lastActiveHymn 
     if(!displayedHymn) return null
 
     return (
@@ -27,7 +28,7 @@ const FloatingPlayer = ({style}:ViewProps)=>{
                 <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
             </View>
             <View style={styles.hymnTitleContainer}>
-                <Text style={styles.hymnTitle}>{displayedHymn.title}</Text>
+                <MovingText style={styles.hymnTitle} text={displayedHymn.title} animationThreshold={25}/>
                 <Text style={styles.hymnTitleBase}>{displayedHymn.titleIngles}</Text>
                 <Authors authors={displayedHymn.authors} card={false}/>
             </View>

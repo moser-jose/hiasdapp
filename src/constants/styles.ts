@@ -4,6 +4,7 @@ const colors={
     third:'#F0F2F5',
     fourth:'#61788A',
     background:'#FFFFFF',
+    active:'rgba(29, 47, 75, 0.71)',
     text: '#3A3845',
 	textMuted: '#6B7280',
 	icon: '#3A3845',

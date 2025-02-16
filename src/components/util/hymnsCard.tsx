@@ -31,11 +31,11 @@ const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
 
     return <TouchableOpacity style={[hymnsCard.container,style]}> 
         <View style={hymnsCard.card}>
-            <Text style={hymnsCard.number}>{hymn.numero}</Text>
+            <Text style={hymnsCard.number}>{hymn.numero_view}</Text>
             <View style={hymnsCard.ViewCard}>
                 <View style={hymnsCard.cardTittle}>
                     <View style={hymnsCard.viewTittle}>
-                        <Text style={hymnsCard.title}>{truncateText(hymn.title,13)}</Text>
+                        <Text style={hymnsCard.title}>{truncateText(hymn.title,15)}</Text>
                         <ActiveHymnsDownloadSVG color={colors.favorites}/>
                     </View>
                     <TouchableOpacity activeOpacity={.8} onPress={()=>setFavorites(!favorites)} >
