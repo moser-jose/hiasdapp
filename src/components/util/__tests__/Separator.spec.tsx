@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react-native';
-import Separator from '../src/components/util/Separator';
+import Separator from '../Separator';
 import { Text } from 'react-native';
 
 describe('Separator', () => {

@@ -34,6 +34,7 @@
 		"moduleResolution": "Node" /* Specify how TypeScript looks up a file from a given module specifier. */,
 		"baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
 		"paths": {
+			//"@/tests/*": ["./__tests__/*"],
 			"@/*": ["./src/*"],
 			"@/api/*": ["./src/api/*"],
 			"@/assets/*": ["./assets/*"],
@@ -117,6 +118,6 @@
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-	"include": ["src", "declarations.d.ts","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "babel.config.js", "__tests__"],
+	"include": ["src", "declarations.d.ts","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "babel.config.js", "src/components/util/__tests__"],
 	"exclude": ["node_modules"]
 }

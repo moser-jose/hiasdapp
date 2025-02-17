@@ -1,5 +1,5 @@
 import { render, screen} from "@testing-library/react-native";
-import { ListHymns } from "../src/components/util/ListHymns";
+import { ListHymns } from "../ListHymns";
 import { hymnsWithArtwork } from "./mocks/DataMock";
 
 // Mock react-native-track-player

@@ -20,7 +20,8 @@ import { ListPlaylistsCard } from "@/components/util/ListPlaylistsCard"
 import HeartFullSVG from "@/components/svg/HeartFullSvg"
 import { colors } from "@/constants/styles"
 import DownloadSVG from "@/components/svg/DownloadSvg"
-import { hymnsWithArtwork } from "@/mocks/DataMock"
+//import { hymnsWithArtwork } from '@/tests/mocks/DataMock'
+import { hymnsWithArtwork } from "@/components/util/__tests__/mocks/DataMock"
 import { HymnCategory } from "@/types/hymnsTypes"
 type Playlist = {
   title: string
@@ -71,8 +72,6 @@ const HomeScreen=()=>{
           showsVerticalScrollIndicator={false}>
             
           <Separator title="Hinos"/>
-          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
-          <Separator title="Categorias"/>
           <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
           <Separator title="Categorias" more/>
           <ListCategories categories={categories}
