@@ -125,6 +125,7 @@ git clone https://github.com/your-user/hiasdapp.git
 ```
 
 2. Install dependencies
+
 ```bash
 cd hiasdapp
 yarn
@@ -132,7 +133,15 @@ cd ios
 pod install
 ```
 
-3. Start the project
+3. Test the project
+
+```bash
+cd hiasdapp
+yarn test
+```
+
+4. Start the project
+
 ```bash
 npx expo run:ios
 ```
