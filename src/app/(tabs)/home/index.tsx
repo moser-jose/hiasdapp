@@ -72,7 +72,9 @@ const HomeScreen=()=>{
           showsVerticalScrollIndicator={false}>
             
           <Separator title="Hinos"/>
+
           <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
+
           <Separator title="Categorias" more/>
           <ListCategories categories={categories}
           horizontal 
