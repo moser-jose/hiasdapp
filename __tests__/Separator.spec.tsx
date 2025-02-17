@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 
 describe('Separator', () => {
   it('should render the separator with title and children', () => {
-    render(
+    const {debug}=render(
       <Separator title="Test">
         <Text>Child Content</Text>
       </Separator>
@@ -36,5 +36,4 @@ describe('Separator', () => {
     expect(screen.queryByText('Test')).toBeNull();
   })
 
-    
 }); 

@@ -1,18 +1,13 @@
-import { ListHymns } from "@/components/util/ListHymns"
-import { useNavigationSearch } from "@/hooks/useNavigationSearch"
 import { defaultStyles } from "@/styles"
-import { View, ScrollView, FlatList } from "react-native"
-import HinosAntigo from '@/api/hiasd-antigo.json'
-import { ListHymnsFilter } from "@/helpers/filter"
+import { View, ScrollView } from "react-native"
+import HinosAntigo from '@/api/hiasd-old.json'
 import { useMemo } from "react"
-import CategoryCard from "@/components/util/CategoryCard"
 import { ListCategories } from "@/components/util/ListCategories"
+import { ListCategoriesProps } from "@/types/hymnsTypes"
 const CategoriesScreen=()=>{
    
-
-
-    const categories = useMemo(()=>{
-        return HinosAntigo.categorias.map((category,index)=>category)
+    const categories:ListCategoriesProps['categories'] = useMemo(()=>{
+        return HinosAntigo.categories
     },[]);
 
     return <View style={[defaultStyles.container]}>
@@ -23,14 +18,6 @@ const CategoriesScreen=()=>{
           showsVerticalScrollIndicator={false}
           scrollEnabled={false}
           numColumns={2}/>
-            
-        {/* <FlatList
-      showsVerticalScrollIndicator={false}
-      scrollEnabled={false}
-      data={categoriesData}
-      numColumns={2}
-      renderItem={({item:HymnsCategoriesTypes,index})=><CategoryCard index={index % 2 !== 0} data={HymnsCategoriesTypes}/>}
-    /> */}
         </ScrollView>
     </View>
 }

@@ -2,57 +2,57 @@ import { Track } from 'react-native-track-player'
 import { FlatListProps, StyleProp } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-// Interfaces básicas
+// Basic interfaces
 interface Author {
-  nome: string
+  name?: string
 }
 
 interface Verse {
-  numero: string
-  estrofe: string
+  number?: string
+  verse?: string
 }
 
 interface Chorus {
-  nome_coro: string | null
-  coro: string | null
+  chorusName: string | null
+  chorus: string | null
 }
 
 interface SubCategory {
+  id: number
   title: string | null
-  hinos: string | null
+  hymns?: string | null
 }
 
-// Interface principal do Hino
+// Main Hymn interface
 interface Hymn {
   id: number
   title: string
-  ingles?: string
-  numero?: number
-  numero_view?: string
-  texto_biblico?: string
-  categoria: string
-  sub_categoria: string
-  coro?: Chorus[]
+  englishTitle?: string
+  number?: number
+  numberView?: string
+  biblicalText?: string
+  category: HymnCategory | null
+  chorus?: Chorus[]
   url: string
   artwork: string
   artist: string
-  autores: Author[]
-  estrofes: Verse[]
+  authors: Author[]
+  verses: Verse[]
 }
 
-// Interface para categorias
+// Category interface
 interface HymnCategory {
   id: number
-  categoria: string
-  background: string
-  sub_categorias: SubCategory[]
+  name: string
+  subCategories: SubCategory[]
 }
 
-// Interface que estende Track do player
+// Interface that extends Track from player
 interface HymnTrack extends Track {
   id?: number
+  number?: number
   numberView?: string
-  titleIngles?: string
+  titleEnglish?: string
   authors?: Author[]
   title: string
   url: string
@@ -72,8 +72,8 @@ type ListHymnsProps = Partial<FlatListProps<Hymn>> & {
   hymns: Hymn[]
 }
 
-type ListCategoriesProps = Partial<FlatListProps<Category>> & {
-  categories: Category[]
+type ListCategoriesProps = Partial<FlatListProps<HymnCategory>> & {
+  categories: HymnCategory[]
 }
 
 type ListPlaylistsProps = Partial<FlatListProps<unknown>> & {
@@ -89,8 +89,7 @@ type ListCategories = Partial<HymnCategory[]> & {
 }
 
 interface Category {
-  categoria: string
-  // add other category properties as needed
+  category: string
 }
 
 interface Playlist {
