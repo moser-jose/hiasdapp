@@ -71,13 +71,10 @@ const HomeScreen=()=>{
           showsVerticalScrollIndicator={false}>
             
           <Separator title="Hinos"/>
-<<<<<<< Updated upstream
           <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
           <Separator title="Categorias"/>
-=======
           <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
           <Separator title="Categorias" more/>
->>>>>>> Stashed changes
           <ListCategories categories={categories}
           horizontal 
           showsHorizontalScrollIndicator={false}/>
