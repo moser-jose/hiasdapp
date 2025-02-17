@@ -1,9 +1,9 @@
-import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 import HeartSVG from "../svg/HeartSvg"
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg"
 import PlayCardSVG from "../svg/PlayCardSvg"
 import { colors, fontSize } from "@/constants/styles"
-import { HymnsTypes, HymnTrackType } from "@/types/hymnsTypes"
+import { HymnsProps, HymnTrack} from "@/types/hymnsTypes"
 import { useActiveTrack, useIsPlaying } from "react-native-track-player"
 import SpreedSVG from "../svg/SpreedSvg"
 import Authors from "./Authors"
@@ -12,17 +12,18 @@ import { StyleSheet } from "react-native"
 import { useState } from "react"
 import HeartFullSVG from "../svg/HeartFullSvg"
 import LoaderKit from 'react-native-loader-kit'
-const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
+const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsProps)=>{
 	const [favorites, setFavorites] =useState(false)
     const { playing } = useIsPlaying()
     
     const isActiveHymn=useActiveTrack()?.url===hymn.url
 
-    const track:HymnTrackType={
-            id:hymn.numero,
-            numberView:hymn.numero_view,
-            titleIngles:hymn.ingles,
-            authors:hymn.autores,
+    const track:HymnTrack={
+            id:hymn.number,
+			number:hymn.number,
+            numberView:hymn.numberView,
+            titleEnglish:hymn.englishTitle,
+            authors:hymn.authors,
             title:hymn.title,
             url:hymn.url,
             artwork:hymn.artwork,
@@ -36,14 +37,14 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
                 </View>
             <View style={styles.cardMore}>
                 <View style={styles.numberCard}>
-                    <Text style={styles.number}>{hymn.numero}</Text>
+                    <Text style={styles.number}>{hymn.number}</Text>
                     <ActiveHymnsDownloadSVG color={colors.favorites}/>
-                    {hymn.texto_biblico &&<Text style={styles.baseTitle}>{hymn.texto_biblico}</Text>}
+                    {hymn.biblicalText &&<Text style={styles.baseTitle}>{hymn.biblicalText}</Text>}
                 </View>
                 <View style={styles.ViewCard}>
                     <Text style={{...styles.title,fontWeight:isActiveHymn ? '500':'normal', color:isActiveHymn?colors.active:colors.text}}>{truncateText(hymn.title,29)}</Text>
-                    <Text style={styles.baseTitle}>{hymn.ingles}</Text>
-                    <Authors authors={hymn.autores} card={false}/>
+                    <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
+                    <Authors authors={hymn.authors} card={false}/>
                 </View>
             </View>
             <TouchableOpacity activeOpacity={.8} onPress={()=>setFavorites(!favorites)} >
@@ -52,7 +53,7 @@ const HymnsItem=({hymn, onHymnSelect:handleHymnSelect}:HymnsTypes)=>{
 				}
 			</TouchableOpacity>
             <TouchableOpacity 
-			
+                testID={`play-button-${hymn.number}`}
 				onPress={()=>handleHymnSelect(track)}>
 					{isActiveHymn && playing ? (
 					<LoaderKit style={{ width: 25, height: 25 }} name="LineScaleParty" color={colors.icon}/>)

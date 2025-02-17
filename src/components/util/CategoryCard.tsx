@@ -1,20 +1,20 @@
 import { fontSize } from '@/constants/styles';
 import { getBackgroundSource } from '@/helpers/getBackgroundSource';
-import { Category } from '@/types/hymnsTypes';
+import { HymnCategory } from '@/types/hymnsTypes';
 
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
-const CategoryCard = ({category,index,style}:{category:Category,index:number,style?:any}) => {
+const CategoryCard = ({category,index,style}:{category:HymnCategory,index:number,style?:StyleProp<ViewStyle>}) => {
     
   return (
     <TouchableOpacity activeOpacity={0.8} style={[styles.container, index % 1 !== 0 && styles.spacingLeft, style]}>
       <FastImage
-        source={{ uri: getBackgroundSource(category.categoria) }}
+        source={{ uri: getBackgroundSource(category.name) }}
         style={styles.backgroundImage}
         resizeMode={FastImage.resizeMode.cover} 
       />
@@ -23,7 +23,7 @@ const CategoryCard = ({category,index,style}:{category:Category,index:number,sty
         style={styles.backgroundImage}
       />
       <View style={styles.content}>
-        <Text style={styles.text}>{category.categoria}</Text>
+        <Text style={styles.text}>{category.name}</Text>
       </View>
     </TouchableOpacity>
   );

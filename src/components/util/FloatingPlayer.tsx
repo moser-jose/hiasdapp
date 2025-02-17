@@ -28,7 +28,7 @@ const FloatingPlayer = ({style}:ViewProps)=>{
             </View>
             <View style={styles.hymnTitleContainer}>
                 <MovingText style={styles.hymnTitle} text={displayedHymn.title} animationThreshold={25}/>
-                <Text style={styles.hymnTitleBase}>{displayedHymn.titleIngles}</Text>
+                <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
                 <Authors authors={displayedHymn.authors} card={false}/>
             </View>
             <View style={styles.hymnControlsContainer}>

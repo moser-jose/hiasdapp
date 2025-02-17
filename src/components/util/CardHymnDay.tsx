@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { ListCategories, ListHymns, Hymn, HymnCategory } from "@/types/hymnsTypes";
+import { ListHymns, Hymn, HymnCategory } from "@/types/hymnsTypes";
 import PlayCardSVG from "../svg/PlayCardSvg";
 import { colors, fontSize } from "@/constants/styles";
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
@@ -31,8 +31,8 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
 
 
   const categoryUri = () => {
-    const categoryFound = categories.filter((item: HymnCategory) => item.categoria === hymn?.categoria);
-    return getBackgroundSource(categoryFound?.[0]?.categoria ?? '');
+    const categoryFound = categories.filter((item: HymnCategory) => item.name === hymn?.category?.name);
+    return getBackgroundSource(categoryFound?.[0]?.name ?? '');
   }
 
   return (
@@ -55,7 +55,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                   <View style={styles.title}>
                     <Text style={styles.titleText}>Hino do Dia</Text>
                     <Text style={styles.titleAno}>{new Date().getFullYear()}</Text>
-                    <Text style={styles.titleCategoria}>{truncateText(hymn.categoria,12)}</Text>
+                    <Text style={styles.titleCategoria}>{hymn?.category?truncateText(hymn?.category?.name,12):''}</Text>
                   </View>
                   <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
                 </View>
@@ -71,8 +71,8 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                   <ActiveHymnsDownloadSVG color={colors.favorites} style={{marginTop:10}}/>
                 </View>
                 <View style={styles.hymnTitleNumberAuthorContent}>
-                  <Text style={styles.hymnTitleNumber}>{hymn.numero_view}</Text>
-                  <Authors styleText={styles.hymnTitleAuthor} authors={hymn.autores} card={false}/>
+                  <Text style={styles.hymnTitleNumber}>{hymn.numberView}</Text>
+                  <Authors styleText={styles.hymnTitleAuthor} authors={hymn.authors} card={false}/>
                 </View>
                 
                 <View style={{justifyContent:'flex-end'}}>

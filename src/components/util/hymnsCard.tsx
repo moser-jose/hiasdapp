@@ -19,10 +19,11 @@ const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsProps)=>{
     const isActiveHymn=useActiveTrack()?.url===hymn.url
 
     const track:HymnTrack={
-            id:hymn.numero,
-            numberView:hymn.numero_view,
-            titleIngles:hymn.ingles,
-            authors:hymn.autores,
+            id:hymn.number,
+            number:hymn.number,
+            numberView:hymn.numberView,
+            inglesTitle:hymn.englishTitle,
+            authors:hymn.authors,
             title:hymn.title,
             url:hymn.url,
             artwork:hymn.artwork,
@@ -31,7 +32,7 @@ const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsProps)=>{
 
     return <TouchableOpacity style={[hymnsCard.container,style]}> 
         <View style={hymnsCard.card}>
-            <Text style={hymnsCard.number}>{hymn.numero_view}</Text>
+            <Text style={hymnsCard.number}>{hymn.numberView}</Text>
             <View style={hymnsCard.ViewCard}>
                 <View style={hymnsCard.cardTittle}>
                     <View style={hymnsCard.viewTittle}>
@@ -45,8 +46,8 @@ const HymnsCard =({hymn,style,onHymnSelect:handleHymnSelect}:HymnsProps)=>{
                     </TouchableOpacity>
                 </View>
                 
-                <Text style={hymnsCard.baseTitle}>{hymn.ingles}</Text>
-                <Authors authors={hymn.autores} card={true}/>
+                <Text style={hymnsCard.baseTitle}>{hymn.englishTitle}</Text>
+                <Authors authors={hymn.authors} card={true}/>
                 
             </View>
         </View>

@@ -11,11 +11,11 @@ const Authors =({authors,styleText, card}:{authors:Author[],card:boolean,styleTe
             {
                 authors?.map((item:Author, index:number) => {
                     const isLastItem = index === authors.length - 1; 
-                    const nome =item.nome ? shortName(item.nome) : 'Desconhecido'
+                    const name =item.name ? shortName(item.name) : 'Desconhecido'
                     const separator = !isLastItem ? ', ' : '';
                     return  (
                         <Text key={index} style={styleText?styleText:styles.hymnTitleBase}>
-                            {card ? authors.length === 1? nome +''+separator:authors.length===2?truncateText(nome ?? '', 10):authors.length>=3&&truncateText(nome ?? '', 10):nome+''+separator }
+                            {card ? authors.length === 1? name +''+separator:authors.length===2?truncateText(name ?? '', 10):authors.length>=3&&truncateText(name ?? '', 10):name+''+separator }
                         </Text>
                     )
                  })
