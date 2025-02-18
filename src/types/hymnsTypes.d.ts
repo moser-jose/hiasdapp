@@ -4,22 +4,22 @@ import { ViewStyle } from 'react-native'
 
 // Basic interfaces
 interface Author {
-  name?: string
+  name?: string | null
 }
 
 interface Verse {
-  number?: string
-  verse?: string
+  number?: string | null
+  verse?: string | null
 }
 
 interface Chorus {
-  chorusName: string | null
-  chorus: string | null
+  name?: string | null
+  choir?: string | null
 }
 
 interface SubCategory {
   id: number
-  title: string | null
+  name: string | null
   hymns?: string | null
 }
 
@@ -27,33 +27,42 @@ interface SubCategory {
 interface Hymn {
   id: number
   title: string
-  englishTitle?: string
-  number?: number
-  numberView?: string
-  biblicalText?: string
+  englishTitle?: string | null
+  number: number 
+  numberView: string | null
+  biblicalText?: string | null
   category: HymnCategory | null
-  chorus?: Chorus[]
-  url: string
+  chorus?: Chorus[] | null
+  url: string 
   artwork: string
   artist: string
-  authors: Author[]
-  verses: Verse[]
+  authors: Author[] | null
+  verses?: Verse[] | null
 }
 
 // Category interface
-interface HymnCategory {
+interface Category {
   id: number
   name: string
   subCategories: SubCategory[]
+}
+
+interface HymnCategory {
+  id: number
+  name: string
+  subCategory: {
+    id: number
+    name: string
+  }
 }
 
 // Interface that extends Track from player
 interface HymnTrack extends Track {
   id?: number
   number?: number
-  numberView?: string
-  titleEnglish?: string
-  authors?: Author[]
+  numberView?: string | null
+  titleEnglish?: string | null
+  authors?: Author[] | null
   title: string
   url: string
   artwork: string
@@ -72,8 +81,8 @@ type ListHymnsProps = Partial<FlatListProps<Hymn>> & {
   hymns: Hymn[]
 }
 
-type ListCategoriesProps = Partial<FlatListProps<HymnCategory>> & {
-  categories: HymnCategory[]
+type ListCategoriesProps = Partial<FlatListProps<Category>> & {
+  categories: Category[]
 }
 
 type ListPlaylistsProps = Partial<FlatListProps<unknown>> & {
@@ -84,13 +93,10 @@ type ListPlaylistsProps = Partial<FlatListProps<unknown>> & {
 // List Types
 type ListHymns = Hymn[]
 
-type ListCategories = Partial<HymnCategory[]> & {
-  category: HymnCategory[]
+type ListCategories = Partial<Category[]> & {
+  category: Category[]
 }
 
-interface Category {
-  category: string
-}
 
 interface Playlist {
   title: string

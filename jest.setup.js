@@ -23,3 +23,15 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   removeItem: jest.fn(),
   clear: jest.fn(),
 })); 
+
+jest.mock('react-native-track-player', () => ({
+  load: jest.fn(),
+  play: jest.fn(),
+  useIsPlaying: () => ({ playing: false }),
+  useActiveTrack: () => null,
+  __esModule: true,
+  default: {
+    load: jest.fn(),
+    play: jest.fn(),
+  },
+}));

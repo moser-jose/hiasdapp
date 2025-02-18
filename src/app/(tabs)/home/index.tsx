@@ -20,9 +20,8 @@ import { ListPlaylistsCard } from "@/components/util/ListPlaylistsCard"
 import HeartFullSVG from "@/components/svg/HeartFullSvg"
 import { colors } from "@/constants/styles"
 import DownloadSVG from "@/components/svg/DownloadSvg"
-//import { hymnsWithArtwork } from '@/tests/mocks/DataMock'
-import { hymnsWithArtwork } from "@/components/util/__tests__/mocks/DataMock"
-import { HymnCategory } from "@/types/hymnsTypes"
+import { Category, Hymn } from "@/types/hymnsTypes"
+
 type Playlist = {
   title: string
   hymns: number
@@ -42,14 +41,14 @@ const HomeScreen=()=>{
   const handleHymnSelect= async (hymn:Track)=>{
     await TrackPlayer.load(hymn)
  }
- const categories:HymnCategory[] = useMemo(()=>{
+ const categories:Category[] = useMemo(()=>{
   return HinosAntigo.categories
 },[]);
-  /* 
+  
 
-  const hymns = useMemo(()=>{
-    return HinosAntigo.hinos
-  },[]); */
+  const hymns:Hymn[] = useMemo(()=>{
+    return HinosAntigo.hymns
+  },[]);
 
   const data: dat = [
     {
@@ -73,29 +72,29 @@ const HomeScreen=()=>{
             
           <Separator title="Hinos"/>
 
-          <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
 
           <Separator title="Categorias" more/>
           <ListCategories categories={categories}
           horizontal 
           showsHorizontalScrollIndicator={false}/>
 
-          <CardHymnDay hymns={hymnsWithArtwork} categories={categories} />
+          <CardHymnDay hymns={hymns} categories={categories} />
 
           <Separator title="Coletâneas"/>
-          <ListPlaylistsCard hymns={hymnsWithArtwork} data={data}/>
+          <ListPlaylistsCard hymns={hymns} data={data}/>
 
           <Separator title="Favoritos"  more>
             <HeartFullSVG color={colors.favorites} height={16} width={16}/>
           </Separator>
 
-          <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
 
           <Separator title="Hinos baixados"  more>
             <DownloadSVG color={colors.favorites} height={16} width={16}/>
           </Separator>
 
-          <ListHymnsCard hymns={hymnsWithArtwork} handleHymnSelect={handleHymnSelect} />
+          <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
 
       </ScrollView>
     </View>

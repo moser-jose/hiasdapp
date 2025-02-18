@@ -1,5 +1,5 @@
 import { Author, Chorus, Verse, Hymn } from "@/types/hymnsTypes";
-import HiasdAntigo from "../../../../api/hiasd-old.json";
+import HiasdAntigo from "../../src/api/hiasd-old.json";
 
 const DEFAULT_ARTWORK = "https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png";
 

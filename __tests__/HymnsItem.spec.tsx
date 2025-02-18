@@ -1,22 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import HymnsItem from "@/components/util/HymnsItem";
-import {hymnsWithArtwork} from './mocks/DataMock'
-
-// Mock react-native-track-player
-const mockLoad = jest.fn();
-const mockPlay = jest.fn();
-
-jest.mock('react-native-track-player', () => ({
-  load: mockLoad,
-  play: mockPlay,
-  useIsPlaying: () => ({ playing: false }),
-  useActiveTrack: () => null,
-  __esModule: true,
-  default: {
-    load: mockLoad,
-    play: mockPlay,
-  },
-}));
+import {hymnsWithArtwork} from './data/DataMock'
 
 describe("Hymns Item", () => {
   beforeEach(() => {

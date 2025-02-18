@@ -1,6 +1,6 @@
 import { fontSize } from '@/constants/styles';
 import { getBackgroundSource } from '@/helpers/getBackgroundSource';
-import { HymnCategory } from '@/types/hymnsTypes';
+import { Category } from '@/types/hymnsTypes';
 
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
-const CategoryCard = ({category,index,style}:{category:HymnCategory,index:number,style?:StyleProp<ViewStyle>}) => {
+const CategoryCard = ({category,index,style}:{category:Category,index:number,style?:StyleProp<ViewStyle>}) => {
     
   return (
     <TouchableOpacity activeOpacity={0.8} style={[styles.container, index % 1 !== 0 && styles.spacingLeft, style]}>

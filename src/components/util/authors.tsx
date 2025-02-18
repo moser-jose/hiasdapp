@@ -4,7 +4,7 @@ import { Author } from "@/types/hymnsTypes";
 import { shortName } from "@mosmmy/shortname-js";
 import { Text, View,StyleSheet, StyleProp, TextStyle } from "react-native";
 
-const Authors =({authors,styleText, card}:{authors:Author[],card:boolean,styleText?:StyleProp<TextStyle>})=>{
+const Authors =({authors,styleText, card}:{authors:Author[] | null,card:boolean,styleText?:StyleProp<TextStyle>})=>{
 
     return (
         <View style={styles.container}>

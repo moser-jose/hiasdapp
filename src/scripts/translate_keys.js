@@ -14,7 +14,7 @@ function categoryMap(){
     name: categoria.categoria,
     subCategories: categoria.sub_categorias.map((subCategoria,index) => ({
       id: index + 1,
-      title: subCategoria.title,
+      name: subCategoria.title,
       hymns: subCategoria.hinos
     }))
   }));
@@ -40,7 +40,7 @@ function transformHymn(hymn) {
       {
           id: catInfo.id,
           name: hymn.categoria,
-          subcategoria: {
+          subCategory: {
               id: catInfo.subCategories.find(sub=>sub.title===hymn.sub_categoria)?.id || 1,
               name: hymn.sub_categoria
           }
@@ -48,7 +48,7 @@ function transformHymn(hymn) {
   
     chorus:hymn.coro.map(coro => ({
       name: coro.nome_coro,
-      chorus: coro.coro,
+      choir: coro.coro,
     })),
     verses:hymn.estrofes.map(verse => ({
       number: verse.numero,

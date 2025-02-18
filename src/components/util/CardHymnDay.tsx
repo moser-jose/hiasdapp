@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { ListHymns, Hymn, HymnCategory } from "@/types/hymnsTypes";
+import { ListHymns, Hymn, HymnCategory, Category } from "@/types/hymnsTypes";
 import PlayCardSVG from "../svg/PlayCardSvg";
 import { colors, fontSize } from "@/constants/styles";
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
@@ -15,7 +15,7 @@ import { truncateText } from "@/helpers/textsWords";
 
 interface CardHymnDayProps {
   hymns: ListHymns
-  categories: HymnCategory[]
+  categories: Category[]
 }
 
 const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
@@ -31,7 +31,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
 
 
   const categoryUri = () => {
-    const categoryFound = categories.filter((item: HymnCategory) => item.name === hymn?.category?.name);
+    const categoryFound = categories.filter((item: Category) => item.name === hymn?.category?.name);
     return getBackgroundSource(categoryFound?.[0]?.name ?? '');
   }
 

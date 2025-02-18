@@ -12,7 +12,7 @@
 		// "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
 		/* Language and Environment */
-		"target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+		"target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
 		"lib": [
 			"dom",
 			"esnext"
@@ -34,13 +34,14 @@
 		"moduleResolution": "Node" /* Specify how TypeScript looks up a file from a given module specifier. */,
 		"baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
 		"paths": {
-			//"@/tests/*": ["./__tests__/*"],
 			"@/*": ["./src/*"],
-			"@/api/*": ["./src/api/*"],
 			"@/assets/*": ["./assets/*"],
+			"@/api/*": ["./src/api/*"],
 			"@/components/*": ["./src/components/*"],
 			"@/constants/*": ["./src/constants/*"],
-			"@/styles/*": ["./src/styles/*"]
+			"@/styles/*": ["./src/styles/*"],
+			"@/tests/*": ["__tests__/*"],
+			
 		} /* Specify a set of entries that re-map imports to additional lookup locations. */,
 		// "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
 		// "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
@@ -118,6 +119,6 @@
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-	"include": ["src", "declarations.d.ts","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "babel.config.js", "src/components/util/__tests__"],
+	"include": ["src", "declarations.d.ts","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "babel.config.js", "__tests__"],
 	"exclude": ["node_modules"]
 }

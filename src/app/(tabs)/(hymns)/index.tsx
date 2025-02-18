@@ -5,7 +5,7 @@ import { View, ScrollView } from "react-native"
 import HinosAntigo from '@/api/hiasd-old.json'
 import { ListHymnsFilter } from "@/helpers/filter"
 import { useMemo } from "react"
-import { hymnsWithArtwork } from "@/mocks/DataMock"
+import { Hymn } from "@/types/hymnsTypes"
 
 const HymnsScreen=()=>{
     const search = useNavigationSearch({
@@ -14,10 +14,10 @@ const HymnsScreen=()=>{
         }
     })
 
-    const filteredSearch = useMemo(() => {
-        if (!search) return hymnsWithArtwork;
-        const filterPredicate = ListHymnsFilter(search);
-        return hymnsWithArtwork.filter(hymn => Boolean(filterPredicate(hymn)));
+    const filteredSearch:Hymn[] = useMemo(() => {
+        if (!search) return HinosAntigo.hymns as Hymn[];
+        const filterPredicate = ListHymnsFilter(search)
+        return HinosAntigo.hymns.filter((hymn) => Boolean(filterPredicate(hymn))) as Hymn[];
     }, [search]);
 
     return <View style={defaultStyles.container}>
