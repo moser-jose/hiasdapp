@@ -1739,10 +1739,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mosmmy/shortname-js@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@mosmmy/shortname-js/-/shortname-js-1.0.5.tgz#73839c3a5212a83004ceef23d488db3bfefe5acb"
-  integrity sha512-U89gt+N4lHVjArZ0CkoOuq5IPPh1O6nSdyQ6fgOndz96cpoUyXj2SDFJd0VSpYNT+/sdoCr53x9vPv8UNNyJSQ==
+"@mosmmy/shortname-js@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@mosmmy/shortname-js/-/shortname-js-1.0.6.tgz#543a3c4d0cc7a78785a9799e80f59d7a904e6ad1"
+  integrity sha512-wUcrpeHgVFLL5T2SS75nNgtCTnq8Px0a38q5aYCfJPfrX7O8jEn4WkXxM+Tzbwwz5LdtNiNQMQg8Xy/D/5w3cA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

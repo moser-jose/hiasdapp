@@ -4,12 +4,12 @@ import { ViewStyle } from 'react-native'
 
 // Basic interfaces
 interface Author {
-  name?: string | null
+  name: string | null
 }
 
 interface Verse {
-  number?: string | null
-  verse?: string | null
+  number: string | null
+  verse: string | null
 }
 
 interface Chorus {

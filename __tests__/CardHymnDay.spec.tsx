@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react-nativ
 import CardHymnDay from "@/components/util/CardHymnDay";
 import { categoriesTest, hymnsWithArtwork } from './data/DataMock';
 import { dateFormat } from "@/helpers/dateFormat";
-import { Category, HymnCategory } from "@/types/hymnsTypes";
+import { HymnCategory } from "@/types/hymnsTypes";
 import { ActivityIndicator } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
