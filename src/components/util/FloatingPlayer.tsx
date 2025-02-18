@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     overflow: 'hidden',
   },
-  trackArtworkImage: {
+  /* trackArtworkImage: {
     backgroundColor: colors.favorites,
     borderRadius: 8,
     height: 40,
     width: 40,
-  },
+  }, */
 })
 
 export default FloatingPlayer

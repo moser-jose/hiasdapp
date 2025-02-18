@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 4,
   },
-  cardTittle: {
+  /* cardTittle: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'relative',
-  },
+  }, */
   container: {
     alignItems: 'center',
     flexDirection: 'row',
