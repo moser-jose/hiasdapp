@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { ListHymns, Hymn, HymnCategory, Category } from "@/types/hymnsTypes";
+import { ListHymns, Hymn, Category } from "@/types/hymnsTypes";
 import PlayCardSVG from "../svg/PlayCardSvg";
 import { colors, fontSize } from "@/constants/styles";
 import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
@@ -29,10 +29,9 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
     fetchHymn();
   }, [hymns]);
 
-
   const categoryUri = () => {
-    const categoryFound = categories.filter((item: Category) => item.name === hymn?.category?.name);
-    return getBackgroundSource(categoryFound?.[0]?.name ?? '');
+    const categoryFound = categories.find((item: Category) => item.name === hymn?.category?.name);
+    return getBackgroundSource(categoryFound?.name ?? '');
   }
 
   return (
@@ -84,7 +83,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
               </View>
             </View>
           </View>
-        </View>: <ActivityIndicator size="large" />}
+        </View>: <ActivityIndicator testID="loading-indicator" size="large" />}
     </View>
   );
 };

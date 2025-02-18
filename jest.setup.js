@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import '@testing-library/react-native';
 
 // Mock para o ExpoRouter

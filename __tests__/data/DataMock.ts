@@ -1,4 +1,4 @@
-import { Author, Chorus, Verse, Hymn } from "@/types/hymnsTypes";
+import { Author, Chorus, Verse, Hymn, Category } from "@/types/hymnsTypes";
 import HiasdAntigo from "../../src/api/hiasd-old.json";
 
 const DEFAULT_ARTWORK = "https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png";
@@ -16,7 +16,7 @@ function isChorus(chorus: any): chorus is Chorus {
          (chorus.chorus === null || typeof chorus.chorus === 'string');
 }
 
-function transformToHymn(rawHymn: any): Hymn {
+function transformToHymn(rawHymn: Hymn): Hymn {
   if (!Array.isArray(rawHymn.authors) || !rawHymn.authors.every(isAuthor)) {
     //throw new Error('Invalid authors array');
   }
@@ -32,18 +32,28 @@ function transformToHymn(rawHymn: any): Hymn {
     id: rawHymn.id,
     title: rawHymn.title,
     englishTitle: rawHymn.englishTitle || undefined,
-    number: rawHymn.number || undefined,
-    numberView: rawHymn.numberView || undefined,
+    number: rawHymn.number || 1,
+    numberView: rawHymn.numberView || null,
     biblicalText: rawHymn.biblicalText || undefined,
     category: rawHymn.category,
     chorus: rawHymn.chorus || [],
     url: rawHymn.url,
     artwork: rawHymn.artwork || DEFAULT_ARTWORK,
-    artist: rawHymn.artist || undefined,
-    authors: rawHymn.authors || undefined,
-    verses: rawHymn.verses|| undefined
+    artist: rawHymn.artist || "",
+    authors: rawHymn.authors || [],
+    verses: rawHymn.verses|| []
+  };
+}
+
+function transformCategory(category: Category): Category {
+
+  return {
+    id: category.id,
+    name: category.name,
+    subCategories:category.subCategories
   };
 }
 
 // Transform hymns to match the Hymn type
 export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(transformToHymn);
+export const categoriesTest: Category[] = HiasdAntigo.categories.map(transformCategory);

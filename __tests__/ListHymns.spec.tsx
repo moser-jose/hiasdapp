@@ -9,7 +9,6 @@ describe("ListHymns", () => {
 
   it("should render the list of hymns with correct data", () => {
     render(<ListHymns hymns={hymnsWithArtwork} />);
-    
     expect(screen.getByText("Ó Deus de Amor")).toBeTruthy();
     
     hymnsWithArtwork.slice(0, 9).forEach(hymn => {

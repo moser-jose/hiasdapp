@@ -1,0 +1,139 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/components/svg/PlayCardSvg.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/svg</a> PlayCardSvg.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SVGIconProps } from '@/types/svgTypes';
+import React from 'react';
+import Svg, {Rect, Path,Mask } from 'react-native-svg';
+&nbsp;
+const PlayCardSVG: React.FC&lt;SVGIconProps&gt; =  ({color, width=<span class="branch-0 cbranch-no" title="branch not covered" >45,</span> height=<span class="branch-0 cbranch-no" title="branch not covered" >45}</span>) =&gt;{
+  return (
+    &lt;Svg width={width}  height={height} viewBox='0 0 24 24' fill={color}&gt;
+      &lt;Mask id="path-1-outside-1_100_19942" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24" &gt;
+        &lt;Rect fill="white" width="24" height="24"/&gt;
+        &lt;Path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 15.5V8.5C10 8.09 10.47 7.85 10.8 8.1L15.47 11.6C15.74 11.8 15.74 12.2 15.47 12.4L10.8 15.9C10.47 16.15 10 15.91 10 15.5Z"/&gt;
+      &lt;/Mask&gt;
+      &lt;Path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 15.5V8.5C10 8.09 10.47 7.85 10.8 8.1L15.47 11.6C15.74 11.8 15.74 12.2 15.47 12.4L10.8 15.9C10.47 16.15 10 15.91 10 15.5Z" fill={color}/&gt;
+      &lt;Path d="M10.8 8.1L9.59227 9.69421L9.60055 9.70041L10.8 8.1ZM15.47 11.6L14.2705 13.2004L14.2795 13.2071L15.47 11.6ZM15.47 12.4L14.2795 10.7929L14.2705 10.7996L15.47 12.4ZM10.8 15.9L9.60053 14.2996L9.59228 14.3058L10.8 15.9ZM12 0C5.37543 0 0 5.37543 0 12H4C4 7.58457 7.58457 4 12 4V0ZM0 12C0 18.6246 5.37543 24 12 24V20C7.58457 20 4 16.4154 4 12H0ZM12 24C18.6246 24 24 18.6246 24 12H20C20 16.4154 16.4154 20 12 20V24ZM24 12C24 5.37543 18.6246 0 12 0V4C16.4154 4 20 7.58457 20 12H24ZM12 15.5V8.5H8V15.5H12ZM12 8.5C12 9.70919 10.606 10.4622 9.59228 9.69418L12.0077 6.50582C10.334 5.23783 8 6.47081 8 8.5H12ZM9.60055 9.70041L14.2705 13.2004L16.6695 9.99959L11.9995 6.49959L9.60055 9.70041ZM14.2795 13.2071C13.4702 12.6076 13.4702 11.3924 14.2795 10.7929L16.6605 14.0071C18.0098 13.0076 18.0098 10.9924 16.6605 9.99289L14.2795 13.2071ZM14.2705 10.7996L9.60055 14.2996L11.9995 17.5004L16.6695 14.0004L14.2705 10.7996ZM9.59228 14.3058C10.606 13.5378 12 14.2908 12 15.5H8C8 17.5292 10.334 18.7622 12.0077 17.4942L9.59228 14.3058Z" fill="white" mask="url(#path-1-outside-1_100_19942)"/&gt;
+&nbsp;
+    &lt;/Svg&gt;
+  );
+}
+&nbsp;
+export default PlayCardSVG</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-02-18T17:01:46.301Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    
