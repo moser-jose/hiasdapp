@@ -1,104 +1,103 @@
-import {colors, fontSize} from '@/constants/styles'
+import { colors, fontSize } from '@/constants/styles'
 
 import { StyleSheet } from 'react-native'
 
 export const defaultStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: colors.background,
-	},
-	text: {
-		fontSize: fontSize.base,
-		color: colors.text,
-	},
+  container: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+  text: {
+    color: colors.text,
+    fontSize: fontSize.base,
+  },
 })
 
 export const utilsStyles = StyleSheet.create({
-	centeredRow: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	slider: {
-		height: 7,
-		borderRadius: 16,
-	},
-	itemSeparator: {
-		borderColor: colors.textMuted,
-		borderWidth: StyleSheet.hairlineWidth,
-		opacity: 0.3,
-	},
-	emptyContentText: {
-		...defaultStyles.text,
-		color: colors.textMuted,
-		textAlign: 'center',
-		marginTop: 20,
-	},
-	emptyContentImage: {
-		width: 200,
-		height: 200,
-		alignSelf: 'center',
-		marginTop: 40,
-		opacity: 0.3,
-	},
+  centeredRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  emptyContentImage: {
+    alignSelf: 'center',
+    height: 200,
+    marginTop: 40,
+    opacity: 0.3,
+    width: 200,
+  },
+  emptyContentText: {
+    ...defaultStyles.text,
+    color: colors.textMuted,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  itemSeparator: {
+    borderColor: colors.textMuted,
+    borderWidth: StyleSheet.hairlineWidth,
+    opacity: 0.3,
+  },
+  slider: {
+    borderRadius: 16,
+    height: 7,
+  },
 })
-export const scrollViewHorizontal= StyleSheet.create({
-	horizontal: {
-		flex:1
-	},
+export const scrollViewHorizontal = StyleSheet.create({
+  horizontal: {
+    flex: 1,
+  },
 })
-export const hymnsCard=StyleSheet.create({
-	container: {
-		width: 290,
-		backgroundColor: colors.favoritesRGBA,
-		borderRadius:8,
-		position:'relative',
-		justifyContent: 'space-between',
-		flexDirection:'row',
-		alignItems: 'center',
-		paddingVertical:15,
-		paddingHorizontal:10,
-		marginBottom:16,
-		marginHorizontal:16,
-		marginRight:16,
-	},
-	number:{
-		fontSize:fontSize.base,
-		fontWeight:'bold',
-		color:colors.text
-	},
-	card: {
-		position:'relative',
-		flexDirection: 'row',
-		alignItems: 'center',
-		gap:6,
-	},
-	ViewCard:{
-		flex:1
-	},
-	cardTittle:{
-		position:'relative',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-	},
-	viewTittle:{
-		flexDirection: 'row',
-		alignItems: 'center',
-		gap:6,
-	},
-	title:{
-		fontSize:fontSize.base,
-		color:colors.text
-	},
-	baseTitle:{
-		fontSize:fontSize.xss,
-		color:colors.textMuted
-	},
-	play:{
-		position: 'absolute',
-		right: -8,
-		bottom: -20
-	}
-});
-
+export const hymnsCard = StyleSheet.create({
+  ViewCard: {
+    flex: 1,
+  },
+  baseTitle: {
+    color: colors.textMuted,
+    fontSize: fontSize.xss,
+  },
+  card: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
+    position: 'relative',
+  },
+  cardTittle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'relative',
+  },
+  container: {
+    alignItems: 'center',
+    backgroundColor: colors.favoritesRGBA,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    marginHorizontal: 16,
+    marginRight: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    position: 'relative',
+    width: 290,
+  },
+  number: {
+    color: colors.text,
+    fontSize: fontSize.base,
+    fontWeight: 'bold',
+  },
+  play: {
+    bottom: -20,
+    position: 'absolute',
+    right: -8,
+  },
+  title: {
+    color: colors.text,
+    fontSize: fontSize.base,
+  },
+  viewTittle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
+  },
+})

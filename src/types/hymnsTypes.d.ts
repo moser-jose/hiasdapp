@@ -28,12 +28,12 @@ interface Hymn {
   id: number
   title: string
   englishTitle?: string | null
-  number: number 
+  number: number
   numberView: string | null
   biblicalText?: string | null
   category: HymnCategory | null
   chorus?: Chorus[] | null
-  url: string 
+  url: string
   artwork: string
   artist: string
   authors: Author[] | null
@@ -97,7 +97,6 @@ type ListCategories = Partial<Category[]> & {
   category: Category[]
 }
 
-
 interface Playlist {
   title: string
   hymns: number
@@ -117,5 +116,5 @@ export {
   Verse,
   Category,
   Chorus,
-  SubCategory
+  SubCategory,
 }

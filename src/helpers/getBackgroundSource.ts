@@ -1,7 +1,7 @@
-import { categoryImagesAntigo, categoryImagesNovo, logoApp } from "@/constants/images";
+import { categoryImagesAntigo, categoryImagesNovo, logoApp } from '@/constants/images'
 
-const novo=true;
+const novo = true
 
-const categoryImages=novo?categoryImagesAntigo:categoryImagesNovo
+const categoryImages = novo ? categoryImagesAntigo : categoryImagesNovo
 export const getBackgroundSource = (category: string) =>
-        categoryImages[category as keyof typeof categoryImages] || logoApp;
+  categoryImages[category as keyof typeof categoryImages] || logoApp

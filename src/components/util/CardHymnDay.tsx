@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
-import { getDailyHymn } from "@/helpers/getDailyHymn";
-import { ListHymns, Hymn, Category } from "@/types/hymnsTypes";
-import PlayCardSVG from "../svg/PlayCardSvg";
-import { colors, fontSize } from "@/constants/styles";
-import ActiveHymnsDownloadSVG from "../svg/ActiveHymnsDownloadSvg";
-import SpreedSVG from "../svg/SpreedSvg";
-import LinearGradient from "react-native-linear-gradient";
-import FastImage from "react-native-fast-image";
-import Authors from "./Authors";
-import { getBackgroundSource } from "@/helpers/getBackgroundSource";
-import { dateFormat } from "@/helpers/dateFormat";
-import { truncateText } from "@/helpers/textsWords";
+import React, { useEffect, useState } from 'react'
+import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native'
+import { getDailyHymn } from '@/helpers/getDailyHymn'
+import { ListHymns, Hymn, Category } from '@/types/hymnsTypes'
+import PlayCardSVG from '../svg/PlayCardSvg'
+import { colors, fontSize } from '@/constants/styles'
+import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
+import SpreedSVG from '../svg/SpreedSvg'
+import LinearGradient from 'react-native-linear-gradient'
+import FastImage from 'react-native-fast-image'
+import Authors from './Authors'
+import { getBackgroundSource } from '@/helpers/getBackgroundSource'
+import { dateFormat } from '@/helpers/dateFormat'
+import { truncateText } from '@/helpers/textsWords'
 
 interface CardHymnDayProps {
   hymns: ListHymns
@@ -19,46 +19,48 @@ interface CardHymnDayProps {
 }
 
 const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
-  const [hymn, setHymn] = useState<Hymn | undefined>();
+  const [hymn, setHymn] = useState<Hymn | undefined>()
 
   useEffect(() => {
     const fetchHymn = async () => {
-      const hymnOfTheDay = await getDailyHymn(hymns);
-      setHymn(hymnOfTheDay);
-    };
-    fetchHymn();
-  }, [hymns]);
+      const hymnOfTheDay = await getDailyHymn(hymns)
+      setHymn(hymnOfTheDay)
+    }
+    fetchHymn()
+  }, [hymns])
 
   const categoryUri = () => {
-    const categoryFound = categories.find((item: Category) => item.name === hymn?.category?.name);
-    return getBackgroundSource(categoryFound?.name ?? '');
+    const categoryFound = categories.find((item: Category) => item.name === hymn?.category?.name)
+    return getBackgroundSource(categoryFound?.name ?? '')
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {hymn ?
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      {hymn ? (
         <View style={styles.container}>
-            <FastImage
-            source={{ uri:  categoryUri()}}
+          <FastImage
+            source={{ uri: categoryUri() }}
             style={styles.backgroundImage}
-            resizeMode={FastImage.resizeMode.cover} 
+            resizeMode={FastImage.resizeMode.cover}
           />
-            <LinearGradient
-            colors={["rgba(0, 0, 0, 0.43)", "rgba(71, 70, 70, 0.7)"]}
+          <LinearGradient
+            colors={['rgba(0, 0, 0, 0.43)', 'rgba(71, 70, 70, 0.7)']}
             style={styles.backgroundImage}
           />
           <View style={styles.content}>
-            <View  style={styles.headerContent}>
-              <View  style={styles.headerContentText}>
+            <View style={styles.headerContent}>
+              <View style={styles.headerContentText}>
                 <View style={styles.headerContentTitle}>
                   <View style={styles.title}>
                     <Text style={styles.titleText}>Hino do Dia</Text>
                     <Text style={styles.titleAno}>{new Date().getFullYear()}</Text>
-                    <Text style={styles.titleCategoria}>{hymn?.category?truncateText(hymn?.category?.name,12):''}</Text>
+                    <Text style={styles.titleCategoria}>
+                      {hymn?.category ? truncateText(hymn?.category?.name, 12) : ''}
+                    </Text>
                   </View>
                   <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={.8} style={{padding:8}}>
+                <TouchableOpacity activeOpacity={0.8} style={{ padding: 8 }}>
                   <SpreedSVG color="white" />
                 </TouchableOpacity>
               </View>
@@ -67,131 +69,129 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
               <View>
                 <View style={styles.hymnHeaderContentTitle}>
                   <Text style={styles.hymnTitle}>{hymn.title}</Text>
-                  <ActiveHymnsDownloadSVG color={colors.favorites} style={{marginTop:10}}/>
+                  <ActiveHymnsDownloadSVG color={colors.favorites} style={{ marginTop: 10 }} />
                 </View>
                 <View style={styles.hymnTitleNumberAuthorContent}>
                   <Text style={styles.hymnTitleNumber}>{hymn.numberView}</Text>
-                  <Authors styleText={styles.hymnTitleAuthor} authors={hymn.authors} card={false}/>
+                  <Authors styleText={styles.hymnTitleAuthor} authors={hymn.authors} card={false} />
                 </View>
-                
-                <View style={{justifyContent:'flex-end'}}>
-                  <TouchableOpacity activeOpacity={.8} style={styles.hymnTitlePlay}>
+
+                <View style={{ justifyContent: 'flex-end' }}>
+                  <TouchableOpacity activeOpacity={0.8} style={styles.hymnTitlePlay}>
                     <Text style={styles.hymnTitlePlayText}>Tocar Agora</Text>
-                    <PlayCardSVG color={colors.primary} width={20} height={20}/>
+                    <PlayCardSVG color={colors.primary} width={20} height={20} />
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </View>
-        </View>: <ActivityIndicator testID="loading-indicator" size="large" />}
+        </View>
+      ) : (
+        <ActivityIndicator testID="loading-indicator" size="large" />
+      )}
     </View>
-  );
-};
-
+  )
+}
 
 const styles = StyleSheet.create({
-    container:{
-      flex:1,
-      height:180,
-      position: "relative",
-      marginHorizontal:16,
-      marginTop:16,
-    },
-    backgroundImage: {
-      ...StyleSheet.absoluteFillObject, 
-      borderRadius:8,
-    },
-    content: {
-      position:'relative',
-      flex: 1,
-      width: '100%',
-      padding:10
-    },
-    headerContent:{
-      flex: 1,
-    },
-    headerContentText:{
-      width: '100%',
-      alignItems:'center',
-      justifyContent:'space-between',
-      flexDirection:'row'
-    },
-    headerContentTitle:{
-      
-    },
-    title:{
-      flexDirection:'row',
-      gap: 8,
-      alignItems: 'center'
-      
-    },
-    titleText:{
-      fontFamily:'Rochester_400Regular',
-      fontSize:30,
-      fontWeight:'600',
-      color:'white'
-    },
-    titleAno:{
-      color:'white',
-      backgroundColor:colors.favoritesRGBA,
-      padding:3,
-      fontWeight:'600',
-      borderRadius:8,
-      fontSize:fontSize.xs
-    },
-    titleCategoria:{
-        color:'white',
-        padding:3,
-        fontWeight:'600',
-        borderRadius:8,
-        fontSize:fontSize.xs,
-        backgroundColor:colors.cards
-    },
-    titleDate:{
-      color:'white',
-      marginTop:-5,
-      fontSize:fontSize.xs
-    },
-    hymnHeaderContentTitle:{
-      flexDirection:'row',
-      alignItems: 'center',
-      gap:6
-    },
-    hymnTitle:{
-      color:'white',
-      fontSize:32,
-      fontFamily:'Sacramento_400Regular',
-      marginBottom:-12,
-    },
-    hymnTitleNumberAuthorContent:{
-      flexDirection:'row',
-      gap:6,
-      alignItems:'center'
-    },
-    hymnTitleNumber:{
-      color:'white',
-      fontWeight:'bold',
-      fontSize:fontSize.base
-    },
-    hymnTitleAuthor:{
-      color:colors.third,
-      fontSize:fontSize.xs
-    },
-    hymnTitlePlay:{
-      backgroundColor:colors.favorites,
-      paddingVertical:4,
-      paddingHorizontal:6,
-      borderRadius:10,
-      flexDirection: "row",
-      alignItems:'center',
-      gap:6,
-      alignSelf:'flex-end'
-    },
-    hymnTitlePlayText:{
-      color:'white',
-      fontFamily:'PlusJakartaSans_500Medium',
-    }
-    
-  });
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 8,
+  },
+  container: {
+    flex: 1,
+    height: 180,
+    marginHorizontal: 16,
+    marginTop: 16,
+    position: 'relative',
+  },
+  content: {
+    flex: 1,
+    padding: 10,
+    position: 'relative',
+    width: '100%',
+  },
+  headerContent: {
+    flex: 1,
+  },
+  headerContentText: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  headerContentTitle: {},
+  hymnHeaderContentTitle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
+  },
+  hymnTitle: {
+    color: 'white',
+    fontFamily: 'Sacramento_400Regular',
+    fontSize: 32,
+    marginBottom: -12,
+  },
+  hymnTitleAuthor: {
+    color: colors.third,
+    fontSize: fontSize.xs,
+  },
+  hymnTitleNumber: {
+    color: 'white',
+    fontSize: fontSize.base,
+    fontWeight: 'bold',
+  },
+  hymnTitleNumberAuthorContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
+  },
+  hymnTitlePlay: {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    backgroundColor: colors.favorites,
+    borderRadius: 10,
+    flexDirection: 'row',
+    gap: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+  },
+  hymnTitlePlayText: {
+    color: 'white',
+    fontFamily: 'PlusJakartaSans_500Medium',
+  },
+  title: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  titleAno: {
+    backgroundColor: colors.favoritesRGBA,
+    borderRadius: 8,
+    color: 'white',
+    fontSize: fontSize.xs,
+    fontWeight: '600',
+    padding: 3,
+  },
+  titleCategoria: {
+    backgroundColor: colors.cards,
+    borderRadius: 8,
+    color: 'white',
+    fontSize: fontSize.xs,
+    fontWeight: '600',
+    padding: 3,
+  },
+  titleDate: {
+    color: 'white',
+    fontSize: fontSize.xs,
+    marginTop: -5,
+  },
+  titleText: {
+    color: 'white',
+    fontFamily: 'Rochester_400Regular',
+    fontSize: 30,
+    fontWeight: '600',
+  },
+})
 
-export default CardHymnDay;
+export default CardHymnDay

@@ -1,23 +1,21 @@
-import { colors } from "@/constants/styles"
-import { Text,StyleSheet} from "react-native"
+import { colors } from '@/constants/styles'
+import { Text, StyleSheet } from 'react-native'
 
 const Topic = ({ text }: { text: string }) => {
-    return (
-        <Text style={styles.text}>{text}</Text>
-    )
+  return <Text style={styles.text}>{text}</Text>
 }
 
 const styles = StyleSheet.create({
-    text: {
-        backgroundColor:colors.favoritesRGBA,
-        justifyContent:'center',
-        alignItems:'center',
-        padding:4,
-        borderRadius:10,
-        fontSize:10,
-        marginLeft:4,
-        color:colors.text
-    }
+  text: {
+    alignItems: 'center',
+    backgroundColor: colors.favoritesRGBA,
+    borderRadius: 10,
+    color: colors.text,
+    fontSize: 10,
+    justifyContent: 'center',
+    marginLeft: 4,
+    padding: 4,
+  },
 })
 
 export default Topic

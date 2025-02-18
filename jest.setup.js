@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import '@testing-library/react-native';
+import '@testing-library/react-native'
 
 // Mock para o ExpoRouter
 jest.mock('expo-router', () => ({
@@ -10,12 +10,12 @@ jest.mock('expo-router', () => ({
   }),
   useLocalSearchParams: () => ({}),
   Link: 'Link',
-}));
+}))
 
 // Mock para as fontes do Expo
 jest.mock('expo-font', () => ({
   useFonts: () => [true, null],
-}));
+}))
 
 // Mock para AsyncStorage
 jest.mock('@react-native-async-storage/async-storage', () => ({
@@ -23,7 +23,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn(),
   removeItem: jest.fn(),
   clear: jest.fn(),
-})); 
+}))
 
 jest.mock('react-native-track-player', () => ({
   load: jest.fn(),
@@ -35,4 +35,4 @@ jest.mock('react-native-track-player', () => ({
     load: jest.fn(),
     play: jest.fn(),
   },
-}));
+}))

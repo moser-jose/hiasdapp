@@ -1,19 +1,22 @@
-import { Author, Chorus, Verse, Hymn, Category } from "@/types/hymnsTypes";
-import HiasdAntigo from "../../src/api/hiasd-old.json";
+import { Author, Chorus, Verse, Hymn, Category } from '@/types/hymnsTypes'
+import HiasdAntigo from '../../src/api/hiasd-old.json'
 
-const DEFAULT_ARTWORK = "https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png";
+const DEFAULT_ARTWORK = 'https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png'
 
 function isAuthor(author: any): author is Author {
-  return author && typeof author.name === 'string';
+  return author && typeof author.name === 'string'
 }
 
 function isVerse(verse: any): verse is Verse {
-  return verse && typeof verse.number === 'string' && typeof verse.verse === 'string';
+  return verse && typeof verse.number === 'string' && typeof verse.verse === 'string'
 }
 
 function isChorus(chorus: any): chorus is Chorus {
-  return chorus && (chorus.chorusName === null || typeof chorus.chorusName === 'string') &&
-         (chorus.chorus === null || typeof chorus.chorus === 'string');
+  return (
+    chorus &&
+    (chorus.chorusName === null || typeof chorus.chorusName === 'string') &&
+    (chorus.chorus === null || typeof chorus.chorus === 'string')
+  )
 }
 
 function transformToHymn(rawHymn: Hymn): Hymn {
@@ -39,21 +42,20 @@ function transformToHymn(rawHymn: Hymn): Hymn {
     chorus: rawHymn.chorus || [],
     url: rawHymn.url,
     artwork: rawHymn.artwork || DEFAULT_ARTWORK,
-    artist: rawHymn.artist || "",
+    artist: rawHymn.artist || '',
     authors: rawHymn.authors || [],
-    verses: rawHymn.verses|| []
-  };
+    verses: rawHymn.verses || [],
+  }
 }
 
 function transformCategory(category: Category): Category {
-
   return {
     id: category.id,
     name: category.name,
-    subCategories:category.subCategories
-  };
+    subCategories: category.subCategories,
+  }
 }
 
 // Transform hymns to match the Hymn type
-export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(transformToHymn);
-export const categoriesTest: Category[] = HiasdAntigo.categories.map(transformCategory);
+export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(transformToHymn)
+export const categoriesTest: Category[] = HiasdAntigo.categories.map(transformCategory)

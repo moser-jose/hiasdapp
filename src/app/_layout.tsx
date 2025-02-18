@@ -9,32 +9,35 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 SplashScreen.preventAutoHideAsync()
 
 function App() {
-	const handleHymnPlayerLoaded=useCallback(()=>{
-		SplashScreen.hideAsync()
-	},[])
+  const handleHymnPlayerLoaded = useCallback(() => {
+    SplashScreen.hideAsync()
+  }, [])
 
-	useSetupHymnPlayer({
-		onLoad:handleHymnPlayerLoaded
-	})
+  useSetupHymnPlayer({
+    onLoad: handleHymnPlayerLoaded,
+  })
 
-	useLogHymnPlayerState()
-	
-	return (
-		<SafeAreaProvider style={defaultStyles.container}>
-			<RootNavigation/>
-			<StatusBar style="auto" />
-		</SafeAreaProvider>
-	)
+  useLogHymnPlayerState()
+
+  return (
+    <SafeAreaProvider style={defaultStyles.container}>
+      <RootNavigation />
+      <StatusBar style="auto" />
+    </SafeAreaProvider>
+  )
 }
 
-const RootNavigation = () =>{
-	return (
-		<Stack>
-			<Stack.Screen name='(tabs)' options={{
-				headerShown: false,
-			}} />
-		</Stack>
-	)
+const RootNavigation = () => {
+  return (
+    <Stack>
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack>
+  )
 }
 
 export default App
