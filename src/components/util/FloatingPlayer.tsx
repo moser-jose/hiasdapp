@@ -1,11 +1,21 @@
 import { colors } from '@/constants/styles'
 import { defaultStyles } from '@/styles'
-import { ViewProps, TouchableOpacity, View, StyleSheet, Text } from 'react-native'
+import {
+  ViewProps,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Text,
+} from 'react-native'
 import { useActiveTrack } from 'react-native-track-player'
-import { PlayPauseButton, SkipToNextButton } from '@/components/util/PlayerControls'
+import {
+  PlayPauseButton,
+  SkipToNextButton,
+} from '@/components/util/PlayerControls'
 import Authors from './Authors'
 import { useLastActiveHymn } from '@/hooks/useLastActiveHymn'
 import { MovingText } from './MovingText'
+import { router } from 'expo-router'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const activeHymn = useActiveTrack()
@@ -14,8 +24,16 @@ const FloatingPlayer = ({ style }: ViewProps) => {
   const displayedHymn = activeHymn ?? lastActiveHymn
   if (!displayedHymn) return null
 
+  const handlePress = () => {
+    router.navigate('/player')
+  }
+
   return (
-    <TouchableOpacity activeOpacity={0.8} style={[styles.container, style]}>
+    <TouchableOpacity
+      onPress={handlePress}
+      activeOpacity={0.8}
+      style={[styles.container, style]}
+    >
       {/* <FastImage
 					source={{
 						uri: logoApp,
@@ -26,7 +44,11 @@ const FloatingPlayer = ({ style }: ViewProps) => {
         <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
       </View>
       <View style={styles.hymnTitleContainer}>
-        <MovingText style={styles.hymnTitle} text={displayedHymn.title} animationThreshold={25} />
+        <MovingText
+          style={styles.hymnTitle}
+          text={displayedHymn.title}
+          animationThreshold={25}
+        />
         <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
         <Authors authors={displayedHymn.authors} card={false} />
       </View>

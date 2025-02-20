@@ -1,4 +1,4 @@
-import { colors } from '@/constants/styles'
+import { colors, fontSize } from '@/constants/styles'
 import { truncateText } from '@/helpers/textsWords'
 import { Author } from '@/types/hymnsTypes'
 import shortName from '@mosmmy/shortname-js'
@@ -6,20 +6,21 @@ import { Text, View, StyleSheet, StyleProp, TextStyle } from 'react-native'
 
 const Authors = ({
   authors,
-  styleText,
+  style,
   card,
 }: {
   authors: Author[] | null
   card: boolean
-  styleText?: StyleProp<TextStyle>
+  style?: StyleProp<TextStyle>
 }) => {
   return (
     <View style={styles.container}>
       {authors === null || authors?.length === 0 ? (
-        <Text style={styleText ? styleText : styles.hymnTitleBase}>Desconhecido</Text>
+        <Text style={style ? style : styles.hymnTitleBase}>Desconhecido</Text>
       ) : (
         authors.map((item: Author, index: number) => {
           const isLastItem = index === authors.length - 1
+
           const name =
             item.name == null
               ? 'Desconhecido'
@@ -27,12 +28,14 @@ const Authors = ({
                 ? 'Desconhecido'
                 : (shortName(item.name) as string)
           const separator = !isLastItem ? ', ' : ''
+
           return (
-            <Text key={index} style={styleText ? styleText : styles.hymnTitleBase}>
+            <Text key={index} style={style ? style : styles.hymnTitleBase}>
               {card
                 ? authors.length === 1
                   ? name + '' + separator
-                  : authors.length >= 2 && truncateText(name, 14) + '' + separator
+                  : authors.length >= 2 &&
+                    truncateText(name, 14) + '' + separator
                 : name + '' + separator}
             </Text>
           )
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   },
   hymnTitleBase: {
     color: colors.textMuted,
-    fontSize: 12,
+    fontSize: fontSize.xs,
     width: 'auto',
   },
 })

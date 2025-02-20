@@ -263,6 +263,8 @@ PODS:
   - hermes-engine (0.76.7):
     - hermes-engine/Pre-built (= 0.76.7)
   - hermes-engine/Pre-built (0.76.7)
+  - ImageColors (2.4.0):
+    - ExpoModulesCore
   - libwebp (1.5.0):
     - libwebp/demux (= 1.5.0)
     - libwebp/mux (= 1.5.0)
@@ -1877,6 +1879,27 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
+  - RNGestureHandler (2.23.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNReanimated (3.16.7):
     - DoubleConversion
     - glog
@@ -2087,6 +2110,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - ImageColors (from `../node_modules/react-native-image-colors/ios`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -2150,6 +2174,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -2214,6 +2239,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-11-12-RNv0.76.2-5b4aa20c719830dcf5684832b89a6edb95ac3d64
+  ImageColors:
+    :path: "../node_modules/react-native-image-colors/ios"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2336,6 +2363,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -2370,6 +2399,7 @@ SPEC CHECKSUMS:
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: eb4a80f6bf578536c58a44198ec93a30f6e69218
+  ImageColors: 88be684570585c07ae2750bff34eb7b78bfc53b4
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
@@ -2433,6 +2463,7 @@ SPEC CHECKSUMS:
   ReactCommon: 04292c6f596181ebf755e7929d96d2148542b0e8
   RNCAsyncStorage: 0ad93525a3a72652e88e14ad109c6dac856cb693
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
+  RNGestureHandler: 941f2746af261ff74f1e539d8b50f9f00f2edcea
   RNReanimated: 9ee6347ca0aa3cf78cae715455e781728ae142e2
   RNScreens: d022507f2b6d76c73335e9e35aedcf7bb2f791b0
   RNSVG: 536cd3c866c878faf72beaba166c8b02fe2b762b

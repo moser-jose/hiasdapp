@@ -22,7 +22,7 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
     id: hymn.number,
     number: hymn.number,
     numberView: hymn.numberView,
-    titleEnglish: hymn.englishTitle,
+    englishTitle: hymn.englishTitle,
     authors: hymn.authors,
     title: hymn.title,
     url: hymn.url,

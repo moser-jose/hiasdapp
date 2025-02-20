@@ -3,9 +3,17 @@ import React from 'react'
 import { SVGIconProps } from '@/types/svgTypes'
 import Svg, { Path } from 'react-native-svg'
 
-const NextMusicButtonSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
+const NextMusicButtonSVG: React.FC<SVGIconProps> = ({
+  color,
+  width = 18,
+  height = 17,
+}: {
+  color: string
+  width?: number
+  height?: number
+}) => {
   return (
-    <Svg width={width ?? '18'} height={height ?? '17'} viewBox="0 0 18 17" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 18 17" fill="none">
       <Path
         d="M12.2165 10.5395C13.7056 9.57794 13.7056 7.08873 12.2165 6.12715L3.22569 0.32123C1.77849 -0.613314 0 0.603069 0 2.52741V14.1393C0 16.0636 1.77849 17.28 3.2257 16.3454L12.2165 10.5395Z"
         fill={color}
