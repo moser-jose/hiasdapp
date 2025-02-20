@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   hymns: {
-    backgroundColor: colors.favoritesRGBA,
+    backgroundColor: colors.greenRGBA,
     borderRadius: 6,
     fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: fontSize.smB,

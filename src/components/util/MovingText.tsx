@@ -3,7 +3,6 @@ import { TextStyle } from 'react-native'
 import { StyleProp } from 'react-native'
 import Animated, {
   Easing,
-  StyleProps,
   cancelAnimation,
   useAnimatedStyle,
   useSharedValue,
@@ -13,7 +12,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 export type MovingTextProps = {
-  text?: string
+  text: string
   animationThreshold: number
   style?: StyleProp<TextStyle>
 }

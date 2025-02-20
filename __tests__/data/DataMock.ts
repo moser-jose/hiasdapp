@@ -4,21 +4,21 @@ import HiasdAntigo from '../../src/api/hiasd-old.json'
 const DEFAULT_ARTWORK =
   'https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png'
 
-function isAuthor(author: any): author is Author {
+function isAuthor(author: Author) {
   return author && typeof author.name === 'string'
 }
 
-function isVerse(verse: any): verse is Verse {
+function isVerse(verse: Verse) {
   return (
     verse && typeof verse.number === 'string' && typeof verse.verse === 'string'
   )
 }
 
-function isChorus(chorus: any): chorus is Chorus {
+function isChorus(chorus: Chorus) {
   return (
     chorus &&
-    (chorus.chorusName === null || typeof chorus.chorusName === 'string') &&
-    (chorus.chorus === null || typeof chorus.chorus === 'string')
+    (chorus.name === null || typeof chorus.name === 'string') &&
+    (chorus.choir === null || typeof chorus.choir === 'string')
   )
 }
 

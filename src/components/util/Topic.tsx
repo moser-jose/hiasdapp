@@ -8,7 +8,7 @@ const Topic = ({ text }: { text: string }) => {
 const styles = StyleSheet.create({
   text: {
     alignItems: 'center',
-    backgroundColor: colors.favoritesRGBA,
+    backgroundColor: colors.greenRGBA,
     borderRadius: 10,
     color: colors.text,
     fontSize: 10,

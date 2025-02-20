@@ -39,7 +39,7 @@ export const PlayerProgressBar = ({ style }: ViewProps) => {
         thumbWidth={0}
         renderBubble={() => null}
         theme={{
-          minimumTrackTintColor: colors.favorites,
+          minimumTrackTintColor: colors.green,
           maximumTrackTintColor: colors.textMuted,
         }}
         onSlidingStart={() => (isSliding.value = true)}

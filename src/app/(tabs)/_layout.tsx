@@ -6,7 +6,6 @@ import { colors, fontSize } from '@/constants/styles'
 import { Tabs } from 'expo-router'
 import PlaylistsSVG from '@/components/svg/PlayListsSVG'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
-import { TouchableOpacity } from 'react-native'
 
 const TabsNavigation = () => {
   return (

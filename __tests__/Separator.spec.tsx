@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 
 describe('Separator', () => {
   it('should render the separator with title and children', () => {
-    const { debug } = render(
+    render(
       <Separator title="Test">
         <Text>Child Content</Text>
       </Separator>

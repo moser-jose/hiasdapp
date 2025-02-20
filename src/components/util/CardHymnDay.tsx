@@ -82,14 +82,14 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                 <View style={styles.hymnHeaderContentTitle}>
                   <Text style={styles.hymnTitle}>{hymn.title}</Text>
                   <ActiveHymnsDownloadSVG
-                    color={colors.favorites}
+                    color={colors.green}
                     style={{ marginTop: 10 }}
                   />
                 </View>
                 <View style={styles.hymnTitleNumberAuthorContent}>
                   <Text style={styles.hymnTitleNumber}>{hymn.numberView}</Text>
                   <Authors
-                    styleText={styles.hymnTitleAuthor}
+                    style={styles.hymnTitleAuthor}
                     authors={hymn.authors}
                     card={false}
                   />
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   hymnTitlePlay: {
     alignItems: 'center',
     alignSelf: 'flex-end',
-    backgroundColor: colors.favorites,
+    backgroundColor: colors.green,
     borderRadius: 10,
     flexDirection: 'row',
     gap: 6,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   titleAno: {
-    backgroundColor: colors.favoritesRGBA,
+    backgroundColor: colors.greenRGBA,
     borderRadius: 8,
     color: 'white',
     fontSize: fontSize.xs,

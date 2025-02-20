@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   /* trackArtworkImage: {
-    backgroundColor: colors.favorites,
+    backgroundColor: colors.green,
     borderRadius: 8,
     height: 40,
     width: 40,

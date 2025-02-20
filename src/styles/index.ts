@@ -51,6 +51,10 @@ export const hymnsCard = StyleSheet.create({
   ViewCard: {
     flex: 1,
   },
+  author: {
+    color: colors.textMuted,
+    fontSize: fontSize.xss,
+  },
   baseTitle: {
     color: colors.textMuted,
     fontSize: fontSize.xss,
@@ -69,7 +73,7 @@ export const hymnsCard = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: colors.favoritesRGBA,
+    backgroundColor: colors.greenRGBA,
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',

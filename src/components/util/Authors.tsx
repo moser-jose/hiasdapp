@@ -1,4 +1,3 @@
-import { colors, fontSize } from '@/constants/styles'
 import { truncateText } from '@/helpers/textsWords'
 import { Author } from '@/types/hymnsTypes'
 import shortName from '@mosmmy/shortname-js'
@@ -16,7 +15,7 @@ const Authors = ({
   return (
     <View style={styles.container}>
       {authors === null || authors?.length === 0 ? (
-        <Text style={style ? style : styles.hymnTitleBase}>Desconhecido</Text>
+        <Text style={style}>Desconhecido</Text>
       ) : (
         authors.map((item: Author, index: number) => {
           const isLastItem = index === authors.length - 1
@@ -30,7 +29,7 @@ const Authors = ({
           const separator = !isLastItem ? ', ' : ''
 
           return (
-            <Text key={index} style={style ? style : styles.hymnTitleBase}>
+            <Text key={index} style={style}>
               {card
                 ? authors.length === 1
                   ? name + '' + separator
@@ -50,11 +49,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     gap: 5,
-  },
-  hymnTitleBase: {
-    color: colors.textMuted,
-    fontSize: fontSize.xs,
-    width: 'auto',
   },
 })
 

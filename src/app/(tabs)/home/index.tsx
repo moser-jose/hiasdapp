@@ -86,13 +86,13 @@ const HomeScreen = () => {
           <ListPlaylistsCard hymns={hymns} data={data} />
 
           <Separator title="Favoritos" more>
-            <HeartFullSVG color={colors.favorites} height={16} width={16} />
+            <HeartFullSVG color={colors.green} height={16} width={16} />
           </Separator>
 
           <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
 
           <Separator title="Hinos baixados" more>
-            <DownloadSVG color={colors.favorites} height={16} width={16} />
+            <DownloadSVG color={colors.green} height={16} width={16} />
           </Separator>
 
           <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />

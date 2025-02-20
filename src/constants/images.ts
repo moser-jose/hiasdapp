@@ -14,9 +14,6 @@ import vidaCrista from '../../assets/app/categories/antigo/vida-crista.jpg'
 import OEvangelho from '../../assets/app/categories/antigo/o-evangelho.jpg'
 import SantaEscritura from '../../assets/app/categories/antigo/santa-escritura-1.jpg'
 
-import categoryGod from '../../assets/app/categories/categoryGod.jpg'
-import sonGod from '../../assets/app/categories/sonGod.jpg'
-
 export const logoApp = Image.resolveAssetSource(logo).uri
 
 // Antigo
@@ -33,25 +30,7 @@ const OEvangelhoImage = Image.resolveAssetSource(OEvangelho).uri
 const SantaEscrituraImage = Image.resolveAssetSource(SantaEscritura).uri
 const vidaCristaImage = Image.resolveAssetSource(vidaCrista).uri
 
-//Novo
-const categoryImage = Image.resolveAssetSource(categoryGod).uri
-const sonGodImage = Image.resolveAssetSource(sonGod).uri
-
 export const categoryImagesAntigo = {
-  Adoração: adoracaoImage,
-  'Deus, o Pai': deusOPaiImage,
-  'Jesus Cristo': jesusCristoImage,
-  'Espirito Santo': espiritoSantoImage,
-  'Santa Escritura': SantaEscrituraImage,
-  'O Evangelho': OEvangelhoImage,
-  'Lar Cristão': larCristaoImage,
-  'Igreja e Doutrina': igrejaDoutrinaImage,
-  'Cânticos Responsivos': canticosResponsivosImage,
-  Améns: AmenImage,
-  'Vida Cristã': vidaCristaImage,
-}
-
-export const categoryImagesNovo = {
   Adoração: adoracaoImage,
   'Deus, o Pai': deusOPaiImage,
   'Jesus Cristo': jesusCristoImage,

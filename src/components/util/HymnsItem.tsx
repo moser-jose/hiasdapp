@@ -41,7 +41,7 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
         <View style={styles.cardMore}>
           <View style={styles.numberCard}>
             <Text style={styles.number}>{hymn.number}</Text>
-            <ActiveHymnsDownloadSVG color={colors.favorites} />
+            <ActiveHymnsDownloadSVG color={colors.green} />
             {hymn.biblicalText && (
               <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>
             )}
@@ -57,7 +57,11 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
               {truncateText(hymn.title, 29)}
             </Text>
             <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
-            <Authors authors={hymn.authors} card={false} />
+            <Authors
+              style={styles.author}
+              authors={hymn.authors}
+              card={false}
+            />
           </View>
         </View>
         <TouchableOpacity
@@ -65,9 +69,9 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
           onPress={() => setFavorites(!favorites)}
         >
           {favorites === true ? (
-            <HeartFullSVG color={colors.favorites} />
+            <HeartFullSVG color={colors.green} />
           ) : (
-            <HeartSVG color={colors.favorites} />
+            <HeartSVG color={colors.green} />
           )}
         </TouchableOpacity>
         <TouchableOpacity
@@ -92,6 +96,10 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
 const styles = StyleSheet.create({
   ViewCard: {
     flex: 1,
+  },
+  author: {
+    color: colors.textMuted,
+    fontSize: fontSize.xss,
   },
   baseTitle: {
     color: colors.textMuted,

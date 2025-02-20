@@ -1,21 +1,10 @@
-import LogoSVG from '@/components/svg/LogoSVG'
 import { defaultStyles } from '@/styles'
 import { Stack } from 'expo-router'
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native'
+import { View, SafeAreaView } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import { useFonts } from 'expo-font'
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { PlusJakartaSans_500Medium } from '@expo-google-fonts/plus-jakarta-sans'
-
-import { colors } from '@/constants/styles'
-import ChangeHymnsSVG from '@/components/svg/ChangeHymnsSVG'
-import Topic from '@/components/util/Topic'
 import Header from '@/components/util/Header'
 
 const HeaderComponent = () => {

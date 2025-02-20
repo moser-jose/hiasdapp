@@ -44,22 +44,26 @@ const HymnsCard = ({
               <Text style={hymnsCard.title}>
                 {truncateText(hymn.title, 15)}
               </Text>
-              <ActiveHymnsDownloadSVG color={colors.favorites} />
+              <ActiveHymnsDownloadSVG color={colors.green} />
             </View>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => setFavorites(!favorites)}
             >
               {favorites === true ? (
-                <HeartFullSVG color={colors.favorites} />
+                <HeartFullSVG color={colors.green} />
               ) : (
-                <HeartSVG color={colors.favorites} />
+                <HeartSVG color={colors.green} />
               )}
             </TouchableOpacity>
           </View>
 
           <Text style={hymnsCard.baseTitle}>{hymn.englishTitle}</Text>
-          <Authors authors={hymn.authors} card={true} />
+          <Authors
+            style={hymnsCard.author}
+            authors={hymn.authors}
+            card={true}
+          />
         </View>
       </View>
       <TouchableOpacity

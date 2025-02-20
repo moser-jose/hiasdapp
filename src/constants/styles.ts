@@ -8,9 +8,9 @@ const colors = {
   text: '#3A3845',
   textMuted: '#6B7280',
   icon: '#3A3845',
-  favorites: '#29C17E',
-  favoriteMuted: '#6FCF97',
-  favoritesRGBA: 'rgba(100, 207, 151, 0.35)',
+  green: '#29C17E',
+  greenMuted: '#6FCF97',
+  greenRGBA: 'rgba(100, 207, 151, 0.35)',
   cards: 'rgba(199,77,79,.36)',
 }
 
