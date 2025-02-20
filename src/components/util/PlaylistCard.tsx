@@ -1,4 +1,10 @@
-import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
+import {
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native'
 
 import { truncateTextWords } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'

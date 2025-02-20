@@ -2,7 +2,11 @@ import { SVGIconProps } from '@/types/svgTypes'
 import React from 'react'
 import Svg, { Path, Mask, Rect } from 'react-native-svg'
 
-const PauseCardSVG: React.FC<SVGIconProps> = ({ color, width = 45, height = 45 }) => {
+const PauseCardSVG: React.FC<SVGIconProps> = ({
+  color,
+  width = 45,
+  height = 45,
+}) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill={color}>
       <Mask

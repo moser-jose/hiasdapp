@@ -1,5 +1,8 @@
 import { TouchableOpacity, View, ViewStyle, StyleSheet } from 'react-native'
-import TrackPlayer, { RepeatMode, useIsPlaying } from 'react-native-track-player'
+import TrackPlayer, {
+  RepeatMode,
+  useIsPlaying,
+} from 'react-native-track-player'
 import PlayButtonSVG from '../svg/PlayButtonSvg'
 import PauseButtonSVG from '../svg/PauseButtonSvg'
 import { colors } from '@/constants/styles'

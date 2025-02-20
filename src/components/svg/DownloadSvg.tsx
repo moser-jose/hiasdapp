@@ -21,7 +21,12 @@ const DownloadSVG: React.FC<SVGIconProps> = ({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <Path d="M7 8.5H4H1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <Path
+        d="M7 8.5H4H1"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </Svg>
   )
 }

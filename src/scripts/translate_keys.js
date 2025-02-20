@@ -38,7 +38,10 @@ function transformHymn(hymn) {
           id: catInfo.id,
           name: hymn.categoria,
           subCategory: {
-            id: catInfo.subCategories.find(sub => sub.title === hymn.sub_categoria)?.id || 1,
+            id:
+              catInfo.subCategories.find(
+                sub => sub.title === hymn.sub_categoria
+              )?.id || 1,
             name: hymn.sub_categoria,
           },
         }
@@ -71,6 +74,10 @@ const newData = {
 }
 
 // Write the new JSON file
-writeFileSync(join(__dirname, '../api/hiasd-new.json'), JSON.stringify(newData, null, 2), 'utf8')
+writeFileSync(
+  join(__dirname, '../api/hiasd-new.json'),
+  JSON.stringify(newData, null, 2),
+  'utf8'
+)
 
 console.log('Translation completed successfully!')

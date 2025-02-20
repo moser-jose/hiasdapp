@@ -17,7 +17,9 @@ const HymnsScreen = () => {
   const filteredSearch: Hymn[] = useMemo(() => {
     if (!search) return HinosAntigo.hymns as Hymn[]
     const filterPredicate = ListHymnsFilter(search)
-    return HinosAntigo.hymns.filter(hymn => Boolean(filterPredicate(hymn))) as Hymn[]
+    return HinosAntigo.hymns.filter(hymn =>
+      Boolean(filterPredicate(hymn))
+    ) as Hymn[]
   }, [search])
 
   return (

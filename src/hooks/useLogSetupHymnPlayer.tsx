@@ -1,6 +1,10 @@
 import { Event, useTrackPlayerEvents } from 'react-native-track-player'
 
-const events = [Event.PlaybackState, Event.PlaybackError, Event.PlaybackActiveTrackChanged]
+const events = [
+  Event.PlaybackState,
+  Event.PlaybackError,
+  Event.PlaybackActiveTrackChanged,
+]
 
 const useLogHymnPlayerState = () => {
   useTrackPlayerEvents(events, async event => {

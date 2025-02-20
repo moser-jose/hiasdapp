@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native'
 import { getDailyHymn } from '@/helpers/getDailyHymn'
 import { ListHymns, Hymn, Category } from '@/types/hymnsTypes'
 import PlayCardSVG from '../svg/PlayCardSvg'
@@ -30,7 +36,9 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
   }, [hymns])
 
   const categoryUri = () => {
-    const categoryFound = categories.find((item: Category) => item.name === hymn?.category?.name)
+    const categoryFound = categories.find(
+      (item: Category) => item.name === hymn?.category?.name
+    )
     return getBackgroundSource(categoryFound?.name ?? '')
   }
 
@@ -53,9 +61,13 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                 <View style={styles.headerContentTitle}>
                   <View style={styles.title}>
                     <Text style={styles.titleText}>Hino do Dia</Text>
-                    <Text style={styles.titleAno}>{new Date().getFullYear()}</Text>
+                    <Text style={styles.titleAno}>
+                      {new Date().getFullYear()}
+                    </Text>
                     <Text style={styles.titleCategoria}>
-                      {hymn?.category ? truncateText(hymn?.category?.name, 12) : ''}
+                      {hymn?.category
+                        ? truncateText(hymn?.category?.name, 12)
+                        : ''}
                     </Text>
                   </View>
                   <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
@@ -69,17 +81,31 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
               <View>
                 <View style={styles.hymnHeaderContentTitle}>
                   <Text style={styles.hymnTitle}>{hymn.title}</Text>
-                  <ActiveHymnsDownloadSVG color={colors.favorites} style={{ marginTop: 10 }} />
+                  <ActiveHymnsDownloadSVG
+                    color={colors.favorites}
+                    style={{ marginTop: 10 }}
+                  />
                 </View>
                 <View style={styles.hymnTitleNumberAuthorContent}>
                   <Text style={styles.hymnTitleNumber}>{hymn.numberView}</Text>
-                  <Authors styleText={styles.hymnTitleAuthor} authors={hymn.authors} card={false} />
+                  <Authors
+                    styleText={styles.hymnTitleAuthor}
+                    authors={hymn.authors}
+                    card={false}
+                  />
                 </View>
 
                 <View style={{ justifyContent: 'flex-end' }}>
-                  <TouchableOpacity activeOpacity={0.8} style={styles.hymnTitlePlay}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.hymnTitlePlay}
+                  >
                     <Text style={styles.hymnTitlePlayText}>Tocar Agora</Text>
-                    <PlayCardSVG color={colors.primary} width={20} height={20} />
+                    <PlayCardSVG
+                      color={colors.primary}
+                      width={20}
+                      height={20}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>

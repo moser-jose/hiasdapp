@@ -9,7 +9,9 @@ describe('Hymns Item', () => {
 
   it('should handle hymn selection correctly', async () => {
     const mockHymnSelect = jest.fn()
-    render(<HymnsItem hymn={hymnsWithArtwork[0]} onHymnSelect={mockHymnSelect} />)
+    render(
+      <HymnsItem hymn={hymnsWithArtwork[0]} onHymnSelect={mockHymnSelect} />
+    )
 
     const expectedTrack = {
       id: hymnsWithArtwork[0].number,
@@ -23,7 +25,9 @@ describe('Hymns Item', () => {
       artist: hymnsWithArtwork[0].artist,
     }
 
-    const playButton = screen.getByTestId(`play-button-${hymnsWithArtwork[0].number}`)
+    const playButton = screen.getByTestId(
+      `play-button-${hymnsWithArtwork[0].number}`
+    )
     fireEvent.press(playButton)
 
     expect(mockHymnSelect).toHaveBeenCalledWith(expectedTrack)

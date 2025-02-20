@@ -3,7 +3,10 @@ import { ListPlaylistsProps } from '@/types/hymnsTypes'
 
 import PlaylistCard from './PlaylistCard'
 
-export const ListPlaylistsCard = ({ data, ...listHymnsProps }: ListPlaylistsProps) => {
+export const ListPlaylistsCard = ({
+  data,
+  ...listHymnsProps
+}: ListPlaylistsProps) => {
   return (
     <FlatList
       horizontal

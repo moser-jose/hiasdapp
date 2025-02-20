@@ -2,7 +2,11 @@ import React from 'react'
 import { SVGIconProps } from '@/types/svgTypes'
 import Svg, { Path } from 'react-native-svg'
 
-const ConfigurationsSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
+const ConfigurationsSVG: React.FC<SVGIconProps> = ({
+  color,
+  width,
+  height,
+}) => {
   return (
     <Svg width={width ?? '19'} height={height ?? '20'} viewBox="0 0 19 20">
       <Path

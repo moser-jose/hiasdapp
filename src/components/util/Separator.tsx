@@ -8,7 +8,11 @@ interface ContainerProps {
   children?: ReactNode
 }
 
-const Separator: FC<ContainerProps> = ({ title, more, children }: ContainerProps) => {
+const Separator: FC<ContainerProps> = ({
+  title,
+  more,
+  children,
+}: ContainerProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.children}>

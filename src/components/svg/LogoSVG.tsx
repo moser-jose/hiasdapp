@@ -4,7 +4,12 @@ import Svg, { Path } from 'react-native-svg'
 
 const LogoSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
   return (
-    <Svg width={width ?? '59'} height={height ?? '55'} viewBox="0 0 59 55" fill="none">
+    <Svg
+      width={width ?? '59'}
+      height={height ?? '55'}
+      viewBox="0 0 59 55"
+      fill="none"
+    >
       <Path
         d="M2.89931 33C1.04291 31.3215 0 29.045 0 26.6713C0 24.2976 1.04291 22.0211 2.89931 20.3425L22.4999 2.62132C24.3564 0.942911 26.8743 0 29.4997 0C32.1252 0 34.6431 0.942911 36.4996 2.62132L56.1007 20.3425C57.9571 22.0211 59 24.2976 59 26.6713C59 29.045 57.9571 31.3215 56.1007 33"
         fill="#29C17E"

@@ -1,14 +1,17 @@
 import { Author, Chorus, Verse, Hymn, Category } from '@/types/hymnsTypes'
 import HiasdAntigo from '../../src/api/hiasd-old.json'
 
-const DEFAULT_ARTWORK = 'https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png'
+const DEFAULT_ARTWORK =
+  'https://github.com/moser-jose/Hina7/releases/download/vHinos/capa.png'
 
 function isAuthor(author: any): author is Author {
   return author && typeof author.name === 'string'
 }
 
 function isVerse(verse: any): verse is Verse {
-  return verse && typeof verse.number === 'string' && typeof verse.verse === 'string'
+  return (
+    verse && typeof verse.number === 'string' && typeof verse.verse === 'string'
+  )
 }
 
 function isChorus(chorus: any): chorus is Chorus {
@@ -27,7 +30,10 @@ function transformToHymn(rawHymn: Hymn): Hymn {
     //console.log(rawHymn.verses)
     //throw new Error('Invalid verses array');
   }
-  if (rawHymn.chorus && (!Array.isArray(rawHymn.chorus) || !rawHymn.chorus.every(isChorus))) {
+  if (
+    rawHymn.chorus &&
+    (!Array.isArray(rawHymn.chorus) || !rawHymn.chorus.every(isChorus))
+  ) {
     //throw new Error('Invalid chorus array');
   }
 
@@ -58,4 +64,5 @@ function transformCategory(category: Category): Category {
 
 // Transform hymns to match the Hymn type
 export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(transformToHymn)
-export const categoriesTest: Category[] = HiasdAntigo.categories.map(transformCategory)
+export const categoriesTest: Category[] =
+  HiasdAntigo.categories.map(transformCategory)

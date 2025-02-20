@@ -16,7 +16,9 @@ export const useNavigationSearch = ({
 
   const navigation = useNavigation()
 
-  const handleOnChangeText: SearchBarProps['onChangeText'] = ({ nativeEvent: { text } }) => {
+  const handleOnChangeText: SearchBarProps['onChangeText'] = ({
+    nativeEvent: { text },
+  }) => {
     setSearch(text)
   }
 

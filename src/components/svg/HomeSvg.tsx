@@ -5,7 +5,12 @@ import Svg, { Path } from 'react-native-svg'
 
 const HomeSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
   return (
-    <Svg width={width ?? '24'} height={height ?? '24'} viewBox="0 0 24 24" fill="none">
+    <Svg
+      width={width ?? '24'}
+      height={height ?? '24'}
+      viewBox="0 0 24 24"
+      fill="none"
+    >
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

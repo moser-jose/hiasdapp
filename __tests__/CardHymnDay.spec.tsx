@@ -1,4 +1,9 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react-native'
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react-native'
 import CardHymnDay from '@/components/util/CardHymnDay'
 import { categoriesTest, hymnsWithArtwork } from './data/DataMock'
 import { dateFormat } from '@/helpers/dateFormat'
@@ -19,7 +24,9 @@ describe('CardHymnDay', () => {
     const { UNSAFE_getByType } = render(
       <CardHymnDay hymns={hymnsWithArtwork} categories={categoriesTest} />
     )
-    await waitFor(() => expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy())
+    await waitFor(() =>
+      expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy()
+    )
   })
 
   it('should render the hymn of the day after loading', async () => {
@@ -141,7 +148,10 @@ describe('CardHymnDay', () => {
     )
 
     const { UNSAFE_queryByType } = render(
-      <CardHymnDay hymns={[hymnWithLongCategory]} categories={[categoriesTest[0]]} />
+      <CardHymnDay
+        hymns={[hymnWithLongCategory]}
+        categories={[categoriesTest[0]]}
+      />
     )
 
     await waitFor(() => {

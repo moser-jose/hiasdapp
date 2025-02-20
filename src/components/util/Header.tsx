@@ -4,7 +4,15 @@ import ChangeHymnsSVG from '../svg/ChangeHymnsSVG'
 import Topic from './Topic'
 import { colors } from '@/constants/styles'
 
-const Header = ({ title, text, year }: { title: string; text: string; year: string }) => {
+const Header = ({
+  title,
+  text,
+  year,
+}: {
+  title: string
+  text: string
+  year: string
+}) => {
   return (
     <View style={styles.container}>
       <LogoSVG color="#29C17E" />

@@ -23,7 +23,9 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
           <Text style={utilsStyles.emptyContentText}>No hymns found</Text>
         </View>
       }
-      renderItem={({ item: hymn }) => <HymnsItem hymn={hymn} onHymnSelect={handleHymnSelect} />}
+      renderItem={({ item: hymn }) => (
+        <HymnsItem hymn={hymn} onHymnSelect={handleHymnSelect} />
+      )}
       {...listHymnsProps}
     />
   )

@@ -11,7 +11,9 @@ interface ListHymnsCardProps extends Partial<FlatListProps<Hymn>> {
 export const ListHymnsCard = ({ hymns, ...props }: ListHymnsCardProps) => {
   const { playing } = useIsPlaying()
 
-  const handleHymnSelectInternal: HymnsProps['onHymnSelect'] = async (hymn: HymnTrack) => {
+  const handleHymnSelectInternal: HymnsProps['onHymnSelect'] = async (
+    hymn: HymnTrack
+  ) => {
     await TrackPlayer.load(hymn)
     if (playing) await TrackPlayer.pause()
     else await TrackPlayer.play()

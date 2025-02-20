@@ -18,7 +18,10 @@ export const getDailyHymn = async (hymns: Hymn[]): Promise<Hymn> => {
     }
 
     const newHymnId = randomNumber()
-    await AsyncStorage.setItem('dailyHymn', JSON.stringify({ date: today, hymn: newHymnId }))
+    await AsyncStorage.setItem(
+      'dailyHymn',
+      JSON.stringify({ date: today, hymn: newHymnId })
+    )
 
     // Return the new hymn
     const newHymnDay = hymns.find((item?: Hymn) => item?.id === newHymnId)

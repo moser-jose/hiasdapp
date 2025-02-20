@@ -22,7 +22,8 @@ export const logoApp = Image.resolveAssetSource(logo).uri
 // Antigo
 const adoracaoImage = Image.resolveAssetSource(adoracao).uri
 const AmenImage = Image.resolveAssetSource(amen).uri
-const canticosResponsivosImage = Image.resolveAssetSource(canticosResponsivos).uri
+const canticosResponsivosImage =
+  Image.resolveAssetSource(canticosResponsivos).uri
 const deusOPaiImage = Image.resolveAssetSource(deusOPai).uri
 const espiritoSantoImage = Image.resolveAssetSource(espiritoSanto).uri
 const igrejaDoutrinaImage = Image.resolveAssetSource(igrejaDoutrina).uri

@@ -4,7 +4,10 @@ import { Author } from '@/types/hymnsTypes'
 describe('Authors Component', () => {
   const singleAuthor: Author[] = [{ name: 'John Doe' }]
 
-  const twoAuthors: Author[] = [{ name: 'John Doe' }, { name: 'Jane Smith Justin John' }]
+  const twoAuthors: Author[] = [
+    { name: 'John Doe' },
+    { name: 'Jane Smith Justin John' },
+  ]
 
   const threeAuthors: Author[] = [
     { name: 'John Doe' },
@@ -65,14 +68,18 @@ describe('Authors Component', () => {
 
   it('should apply custom text style when provided', () => {
     const customStyle = { color: 'red', fontSize: 16 }
-    render(<Authors authors={singleAuthor} card={false} styleText={customStyle} />)
+    render(
+      <Authors authors={singleAuthor} card={false} styleText={customStyle} />
+    )
     const authorText = screen.getByText('John Doe')
     expect(authorText.props.style).toEqual(customStyle)
   })
 
   it('should apply custom text style to all authors when multiple authors', () => {
     const customStyle = { color: 'blue', fontSize: 18 }
-    render(<Authors authors={twoAuthors} card={false} styleText={customStyle} />)
+    render(
+      <Authors authors={twoAuthors} card={false} styleText={customStyle} />
+    )
     const firstAuthor = screen.getByText('John Doe,')
     const secondAuthor = screen.getByText('Jane S. J. John')
     expect(firstAuthor.props.style).toEqual(customStyle)

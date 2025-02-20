@@ -1,4 +1,8 @@
-import { categoryImagesAntigo, categoryImagesNovo, logoApp } from '@/constants/images'
+import {
+  categoryImagesAntigo,
+  categoryImagesNovo,
+  logoApp,
+} from '@/constants/images'
 
 const novo = true
 

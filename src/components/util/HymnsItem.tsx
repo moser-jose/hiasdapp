@@ -42,7 +42,9 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
           <View style={styles.numberCard}>
             <Text style={styles.number}>{hymn.number}</Text>
             <ActiveHymnsDownloadSVG color={colors.favorites} />
-            {hymn.biblicalText && <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>}
+            {hymn.biblicalText && (
+              <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>
+            )}
           </View>
           <View style={styles.ViewCard}>
             <Text
@@ -58,7 +60,10 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
             <Authors authors={hymn.authors} card={false} />
           </View>
         </View>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => setFavorites(!favorites)}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setFavorites(!favorites)}
+        >
           {favorites === true ? (
             <HeartFullSVG color={colors.favorites} />
           ) : (

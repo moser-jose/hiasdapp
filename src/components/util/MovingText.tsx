@@ -18,7 +18,11 @@ export type MovingTextProps = {
   style?: StyleProp<TextStyle>
 }
 
-export const MovingText = ({ text, animationThreshold, style }: MovingTextProps) => {
+export const MovingText = ({
+  text,
+  animationThreshold,
+  style,
+}: MovingTextProps) => {
   const translateX = useSharedValue(0)
   const shouldAnimate = text.length >= animationThreshold
 
