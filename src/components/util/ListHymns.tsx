@@ -1,13 +1,13 @@
 import { FlatList, View } from 'react-native'
 import HymnsItem from './HymnsItem'
-import { ListHymnsProps } from '@/types/hymnsTypes'
+import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import { utilsStyles } from '@/styles'
 import { Text } from 'react-native'
 import TrackPlayer, { Track } from 'react-native-track-player'
 import ItemDivider from './ItemDivider'
 
 export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
-  const handleHymnSelect = async (hymn: Track) => {
+  const handleHymnSelect = async (hymn: Track | Hymn) => {
     await TrackPlayer.load(hymn)
     await TrackPlayer.play()
   }

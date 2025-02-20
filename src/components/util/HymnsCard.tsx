@@ -15,18 +15,19 @@ import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
 const HymnsCard = ({
   hymn,
   style,
+  id,
   onHymnSelect: handleHymnSelect,
 }: HymnsProps) => {
   const [favorites, setFavorites] = useState(false)
   const { playing } = useIsPlaying()
-
-  const isActiveHymn = useActiveTrack()?.url === hymn.url
+  const activeTrack = useActiveTrack()
+  //const isActiveHymn = activeTrack?.url === hymn.url
 
   const track: HymnTrack = {
     id: hymn.number,
     number: hymn.number,
     numberView: hymn.numberView,
-    inglesTitle: hymn.englishTitle,
+    englishTitle: hymn.englishTitle,
     authors: hymn.authors,
     title: hymn.title,
     url: hymn.url,
@@ -70,7 +71,7 @@ const HymnsCard = ({
         style={hymnsCard.play}
         onPress={() => handleHymnSelect(track)}
       >
-        {playing ? (
+        {playing && id === activeTrack?.id ? (
           <PauseCardSVG color={colors.primary} />
         ) : (
           <PlayCardSVG color={colors.primary} />

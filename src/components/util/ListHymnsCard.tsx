@@ -26,6 +26,8 @@ export const ListHymnsCard = ({ hymns, ...props }: ListHymnsCardProps) => {
       data={hymns}
       renderItem={({ item: hymn, index }) => (
         <HymnsCard
+          key={hymn.id}
+          id={hymn.id}
           hymn={hymn}
           onHymnSelect={handleHymnSelectInternal}
           style={{

@@ -74,6 +74,7 @@ interface HymnsProps {
   hymn: Hymn
   onHymnSelect: (hymn: HymnTrack) => void
   style?: StyleProp<ViewStyle>
+  id?: number
 }
 
 // List Props Types

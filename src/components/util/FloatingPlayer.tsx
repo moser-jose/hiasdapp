@@ -1,4 +1,4 @@
-import { colors } from '@/constants/styles'
+import { colors, fontSize } from '@/constants/styles'
 import { defaultStyles } from '@/styles'
 import {
   ViewProps,
@@ -46,21 +46,32 @@ const FloatingPlayer = ({ style }: ViewProps) => {
       <View style={styles.hymnTitleContainer}>
         <MovingText
           style={styles.hymnTitle}
-          text={displayedHymn.title}
+          text={displayedHymn.title ?? ''}
           animationThreshold={25}
         />
-        <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
-        <Authors authors={displayedHymn.authors} card={false} />
+        {displayedHymn.englishTitle && (
+          <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
+        )}
+
+        <Authors
+          style={styles.authors}
+          authors={displayedHymn.authors}
+          card={false}
+        />
       </View>
       <View style={styles.hymnControlsContainer}>
-        <PlayPauseButton />
-        <SkipToNextButton />
+        <PlayPauseButton height={30} width={30} />
+        <SkipToNextButton height={22} width={22} />
       </View>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
+  authors: {
+    color: colors.textMuted,
+    fontSize: fontSize.xs,
+  },
   container: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -85,7 +96,7 @@ const styles = StyleSheet.create({
   hymnTitleBase: {
     color: colors.textMuted,
     flex: 1,
-    fontSize: 12,
+    fontSize: fontSize.xs,
     width: '100%',
   },
   hymnTitleContainer: {
