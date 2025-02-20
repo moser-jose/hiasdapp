@@ -17,7 +17,7 @@ describe('Hymns Item', () => {
       id: hymnsWithArtwork[0].number,
       number: hymnsWithArtwork[0].number,
       numberView: hymnsWithArtwork[0].numberView,
-      titleEnglish: hymnsWithArtwork[0].englishTitle,
+      englishTitle: hymnsWithArtwork[0].englishTitle,
       authors: hymnsWithArtwork[0].authors,
       title: hymnsWithArtwork[0].title,
       url: hymnsWithArtwork[0].url,
