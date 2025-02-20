@@ -36,8 +36,8 @@ interface Hymn {
   url: string
   artwork: string
   artist: string
-  authors: Author[] | null
-  verses?: Verse[] | null
+  authors: Author[] | []
+  verses?: Verse[] | []
 }
 
 // Category interface

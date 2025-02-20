@@ -22,9 +22,9 @@ export const PlayerControls = ({ style }: PlayerControlsProps) => {
     <View style={[styles.container, style]}>
       <View style={styles.row}>
         <PlayerShuffleToogle />
-        <SkipToPreviousButton width={20} height={19} />
-        <PlayPauseButton width={45} height={45} />
-        <SkipToNextButton width={20} height={19} />
+        <SkipToPreviousButton width={30} height={35} />
+        <PlayPauseButton width={55} height={55} />
+        <SkipToNextButton width={30} height={29} />
         <PlayerRepeatToogle />
       </View>
     </View>

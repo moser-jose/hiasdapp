@@ -5,16 +5,11 @@ import Svg, { Path } from 'react-native-svg'
 
 const PreviousMusicButtonSVG: React.FC<SVGIconProps> = ({
   color,
-  width,
-  height,
-}) => {
+  width = 18,
+  height = 17,
+}: SVGIconProps) => {
   return (
-    <Svg
-      width={width ?? '18'}
-      height={height ?? '17'}
-      viewBox="0 0 18 17"
-      fill="none"
-    >
+    <Svg width={width} height={height} viewBox="0 0 18 17" fill="none">
       <Path
         d="M6.74175 12.2062C5.25269 11.2446 5.2527 8.75538 6.74176 7.79381L15.7326 1.98789C17.1798 1.05334 18.9583 2.26973 18.9583 4.19407V15.8059C18.9583 17.7303 17.1798 18.9466 15.7326 18.0121L6.74175 12.2062Z"
         fill={color}

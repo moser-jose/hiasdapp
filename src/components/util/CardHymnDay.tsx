@@ -9,7 +9,7 @@ import {
 import { getDailyHymn } from '@/helpers/getDailyHymn'
 import { ListHymns, Hymn, Category } from '@/types/hymnsTypes'
 import PlayCardSVG from '../svg/PlayCardSvg'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
 import LinearGradient from 'react-native-linear-gradient'
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   hymnTitle: {
     color: 'white',
-    fontFamily: 'Sacramento_400Regular',
+    fontFamily: fontFamily.sacramento.regular,
     fontSize: 32,
     marginBottom: -12,
   },
@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
   },
   hymnTitleNumber: {
     color: 'white',
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: fontSize.base,
-    fontWeight: 'bold',
   },
   hymnTitleNumberAuthorContent: {
     alignItems: 'center',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   hymnTitlePlayText: {
     color: 'white',
-    fontFamily: 'PlusJakartaSans_500Medium',
+    fontFamily: fontFamily.plusJakarta.medium,
   },
   title: {
     alignItems: 'center',
@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.greenRGBA,
     borderRadius: 8,
     color: 'white',
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     fontWeight: '600',
     padding: 3,
@@ -203,20 +204,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.cards,
     borderRadius: 8,
     color: 'white',
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     fontWeight: '600',
     padding: 3,
   },
   titleDate: {
     color: 'white',
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     marginTop: -5,
   },
   titleText: {
     color: 'white',
-    fontFamily: 'Rochester_400Regular',
+    fontFamily: fontFamily.rochester.regular,
     fontSize: 30,
-    fontWeight: '600',
   },
 })
 

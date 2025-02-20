@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import HeartSVG from '../svg/HeartSvg'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import PlayCardSVG from '../svg/PlayCardSvg'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
 import { useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import SpreedSVG from '../svg/SpreedSvg'
@@ -99,10 +99,12 @@ const styles = StyleSheet.create({
   },
   author: {
     color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xss,
   },
   baseTitle: {
     color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xss,
   },
   card: {
@@ -140,8 +142,8 @@ const styles = StyleSheet.create({
   },
   number: {
     color: colors.primary,
+    fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.base,
-    fontWeight: '500',
   },
   numberCard: {
     alignItems: 'center',
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.text,
-    fontFamily: 'PlusJakartaSans_500Regular',
+    fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.base,
   },
 })

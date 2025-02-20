@@ -1,4 +1,4 @@
-import { fontSize } from '@/constants/styles'
+import { fontFamily, fontSize } from '@/constants/styles'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { Category } from '@/types/hymnsTypes'
 
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: fontSize.base,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
 })

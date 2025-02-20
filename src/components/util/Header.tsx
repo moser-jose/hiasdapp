@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import LogoSVG from '../svg/LogoSVG'
 import ChangeHymnsSVG from '../svg/ChangeHymnsSVG'
 import Topic from './Topic'
-import { colors } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 
 const Header = ({
   title,
@@ -24,7 +24,7 @@ const Header = ({
         </View>
       </View>
       <TouchableOpacity>
-        <ChangeHymnsSVG color="#1C274C" />
+        <ChangeHymnsSVG color={colors.primary} />
       </TouchableOpacity>
     </View>
   )
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#61788A',
-    fontFamily: 'BirthstoneBounce_500Medium',
-    fontSize: 20,
+    fontFamily: fontFamily.birthstoneBounce.medium,
+    fontSize: fontSize.base,
   },
   title: {
     color: colors.text,
-    fontFamily: 'PlusJakartaSans_500Medium',
-    fontSize: 18,
+    fontFamily: fontFamily.plusJakarta.medium,
+    fontSize: fontSize.base,
   },
   view: {
     alignItems: 'center',

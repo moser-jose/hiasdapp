@@ -1,4 +1,4 @@
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 
 import { StyleSheet } from 'react-native'
 
@@ -53,10 +53,12 @@ export const hymnsCard = StyleSheet.create({
   },
   author: {
     color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xss,
   },
   baseTitle: {
     color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xss,
   },
   card: {
@@ -87,8 +89,8 @@ export const hymnsCard = StyleSheet.create({
   },
   number: {
     color: colors.text,
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: fontSize.base,
-    fontWeight: 'bold',
   },
   play: {
     bottom: -20,
@@ -97,6 +99,7 @@ export const hymnsCard = StyleSheet.create({
   },
   title: {
     color: colors.text,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.base,
   },
   viewTittle: {

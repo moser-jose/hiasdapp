@@ -1,4 +1,4 @@
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { defaultStyles } from '@/styles'
 import {
   ViewProps,
@@ -34,12 +34,6 @@ const FloatingPlayer = ({ style }: ViewProps) => {
       activeOpacity={0.8}
       style={[styles.container, style]}
     >
-      {/* <FastImage
-					source={{
-						uri: logoApp,
-					}}
-					style={styles.trackArtworkImage}
-				/> */}
       <View>
         <Text style={styles.hymnTitle}>{displayedHymn.numberView}</Text>
       </View>
@@ -70,6 +64,7 @@ const FloatingPlayer = ({ style }: ViewProps) => {
 const styles = StyleSheet.create({
   authors: {
     color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
   },
   container: {
@@ -90,12 +85,13 @@ const styles = StyleSheet.create({
   hymnTitle: {
     ...defaultStyles.text,
     color: '#FFFFFF',
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: 18,
-    fontWeight: '600',
   },
   hymnTitleBase: {
     color: colors.textMuted,
     flex: 1,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     width: '100%',
   },

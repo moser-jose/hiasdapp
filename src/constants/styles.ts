@@ -4,6 +4,7 @@ const colors = {
   third: '#F0F2F5',
   fourth: '#61788A',
   background: '#FFFFFF',
+  white: '#FFFFFF',
   active: 'rgba(29, 47, 75, 0.71)',
   text: '#3A3845',
   textMuted: '#6B7280',
@@ -12,6 +13,24 @@ const colors = {
   greenMuted: '#6FCF97',
   greenRGBA: 'rgba(100, 207, 151, 0.35)',
   cards: 'rgba(199,77,79,.36)',
+}
+
+const fontFamily = {
+  birthstoneBounce: {
+    medium: 'BirthstoneBounce_500Medium',
+  },
+  plusJakarta: {
+    regular: 'PlusJakartaSans_400Regular',
+    bold: 'PlusJakartaSans_700Bold',
+    medium: 'PlusJakartaSans_500Medium',
+    semibold: 'PlusJakartaSans_600SemiBold',
+  },
+  rochester: {
+    regular: 'Rochester_400Regular',
+  },
+  sacramento: {
+    regular: 'Sacramento_400Regular',
+  },
 }
 
 const fontSize = {
@@ -30,4 +49,4 @@ const screenPadding = {
   horizontal: 16,
 }
 
-export { colors, fontSize, screenPadding }
+export { colors, fontFamily, fontSize, screenPadding }

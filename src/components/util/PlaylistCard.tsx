@@ -9,7 +9,7 @@ import {
 import { truncateTextWords } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
 import SongSVG from '../svg/SongSvg'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 type dat = {
   title: string
   hymns: number
@@ -54,10 +54,11 @@ const styles = StyleSheet.create({
   },
   hymns: {
     backgroundColor: colors.greenRGBA,
-    borderRadius: 6,
-    fontFamily: 'PlusJakartaSans_400Regular',
-    fontSize: fontSize.smB,
-    padding: 6,
+    borderRadius: 8,
+    fontFamily: fontFamily.plusJakarta.regular,
+    fontSize: fontSize.sm,
+    paddingHorizontal: 8,
+    paddingVertical: 1,
   },
   icon: {
     alignItems: 'center',
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     width: 45,
   },
   title: {
-    fontFamily: 'PlusJakartaSans_400Regular',
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.base,
   },
 })

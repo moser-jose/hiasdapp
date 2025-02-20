@@ -1,13 +1,19 @@
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import HeartSVG from '@/components/svg/HeartSvg'
+import LetterOutlineSVG from '@/components/svg/LetterOutlineSvg'
+import LetterSVG from '@/components/svg/LetterSvg'
 import { PlayerProgressBar } from '@/components/svg/PlayerProgressbar'
+import PlaylistsOutlineSVG from '@/components/svg/PlayListsOutlineSVG'
+import PlaylistsSVG from '@/components/svg/PlayListsSVG'
 import Authors from '@/components/util/Authors'
 import { MovingText } from '@/components/util/MovingText'
 import { PlayerControls } from '@/components/util/PlayerControls'
+import { PlayerVolumeBar } from '@/components/util/PlayerVolumeBar'
 import { logoApp } from '@/constants/images'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { defaultStyles } from '@/styles'
+import { useState } from 'react'
 import {
   Text,
   View,
@@ -21,9 +27,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useActiveTrack } from 'react-native-track-player'
 
 const PlayerScreen = () => {
+  const [viewPlayList, setViewPlayList] = useState(false)
+  const [viewLetter, setViewLetter] = useState(false)
   const activeHymn = useActiveTrack()
   const { background } = usePlayerBackground(activeHymn?.artwork ?? logoApp)
-  const isFavorite = false
+  const isFavorite = true
   const { top, bottom } = useSafeAreaInsets()
 
   if (!activeHymn) {
@@ -46,11 +54,18 @@ const PlayerScreen = () => {
     >
       <View style={styles.overlayContainer}>
         <DismissPlayerSimbol />
-        <View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
+        <View
+          style={{
+            alignSelf: 'center',
+            flex: 1,
+            marginTop: top + 70,
+            marginBottom: bottom,
+          }}
+        >
           <View style={styles.artworkImageContainer}>
             <FastImage
               source={{
-                uri: logoApp,
+                uri: activeHymn.artwork ?? logoApp,
                 priority: FastImage.priority.high,
               }}
               resizeMode="cover"
@@ -72,7 +87,7 @@ const PlayerScreen = () => {
                   <View style={styles.trackTitleContainerView}>
                     <View style={{ maxWidth: '65%', overflow: 'hidden' }}>
                       <MovingText
-                        text={activeHymn.title}
+                        text={activeHymn.title ?? ''}
                         animationThreshold={30}
                         style={styles.trackTitleText}
                       />
@@ -81,10 +96,7 @@ const PlayerScreen = () => {
                       {activeHymn.numberView}
                     </Text>
 
-                    <TouchableOpacity
-                      onPress={toogleFavorite}
-                      style={{ marginHorizontal: 16 }}
-                    >
+                    <TouchableOpacity onPress={toogleFavorite}>
                       {isFavorite ? (
                         <HeartFullSVG color={colors.green} />
                       ) : (
@@ -102,15 +114,58 @@ const PlayerScreen = () => {
                     </Text>
                   )}
                   <Authors
-                    style={{ fontSize: fontSize.sm, color: colors.second }}
+                    style={styles.authors}
                     authors={activeHymn.authors}
                     card={false}
                   />
                 </View>
               </View>
             </View>
-            <PlayerProgressBar style={{ marginTop: 25, marginBottom: 32 }} />
+            <PlayerProgressBar style={{ marginTop: 25, marginBottom: 42 }} />
             <PlayerControls style={{ marginBottom: 30 }} />
+          </View>
+          <PlayerVolumeBar
+            style={{
+              /* marginTop: 'auto' , */ marginBottom: 30,
+              maxWidth: '100%',
+              justifyContent: 'center',
+              paddingHorizontal: 30,
+            }}
+          />
+          <View
+            style={{
+              //paddingHorizontal: 60,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              marginBottom: 30,
+            }}
+          >
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setViewLetter(!viewLetter)}
+            >
+              {viewLetter ? (
+                <LetterSVG color={colors.white} />
+              ) : (
+                <LetterOutlineSVG color={colors.white} />
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setViewPlayList(!viewPlayList)}
+            >
+              {viewPlayList ? (
+                <PlaylistsSVG height={24} width={24} color={colors.white} />
+              ) : (
+                <PlaylistsOutlineSVG
+                  height={24}
+                  width={24}
+                  color={colors.white}
+                />
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -149,7 +204,7 @@ const DismissPlayerSimbol = () => {
 export default PlayerScreen
 const styles = StyleSheet.create({
   artworkImage: {
-    borderRadius: 20,
+    borderRadius: 12,
     height: '100%',
     resizeMode: 'cover',
     width: '100%',
@@ -157,29 +212,34 @@ const styles = StyleSheet.create({
   artworkImageContainer: {
     borderRadius: 11,
     flexDirection: 'row',
-    height: '90%',
+    height: '75%',
     justifyContent: 'center',
     shadowOffset: {
-      width: 0,
-      height: 8,
+      width: 2,
+      height: 3,
     },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.3,
+    width: '75%',
+  },
+  authors: {
+    color: colors.second,
+    fontFamily: fontFamily.plusJakarta.regular,
+    fontSize: fontSize.sm,
   },
   overlayContainer: {
     ...defaultStyles.container,
-    backgroundColor: 'rgba(0,0,0,.6)',
+    backgroundColor: 'rgba(0,0,0,.5)',
     paddingHorizontal: 16,
   },
   trackEnglishTitle: {
     color: colors.second,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.sm,
-    fontWeight: '400',
   },
   trackNumberView: {
     color: colors.second,
-    fontFamily: 'PlusJakartaSans_500Regular',
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: 18,
-    fontWeight: '700',
   },
   trackTitleContainer: {
     flex: 1,
@@ -193,9 +253,8 @@ const styles = StyleSheet.create({
   },
   trackTitleText: {
     color: 'white',
-    fontFamily: 'PlusJakartaSans_500Regular',
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: 22,
-    fontWeight: '700',
     //maxWidth: '50%',
   },
 })

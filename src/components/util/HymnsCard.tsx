@@ -58,7 +58,6 @@ const HymnsCard = ({
               )}
             </TouchableOpacity>
           </View>
-
           <Text style={hymnsCard.baseTitle}>{hymn.englishTitle}</Text>
           <Authors
             style={hymnsCard.author}

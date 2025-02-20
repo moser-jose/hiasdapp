@@ -5,9 +5,6 @@ export const useTrackPlayerShuffleMode = () => {
 
   const handleShufflePress = useCallback(async () => {
     try {
-      //const newShuffleMode = !shuffleMode
-      /* await TrackPlayer.reset()
-      await TrackPlayer.add(await shuffle()) */
       setShuffleMode(!shuffleMode)
     } catch (error) {
       console.error('Error toggling shuffle mode:', error)

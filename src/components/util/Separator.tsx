@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { fontSize } from '@/constants/styles'
+import { fontFamily, fontSize } from '@/constants/styles'
 import React, { FC, ReactNode } from 'react'
 
 interface ContainerProps {
@@ -42,11 +42,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: fontSize.sm,
   },
   more: {
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.sm,
   },
   title: {
+    fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.base,
-    fontWeight: '500',
   },
 })
 
