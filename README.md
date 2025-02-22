@@ -42,6 +42,11 @@ HiASD is a modern iOS application developed to facilitate access and management 
         <br />
         <sub><b>App Sections</b></sub>
       </td>
+      <td align="center">
+        <img src="assets/app/screens/player.png" width="200" alt="Player Screen"/>
+        <br />
+        <sub><b>Player Screen</b></sub>
+      </td>
     </tr>
   </table>
 </div>
