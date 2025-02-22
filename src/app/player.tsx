@@ -14,7 +14,7 @@ import { logoApp } from '@/constants/images'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { defaultStyles } from '@/styles'
-import { useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import {
   Text,
   View,
@@ -35,6 +35,11 @@ const PlayerScreen = () => {
   const isFavorite = true
   const { top, bottom } = useSafeAreaInsets()
 
+  const toogleLyrics = useCallback(() => {
+    setViewLyrics(!viewLyrics)
+    setViewPlayList(false)
+  }, [viewLyrics])
+
   if (!activeHymn) {
     return (
       <View style={[defaultStyles.container, { justifyContent: 'center' }]}>
@@ -44,10 +49,11 @@ const PlayerScreen = () => {
   }
 
   const toogleFavorite = () => {}
-  const toogleLyrics = () => {
+  const toogleLyric = () => {
     setViewLyrics(!viewLyrics)
     setViewPlayList(false)
   }
+
   const tooglePlayList = () => {
     setViewLyrics(false)
     setViewPlayList(!viewPlayList)
@@ -85,7 +91,7 @@ const PlayerScreen = () => {
             </View>
           </View>
         )}
-        {viewLyrics && <LyricsInPlayer verses={activeHymn?.verses} />}
+        {viewLyrics && <LyricsInPlayer lyrics={activeHymn?.lyrics} />}
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 'auto' }}>
             <View /* style={{ height: 70 }} */>
@@ -208,7 +214,7 @@ const DismissPlayerSimbol = () => {
   )
 }
 
-export default PlayerScreen
+export default memo(PlayerScreen)
 const styles = StyleSheet.create({
   artworkImage: {
     borderRadius: 12,
@@ -235,7 +241,7 @@ const styles = StyleSheet.create({
   },
   overlayContainer: {
     ...defaultStyles.container,
-    backgroundColor: 'rgba(0,0,0,.5)',
+    backgroundColor: 'rgba(0,0,0,.4)',
     paddingHorizontal: 16,
   },
   trackEnglishTitle: {

@@ -1,15 +1,9 @@
 import { colors, fontFamily } from '@/constants/styles'
-import { Chorus, Verse } from '@/types/hymnsTypes'
+import { Lyrics, Verse } from '@/types/hymnsTypes'
 import { StyleSheet, ScrollView, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const LyricsInPlayer = ({
-  chorus,
-  verses,
-}: {
-  verses?: Verse[]
-  chorus?: Chorus[]
-}) => {
+const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
   const { top, bottom } = useSafeAreaInsets()
   return (
     <ScrollView
@@ -20,11 +14,26 @@ const LyricsInPlayer = ({
       }}
     >
       <View style={{ flex: 1 }}>
-        {verses?.map(({ verse, number }: Verse, index) => {
+        {lyrics.verses.map(({ verse, number }: Verse, index) => {
           return (
-            <Text style={styles.text} key={index}>
-              {verse}
-            </Text>
+            <View key={index}>
+              {number && <Text style={styles.text}>{number}</Text>}
+              <Text style={styles.text}>{verse}</Text>
+
+              {lyrics.chorus[index]?.choir ? (
+                <>
+                  <Text style={styles.text}>Coro</Text>
+                  <Text style={styles.text}>{lyrics.chorus[index]?.choir}</Text>
+                </>
+              ) : (
+                lyrics.chorus[0]?.choir && (
+                  <>
+                    <Text style={styles.text}>Coro</Text>
+                    <Text style={styles.text}>{lyrics.chorus[0]?.choir}</Text>
+                  </>
+                )
+              )}
+            </View>
           )
         })}
       </View>
@@ -34,7 +43,7 @@ const LyricsInPlayer = ({
 
 const styles = StyleSheet.create({
   text: {
-    color: colors.white,
+    color: colors.second,
     fontFamily: fontFamily.plusJakarta.semibold,
     fontSize: 30,
     marginBottom: 20,

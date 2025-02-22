@@ -23,6 +23,11 @@ interface SubCategory {
   hymns?: string | null
 }
 
+interface Lyrics {
+  verses: Verse[] | []
+  chorus: Chorus[] | []
+}
+
 // Main Hymn interface
 interface Hymn {
   id: number
@@ -32,12 +37,11 @@ interface Hymn {
   numberView: string | null
   biblicalText?: string | null
   category: HymnCategory | null
-  chorus?: Chorus[] | null
   url: string
   artwork: string
   artist: string
+  lyrics: Lyrics | null
   authors: Author[] | []
-  verses?: Verse[] | []
 }
 
 // Category interface
@@ -116,6 +120,7 @@ export {
   Author,
   Verse,
   Category,
+  Lyrics,
   Chorus,
   SubCategory,
 }

@@ -31,7 +31,7 @@ const HymnsCard = ({
     authors: hymn.authors,
     title: hymn.title,
     url: hymn.url,
-    verses:hymn.verses,
+    lyrics: hymn.lyrics,
     artwork: hymn.artwork,
     artist: hymn.artist,
   }

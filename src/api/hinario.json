@@ -797,9 +797,6 @@
       "sub_categoria": "Adoração e Louvor",
       "autores": [
         {
-          "nome": null
-        },
-        {
           "nome": "Melodia T. Holandesa"
         }
       ],
@@ -1524,14 +1521,14 @@
       "artist": "Hinário Adventista do 7º Dia",
       "coro": [
         {
-          "nome_coro": "I",
-          "coro": "A linda flor se abrindo,\nE o canto do pardal,\nDe Deus o amor revelam,\nCom graça divinal."
+          "numero": "Coro",
+          "estrofe": "Tudo que há em terra e mar;\nBelezas que há no céu;\nTudo que o bom Deus criou\nTraz honra ao nome Seu."
         }
       ],
       "estrofes": [
         {
-          "numero": "Coro",
-          "estrofe": "Tudo que há em terra e mar;\nBelezas que há no céu;\nTudo que o bom Deus criou\nTraz honra ao nome Seu."
+          "numero": "I",
+          "estrofe": "A linda flor se abrindo,\nE o canto do pardal,\nDe Deus o amor revelam,\nCom graça divinal."
         },
         {
           "numero": "II",
@@ -3226,7 +3223,8 @@
       "artist": "Hinário Adventista do 7º Dia",
       "coro": [
         {
-          "nome_coro": "Glória, glória, demos ao Salvador!\nGlória, glória, por Seu tão grande amor!\nGlória, glória! Temos a paz com Deus!\nGlória, glória, vamos cantar nos Céus!"
+          "nome_coro":"Coro",
+          "coro": "Glória, glória, demos ao Salvador!\nGlória, glória, por Seu tão grande amor!\nGlória, glória! Temos a paz com Deus!\nGlória, glória, vamos cantar nos Céus!"
         }
       ],
       "estrofes": [
@@ -6272,7 +6270,15 @@
       "artist": "Hinário Adventista do 7º Dia",
       "coro": [
         {
-          "nome_coro": "Coro (1 e 2)",
+          "nome_coro": "Coro",
+          "coro": "Glória, glória, aleluia!\nGlória, glória, aleluia!\nGlória, glória, aleluia!\nVencendo vem Jesus!"
+        },
+        {
+          "nome_coro": "Coro",
+          "coro": "Glória, glória, aleluia!\nGlória, glória, aleluia!\nGlória, glória, aleluia!\nVencendo vem Jesus!"
+        },
+        {
+          "nome_coro": "Coro",
           "coro": "Glória, glória, aleluia!\nGlória, glória, aleluia!\nGlória, glória, aleluia!\nVencendo vem Jesus!"
         }
       ],
@@ -6288,10 +6294,6 @@
         {
           "numero": "III",
           "estrofe": "E por fim entronizado as nações há de julgar;\nTodos grandes e pequenos o Juiz hão de encarar.\nE os remidos triunfantes em fulgor hão de cantar:\nVencido tem Jesus!"
-        },
-        {
-          "numero": "Coro (3)",
-          "estrofe": "Glória, glória, aleluia!\nGlória, glória, aleluia!\nGlória, glória, aleluia!\nVencido tem Jesus!"
         }
       ]
     },

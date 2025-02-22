@@ -30,10 +30,10 @@ function transformHymn(hymn) {
     number: hymn.numero,
     numberView: hymn.numero_view,
     biblicalText: hymn.texto_biblico,
-    url: hymn.url,
+    url: "https://audio.jukehost.co.uk/KbtrsMPAVoUyi8zQiR5noaytwkevpeJe",
+    urlOld: hymn.url,
     artwork: hymn.artwork,
     artist: hymn.artist,
-
     category: catInfo
       ? {
           id: catInfo.id,
@@ -48,14 +48,17 @@ function transformHymn(hymn) {
         }
       : null,
 
-    chorus: hymn.coro.map(coro => ({
-      name: coro.nome_coro,
-      choir: coro.coro,
-    })),
-    verses: hymn.estrofes.map(verse => ({
-      number: verse.numero,
-      verse: verse.estrofe,
-    })),
+    lyrics: {
+      verses: hymn.estrofes.map(verse => ({
+        number: verse.numero,
+        verse: verse.estrofe,
+      })),
+      chorus: hymn.coro.map(coro => ({
+        name: coro.nome_coro,
+        choir: coro.coro,
+      })),
+    },
+
     authors: hymn.autores.map(author => ({
       name: author.nome?.replace(/\([^)]*\)/g, '').trim(),
     })),
@@ -76,7 +79,7 @@ const newData = {
 
 // Write the new JSON file
 writeFileSync(
-  join(__dirname, '../api/hiasd-new.json'),
+  join(__dirname, '../api/hiasd-new1.json'),
   JSON.stringify(newData, null, 2),
   'utf8'
 )
