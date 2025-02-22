@@ -30,7 +30,7 @@ function transformHymn(hymn) {
     number: hymn.numero,
     numberView: hymn.numero_view,
     biblicalText: hymn.texto_biblico,
-    url: "https://audio.jukehost.co.uk/KbtrsMPAVoUyi8zQiR5noaytwkevpeJe",
+    url: 'https://audio.jukehost.co.uk/KbtrsMPAVoUyi8zQiR5noaytwkevpeJe',
     urlOld: hymn.url,
     artwork: hymn.artwork,
     artist: hymn.artist,
