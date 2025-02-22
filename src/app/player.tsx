@@ -1,11 +1,12 @@
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import HeartSVG from '@/components/svg/HeartSvg'
-import LetterOutlineSVG from '@/components/svg/LetterOutlineSvg'
-import LetterSVG from '@/components/svg/LetterSvg'
+import LyricsOutlineSVG from '@/components/svg/LyricsOutlineSvg'
+import LyricsSVG from '@/components/svg/LyricsSvg'
 import { PlayerProgressBar } from '@/components/svg/PlayerProgressbar'
 import PlaylistsOutlineSVG from '@/components/svg/PlayListsOutlineSVG'
 import PlaylistsSVG from '@/components/svg/PlayListsSVG'
 import Authors from '@/components/util/Authors'
+import LyricsInPlayer from '@/components/util/LyricsInPlayer'
 import { MovingText } from '@/components/util/MovingText'
 import { PlayerControls } from '@/components/util/PlayerControls'
 import { PlayerVolumeBar } from '@/components/util/PlayerVolumeBar'
@@ -28,7 +29,7 @@ import { useActiveTrack } from 'react-native-track-player'
 
 const PlayerScreen = () => {
   const [viewPlayList, setViewPlayList] = useState(false)
-  const [viewLetter, setViewLetter] = useState(false)
+  const [viewLyrics, setViewLyrics] = useState(false)
   const activeHymn = useActiveTrack()
   const { background } = usePlayerBackground(activeHymn?.artwork ?? logoApp)
   const isFavorite = true
@@ -43,6 +44,14 @@ const PlayerScreen = () => {
   }
 
   const toogleFavorite = () => {}
+  const toogleLyrics = () => {
+    setViewLyrics(!viewLyrics)
+    setViewPlayList(false)
+  }
+  const tooglePlayList = () => {
+    setViewLyrics(false)
+    setViewPlayList(!viewPlayList)
+  }
   return (
     <LinearGradient
       style={{ flex: 1 }}
@@ -54,25 +63,29 @@ const PlayerScreen = () => {
     >
       <View style={styles.overlayContainer}>
         <DismissPlayerSimbol />
-        <View
-          style={{
-            alignSelf: 'center',
-            flex: 1,
-            marginTop: top + 70,
-            marginBottom: bottom,
-          }}
-        >
-          <View style={styles.artworkImageContainer}>
-            <FastImage
-              source={{
-                uri: activeHymn.artwork ?? logoApp,
-                priority: FastImage.priority.high,
-              }}
-              resizeMode="cover"
-              style={styles.artworkImage}
-            />
+
+        {!viewLyrics && !viewPlayList && (
+          <View
+            style={{
+              alignSelf: 'center',
+              flex: 1,
+              marginTop: top + 70,
+              marginBottom: bottom,
+            }}
+          >
+            <View style={styles.artworkImageContainer}>
+              <FastImage
+                source={{
+                  uri: activeHymn.artwork ?? logoApp,
+                  priority: FastImage.priority.high,
+                }}
+                resizeMode="cover"
+                style={styles.artworkImage}
+              />
+            </View>
           </View>
-        </View>
+        )}
+        {viewLyrics && <LyricsInPlayer verses={activeHymn?.verses} />}
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 'auto' }}>
             <View /* style={{ height: 70 }} */>
@@ -141,21 +154,15 @@ const PlayerScreen = () => {
               marginBottom: 30,
             }}
           >
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setViewLetter(!viewLetter)}
-            >
-              {viewLetter ? (
-                <LetterSVG color={colors.white} />
+            <TouchableOpacity activeOpacity={0.8} onPress={toogleLyrics}>
+              {viewLyrics ? (
+                <LyricsSVG color={colors.white} />
               ) : (
-                <LetterOutlineSVG color={colors.white} />
+                <LyricsOutlineSVG color={colors.white} />
               )}
             </TouchableOpacity>
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setViewPlayList(!viewPlayList)}
-            >
+            <TouchableOpacity activeOpacity={0.8} onPress={tooglePlayList}>
               {viewPlayList ? (
                 <PlaylistsSVG height={24} width={24} color={colors.white} />
               ) : (

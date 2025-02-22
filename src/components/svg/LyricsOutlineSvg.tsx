@@ -3,7 +3,7 @@ import React from 'react'
 import { SVGIconProps } from '@/types/svgTypes'
 import Svg, { Path } from 'react-native-svg'
 
-const LetterOutlineSVG: React.FC<SVGIconProps> = ({
+const LyricsOutlineSVG: React.FC<SVGIconProps> = ({
   color,
   width = 24,
   height = 24,
@@ -20,4 +20,4 @@ const LetterOutlineSVG: React.FC<SVGIconProps> = ({
   )
 }
 
-export default LetterOutlineSVG
+export default LyricsOutlineSVG

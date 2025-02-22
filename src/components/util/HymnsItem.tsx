@@ -26,6 +26,7 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
     authors: hymn.authors,
     title: hymn.title,
     url: hymn.url,
+    verses: hymn.verses,
     artwork: hymn.artwork,
     artist: hymn.artist,
   }
