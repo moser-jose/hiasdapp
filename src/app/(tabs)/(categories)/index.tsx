@@ -1,13 +1,11 @@
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import HinosAntigo from '@/api/hiasd-old.json'
 import { useMemo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
 import { ListCategoriesProps } from '@/types/hymnsTypes'
+import { useCategories } from '@/store/library'
 const CategoriesScreen = () => {
-  const categories: ListCategoriesProps['categories'] = useMemo(() => {
-    return HinosAntigo.categories
-  }, [])
+  const categories = useCategories()
 
   return (
     <View style={defaultStyles.container}>
@@ -20,6 +18,10 @@ const CategoriesScreen = () => {
           categories={categories}
           showsVerticalScrollIndicator={false}
           scrollEnabled={false}
+          /* maxToRenderPerBatch={10}
+          removeClippedSubviews={true}
+          windowSize={5}
+          initialNumToRender={8} */
           numColumns={2}
         />
       </ScrollView>

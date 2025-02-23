@@ -12,11 +12,17 @@ import { StyleSheet } from 'react-native'
 import { useState } from 'react'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import LoaderKit from 'react-native-loader-kit'
-const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
+import { memo } from 'react'
+
+const HymnsItem = ({
+  hymn,
+  id,
+  onHymnSelect: handleHymnSelect,
+}: HymnsProps) => {
   const [favorites, setFavorites] = useState(false)
   const { playing } = useIsPlaying()
-
-  const isActiveHymn = useActiveTrack()?.url === hymn.url
+  const activeHymn = useActiveTrack()
+  const isActiveHymn = activeHymn?.url === hymn.url
 
   const track: HymnTrack = {
     id: hymn.number,
@@ -79,7 +85,7 @@ const HymnsItem = ({ hymn, onHymnSelect: handleHymnSelect }: HymnsProps) => {
           testID={`play-button-${hymn.number}`}
           onPress={() => handleHymnSelect(track)}
         >
-          {isActiveHymn && playing ? (
+          {isActiveHymn && playing && activeHymn.id === id ? (
             <LoaderKit
               style={{ width: 25, height: 25 }}
               name="LineScaleParty"
@@ -158,4 +164,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default HymnsItem
+export default memo(HymnsItem)

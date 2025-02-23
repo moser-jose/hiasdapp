@@ -5,12 +5,13 @@ import { utilsStyles } from '@/styles'
 import { Text } from 'react-native'
 import TrackPlayer, { Track } from 'react-native-track-player'
 import ItemDivider from './ItemDivider'
+import { useCallback } from 'react'
 
 export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
-  const handleHymnSelect = async (hymn: Track | Hymn) => {
+  const handleHymnSelect = useCallback(async (hymn: Track | Hymn) => {
     await TrackPlayer.load(hymn)
     await TrackPlayer.play()
-  }
+  }, [])
 
   return (
     <FlatList
@@ -23,8 +24,13 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
           <Text style={utilsStyles.emptyContentText}>No hymns found</Text>
         </View>
       }
-      renderItem={({ item: hymn }) => (
-        <HymnsItem hymn={hymn} onHymnSelect={handleHymnSelect} />
+      renderItem={({ item: hymn, index }) => (
+        <HymnsItem
+          id={hymn.id}
+          key={index}
+          hymn={hymn}
+          onHymnSelect={handleHymnSelect}
+        />
       )}
       {...listHymnsProps}
     />

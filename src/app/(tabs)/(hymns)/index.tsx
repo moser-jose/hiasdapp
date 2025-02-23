@@ -2,11 +2,11 @@ import { ListHymns } from '@/components/util/ListHymns'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import HinosAntigo from '@/api/hiasd-old.json'
 import { ListHymnsFilter } from '@/helpers/filter'
 import { useMemo } from 'react'
 import { Hymn } from '@/types/hymnsTypes'
-
+import { useHymns } from '@/store/library'
+import { useEffect } from 'react'
 const HymnsScreen = () => {
   const search = useNavigationSearch({
     searchBarOptions: {
@@ -14,13 +14,12 @@ const HymnsScreen = () => {
     },
   })
 
+  const hymns = useHymns()
   const filteredSearch: Hymn[] = useMemo(() => {
-    if (!search) return HinosAntigo.hymns as Hymn[]
+    if (!search) return hymns.slice(0, 40) as Hymn[]
     const filterPredicate = ListHymnsFilter(search)
-    return HinosAntigo.hymns.filter(hymn =>
-      Boolean(filterPredicate(hymn))
-    ) as Hymn[]
-  }, [search])
+    return hymns.filter(hymn => Boolean(filterPredicate(hymn))) as Hymn[]
+  }, [search, hymns])
 
   return (
     <View style={defaultStyles.container}>

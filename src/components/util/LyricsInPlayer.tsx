@@ -2,9 +2,15 @@ import { colors, fontFamily } from '@/constants/styles'
 import { Lyrics, Verse } from '@/types/hymnsTypes'
 import { StyleSheet, ScrollView, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import React from 'react'
+import { useShallow } from 'zustand/react/shallow'
+import { useStateStore } from '@/store/stateStore'
 
 const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
   const { top, bottom } = useSafeAreaInsets()
+  const viewLyric = useStateStore(useShallow(state => state.viewLyric))
+
+  if (!viewLyric) return null
   return (
     <ScrollView
       style={{

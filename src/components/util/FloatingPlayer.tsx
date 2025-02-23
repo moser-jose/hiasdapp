@@ -16,6 +16,7 @@ import Authors from './Authors'
 import { useLastActiveHymn } from '@/hooks/useLastActiveHymn'
 import { MovingText } from './MovingText'
 import { router } from 'expo-router'
+import { memo } from 'react'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const activeHymn = useActiveTrack()
@@ -25,7 +26,11 @@ const FloatingPlayer = ({ style }: ViewProps) => {
   if (!displayedHymn) return null
 
   const handlePress = () => {
-    router.navigate('/player')
+    try {
+      router.push('/player')
+    } catch (error) {
+      console.error('Erro ao navegar para /player:', error)
+    }
   }
 
   return (
@@ -42,6 +47,7 @@ const FloatingPlayer = ({ style }: ViewProps) => {
           style={styles.hymnTitle}
           text={displayedHymn.title ?? ''}
           animationThreshold={25}
+          numberOfLines={1}
         />
         {displayedHymn.englishTitle && (
           <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
@@ -70,7 +76,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colors.primary,
-    flex: 1,
     flexDirection: 'row',
     paddingLeft: 16,
     paddingVertical: 14,
@@ -96,6 +101,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   hymnTitleContainer: {
+    alignItems: 'flex-start',
     flex: 1,
     marginLeft: 10,
     overflow: 'hidden',
@@ -108,4 +114,4 @@ const styles = StyleSheet.create({
   }, */
 })
 
-export default FloatingPlayer
+export default memo(FloatingPlayer)

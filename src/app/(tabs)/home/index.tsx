@@ -12,8 +12,8 @@ import { ListPlaylistsCard } from '@/components/util/ListPlaylistsCard'
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import { colors } from '@/constants/styles'
 import DownloadSVG from '@/components/svg/DownloadSvg'
-import { Category, Hymn } from '@/types/hymnsTypes'
-
+import { Hymn } from '@/types/hymnsTypes'
+import { useCategories, useHymns } from '@/store/library'
 type Playlist = {
   title: string
   hymns: number
@@ -22,16 +22,19 @@ type Playlist = {
 type dat = Playlist[]
 
 const HomeScreen = () => {
+  const categories = useCategories()
+  const hymns = useHymns()
+
   const handleHymnSelect = async (hymn: Track) => {
     await TrackPlayer.load(hymn)
   }
-  const categories: Category[] = useMemo(() => {
+  /* const categories: Category[] = useMemo(() => {
     return HinosAntigo.categories
-  }, [])
+  }, []) */
 
-  const hymns: Hymn[] = useMemo(() => {
+  /* const hymns: Hymn[] = useMemo(() => {
     return HinosAntigo.hymns
-  }, [])
+  }, []) */
 
   const data: dat = [
     {
