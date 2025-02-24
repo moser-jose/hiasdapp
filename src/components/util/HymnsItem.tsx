@@ -8,97 +8,130 @@ import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useState } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
-const HymnsItem = ({
-  hymn,
-  id,
-  onHymnSelect: handleHymnSelect,
-}: HymnsProps) => {
-  const [favorites, setFavorites] = useState(false)
-  const playing = usePlayerStore(state => state.isPlaying)
-  const activeHymn = usePlayerStore(state => state.activeHymn)
-  const isActiveHymn = activeHymn?.url === hymn.url
+import { useShallow } from 'zustand/react/shallow'
 
-  const track: HymnTrack = {
-    id: hymn.number,
-    number: hymn.number,
-    numberView: hymn.numberView,
-    englishTitle: hymn.englishTitle,
-    authors: hymn.authors,
-    title: hymn.title,
-    url: hymn.url,
-    lyrics: hymn.lyrics,
-    artwork: hymn.artwork,
-    artist: hymn.artist,
-  }
+const HymnsItem = memo(
+  ({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) => {
+    const [favorites, setFavorites] = useState(false)
 
-  return (
-    <TouchableOpacity style={styles.container}>
-      <View style={styles.card}>
-        <View style={styles.cardSpreed}>
-          <TouchableOpacity style={styles.cardSpreedTouch}>
-            <SpreedSVG color={colors.textMuted} />
+    const { isPlaying, activeHymn } = usePlayerStore(
+      useShallow(state => ({
+        isPlaying: state.isPlaying,
+        activeHymn: state.activeHymn,
+      }))
+    )
+
+    const isActiveHymn = useMemo(
+      () => activeHymn?.url === hymn.url,
+      [activeHymn?.url, hymn.url]
+    )
+
+    const track: HymnTrack = useMemo(
+      () => ({
+        id: hymn.number,
+        number: hymn.number,
+        numberView: hymn.numberView,
+        englishTitle: hymn.englishTitle,
+        authors: hymn.authors,
+        title: hymn.title,
+        url: hymn.url,
+        lyrics: hymn.lyrics,
+        artwork: hymn.artwork,
+        artist: hymn.artist,
+      }),
+      [hymn]
+    )
+
+    const handleFavoritePress = useCallback(() => {
+      setFavorites(prev => !prev)
+    }, [])
+
+    const handlePlayPress = useCallback(() => {
+      if (track.id !== activeHymn?.id) {
+        handleHymnSelect(track)
+      }
+    }, [track, activeHymn?.id, handleHymnSelect])
+
+    // Memoize dynamic styles with proper TypeScript types
+    const titleStyle = useMemo(
+      () => ({
+        ...styles.title,
+        fontWeight: isActiveHymn ? '500' : ('400' as const),
+        color: isActiveHymn ? colors.active : colors.text,
+      }),
+      [isActiveHymn]
+    )
+
+    const PlayButton = useMemo(() => {
+      if (isActiveHymn && isPlaying && activeHymn?.id === id) {
+        return (
+          <LoaderKit
+            style={{ width: 25, height: 25 }}
+            name="LineScaleParty"
+            color={colors.icon}
+          />
+        )
+      }
+      return <PlayCardSVG width={35} height={35} color={colors.primary} />
+    }, [isActiveHymn, isPlaying, activeHymn?.id, id])
+
+    const FavoriteButton = useMemo(
+      () =>
+        favorites ? (
+          <HeartFullSVG color={colors.green} />
+        ) : (
+          <HeartSVG color={colors.green} />
+        ),
+      [favorites]
+    )
+
+    return (
+      <TouchableOpacity style={styles.container}>
+        <View style={styles.card}>
+          <View style={styles.cardSpreed}>
+            <TouchableOpacity style={styles.cardSpreedTouch}>
+              <SpreedSVG color={colors.textMuted} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cardMore}>
+            <View style={styles.numberCard}>
+              <Text style={styles.number}>{hymn.number}</Text>
+              <ActiveHymnsDownloadSVG color={colors.green} />
+              {hymn.biblicalText && (
+                <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>
+              )}
+            </View>
+            <View style={styles.ViewCard}>
+              <Text style={titleStyle}>{truncateText(hymn.title, 29)}</Text>
+              <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
+              <Authors
+                style={styles.author}
+                authors={hymn.authors}
+                card={false}
+              />
+            </View>
+          </View>
+          <TouchableOpacity activeOpacity={0.8} onPress={handleFavoritePress}>
+            {FavoriteButton}
+          </TouchableOpacity>
+          <TouchableOpacity
+            testID={`play-button-${hymn.number}`}
+            onPress={handlePlayPress}
+          >
+            {PlayButton}
           </TouchableOpacity>
         </View>
-        <View style={styles.cardMore}>
-          <View style={styles.numberCard}>
-            <Text style={styles.number}>{hymn.number}</Text>
-            <ActiveHymnsDownloadSVG color={colors.green} />
-            {hymn.biblicalText && (
-              <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>
-            )}
-          </View>
-          <View style={styles.ViewCard}>
-            <Text
-              style={{
-                ...styles.title,
-                fontWeight: isActiveHymn ? '500' : 'normal',
-                color: isActiveHymn ? colors.active : colors.text,
-              }}
-            >
-              {truncateText(hymn.title, 29)}
-            </Text>
-            <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
-            <Authors
-              style={styles.author}
-              authors={hymn.authors}
-              card={false}
-            />
-          </View>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => setFavorites(!favorites)}
-        >
-          {favorites === true ? (
-            <HeartFullSVG color={colors.green} />
-          ) : (
-            <HeartSVG color={colors.green} />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity
-          testID={`play-button-${hymn.number}`}
-          onPress={() => handleHymnSelect(track)}
-        >
-          {isActiveHymn && playing && activeHymn.id === id ? (
-            <LoaderKit
-              style={{ width: 25, height: 25 }}
-              name="LineScaleParty"
-              color={colors.icon}
-            />
-          ) : (
-            <PlayCardSVG width={35} height={35} color={colors.primary} />
-          )}
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-  )
-}
+      </TouchableOpacity>
+    )
+  }
+)
 
+// Move styles outside component to prevent recreation
 const styles = StyleSheet.create({
   ViewCard: {
     flex: 1,
@@ -163,4 +196,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default memo(HymnsItem)
+// Use explicit display name for debugging
+HymnsItem.displayName = 'HymnsItem'
+
+export default HymnsItem

@@ -5,6 +5,7 @@ import { Track } from 'react-native-track-player'
 import { create } from 'zustand'
 import * as msgpack from '@msgpack/msgpack'
 import hinos from '@/api/hiasd-old.json'
+import { useShallow } from 'zustand/react/shallow'
 interface LibraryState {
   hymns: HymnWithPlayList[]
   categories: ListCategoriesProps['categories']
@@ -31,8 +32,9 @@ export const useLibraryStore = create<LibraryState>()(set => ({
   addToPlayList: () => {},
 }))
 
-export const useHymns = () => useLibraryStore(state => state.hymns)
-export const useCategories = () => useLibraryStore(state => state.categories)
+export const useHymns = () => useLibraryStore(useShallow(state => state.hymns))
+export const useCategories = () =>
+  useLibraryStore(useShallow(state => state.categories))
 
 export const useInitLibrary = () => {
   const loadData = useLibraryStore(state => state.loadData)

@@ -21,9 +21,7 @@ import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
-  //const activeHymn = useActiveTrack()
   const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
-  //const lastActiveHymn = useLastActiveHymn()
 
   const handlePress = useCallback(() => {
     try {

@@ -3,9 +3,9 @@ import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
 import { ListHymnsFilter } from '@/helpers/filter'
-import { useMemo } from 'react'
+import { useMemo, memo } from 'react'
 import { Hymn } from '@/types/hymnsTypes'
-import { useHymns } from '@/store/library'
+import { useHymns, useLibraryStore } from '@/store/library'
 import { useEffect } from 'react'
 const HymnsScreen = () => {
   const search = useNavigationSearch({
@@ -14,7 +14,7 @@ const HymnsScreen = () => {
     },
   })
 
-  const hymns = useHymns()
+  const hymns = useMemo(() => useLibraryStore.getState().hymns, [])
   const filteredSearch: Hymn[] = useMemo(() => {
     if (!search) return hymns.slice(0, 40) as Hymn[]
     const filterPredicate = ListHymnsFilter(search)
@@ -30,4 +30,4 @@ const HymnsScreen = () => {
   )
 }
 
-export default HymnsScreen
+export default memo(HymnsScreen)

@@ -21,6 +21,11 @@ export const ListCategories = ({
     <FlatList
       ref={flatListRef}
       data={categories}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      windowSize={5}
+      removeClippedSubviews={true}
+      keyExtractor={item => item.id.toString()}
       renderItem={({ item: category, index }) => (
         <CategoryCard
           index={index}

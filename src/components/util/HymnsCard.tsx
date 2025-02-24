@@ -7,10 +7,11 @@ import PlayCardSVG from '../svg/PlayCardSvg'
 import { colors } from '@/constants/styles'
 import { truncateText } from '@/helpers/textsWords'
 import Authors from './Authors'
-import { useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import PauseCardSVG from '../svg/PauseCardSvg'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
+import { usePlayerStore } from '@/store/playerStore'
+import { useShallow } from 'zustand/react/shallow'
 
 const HymnsCard = ({
   hymn,
@@ -19,10 +20,13 @@ const HymnsCard = ({
   onHymnSelect: handleHymnSelect,
 }: HymnsProps) => {
   const [favorites, setFavorites] = useState(false)
-  const { playing } = useIsPlaying()
-  const activeTrack = useActiveTrack()
-  //const isActiveHymn = activeTrack?.url === hymn.url
-
+  const { isPlaying, activeHymn } = usePlayerStore(
+    useShallow(state => ({
+      isPlaying: state.isPlaying,
+      activeHymn: state.activeHymn,
+    }))
+  )
+  console.log('wd')
   const track: HymnTrack = {
     id: hymn.number,
     number: hymn.number,
@@ -71,7 +75,7 @@ const HymnsCard = ({
         style={hymnsCard.play}
         onPress={() => handleHymnSelect(track)}
       >
-        {playing && id === activeTrack?.id ? (
+        {isPlaying && id === activeHymn?.id ? (
           <PauseCardSVG color={colors.primary} />
         ) : (
           <PlayCardSVG color={colors.primary} />
