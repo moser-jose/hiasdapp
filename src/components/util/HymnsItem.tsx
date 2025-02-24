@@ -13,6 +13,7 @@ import { useState } from 'react'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
+import { usePlayerStore } from '@/store/playerStore'
 
 const HymnsItem = ({
   hymn,
@@ -20,8 +21,8 @@ const HymnsItem = ({
   onHymnSelect: handleHymnSelect,
 }: HymnsProps) => {
   const [favorites, setFavorites] = useState(false)
-  const { playing } = useIsPlaying()
-  const activeHymn = useActiveTrack()
+  const playing = usePlayerStore(state => state.isPlaying)
+  const activeHymn = usePlayerStore(state => state.activeHymn)
   const isActiveHymn = activeHymn?.url === hymn.url
 
   const track: HymnTrack = {

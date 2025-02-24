@@ -16,22 +16,25 @@ import Authors from './Authors'
 import { useLastActiveHymn } from '@/hooks/useLastActiveHymn'
 import { MovingText } from './MovingText'
 import { router } from 'expo-router'
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
+import { usePlayerStore } from '@/store/playerStore'
+import { useShallow } from 'zustand/react/shallow'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
-  const activeHymn = useActiveTrack()
-  const lastActiveHymn = useLastActiveHymn()
+  //const activeHymn = useActiveTrack()
+  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
+  //const lastActiveHymn = useLastActiveHymn()
 
-  const displayedHymn = activeHymn ?? lastActiveHymn
-  if (!displayedHymn) return null
-
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     try {
       router.push('/player')
     } catch (error) {
       console.error('Erro ao navegar para /player:', error)
     }
-  }
+  }, [])
+
+  const displayedHymn = activeHymn /* ?? lastActiveHymn */
+  if (!displayedHymn) return null
 
   return (
     <TouchableOpacity

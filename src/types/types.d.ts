@@ -1,5 +1,5 @@
 import { Track } from 'react-native-track-player'
-import { Hymn,ListHymnsProps } from './hymnsTypes'
+import { Hymn, ListHymnsProps } from './hymnsTypes'
 
 export type PlayList = {
   name: string

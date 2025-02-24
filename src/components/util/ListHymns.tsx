@@ -3,15 +3,19 @@ import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import { utilsStyles } from '@/styles'
 import { Text } from 'react-native'
-import TrackPlayer, { Track } from 'react-native-track-player'
 import ItemDivider from './ItemDivider'
 import { useCallback } from 'react'
+import { usePlayerStore } from '@/store/playerStore'
+import { Track } from 'react-native-track-player'
 
 export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
-  const handleHymnSelect = useCallback(async (hymn: Track | Hymn) => {
-    await TrackPlayer.load(hymn)
-    await TrackPlayer.play()
-  }, [])
+  const { play } = usePlayerStore()
+  const handleHymnSelect = useCallback(
+    async (hymn: Track | Hymn) => {
+      await play(hymn)
+    },
+    [play]
+  )
 
   return (
     <FlatList

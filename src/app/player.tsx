@@ -10,9 +10,10 @@ import TooglePlayListInPlayer from '@/components/util/TooglePlayListInPlayer'
 import { logoApp } from '@/constants/images'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
+import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { defaultStyles } from '@/styles'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import {
   Text,
   View,
@@ -89,8 +90,10 @@ const DismissPlayerSimbol = memo(() => {
 })
 
 const PlayerScreen = () => {
-  const activeHymn = useActiveTrack()
-  const { background } = usePlayerBackground(activeHymn?.artwork ?? logoApp)
+  //const activeHymn = useActiveTrack()
+  //const activeHymn = usePlayerStore((use))
+  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
+  const { background } = usePlayerBackground(logoApp)
   const { top, bottom } = useSafeAreaInsets()
 
   if (!activeHymn) {
@@ -100,6 +103,8 @@ const PlayerScreen = () => {
       </View>
     )
   }
+
+  console.log('render')
 
   return (
     <LinearGradient
@@ -239,4 +244,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PlayerScreen
+export default memo(PlayerScreen)

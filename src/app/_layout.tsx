@@ -1,6 +1,6 @@
 import '../../reanimatedConfig'
 import useLogHymnPlayerState from '@/hooks/useLogSetupHymnPlayer'
-import useSetupHymnPlayer from '@/hooks/useSetupHymnPlayedr'
+import { useSetupHymnPlayer } from '@/store/playerStore'
 import { defaultStyles } from '@/styles'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -19,6 +19,7 @@ import {
 import AppLoading from 'expo-app-loading'
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { useInitLibrary } from '@/store/library'
+
 SplashScreen.preventAutoHideAsync()
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
   })
 
   useLogHymnPlayerState()
+
   if (!fontsLoaded) {
     return <AppLoading />
   }
