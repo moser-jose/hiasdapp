@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FlatList, View } from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
