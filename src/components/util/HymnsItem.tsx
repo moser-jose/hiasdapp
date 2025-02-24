@@ -4,7 +4,6 @@ import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import PlayCardSVG from '../svg/PlayCardSvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
-import { useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
@@ -14,7 +13,6 @@ import HeartFullSVG from '../svg/HeartFullSvg'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
-
 const HymnsItem = ({
   hymn,
   id,

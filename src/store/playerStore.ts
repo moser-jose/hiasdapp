@@ -1,9 +1,7 @@
 import { create } from 'zustand'
-//import { Track } from '@/types/hymnsTypes'
 import TrackPlayer, {
   State,
   Track,
-  useActiveTrack,
   Event,
   RepeatMode,
 } from 'react-native-track-player'
@@ -24,6 +22,7 @@ interface PlayerState {
   // Player controls
   play: (track?: Track) => Promise<void>
   pause: () => Promise<void>
+  skipToPrevious: () => Promise<void>
   skipToNext: () => Promise<void>
 }
 
@@ -48,8 +47,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   play: async (track?: Track) => {
     if (track) {
-      await TrackPlayer.reset()
-      await TrackPlayer.add(track)
+      await TrackPlayer.load(track)
       get().setActiveHymn(track)
     }
     await TrackPlayer.play()
@@ -61,6 +59,9 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     set({ isPlaying: false })
   },
 
+  skipToPrevious: async () => {
+    await TrackPlayer.skipToPrevious()
+  },
   skipToNext: async () => {
     await TrackPlayer.skipToNext()
   },
@@ -99,5 +100,5 @@ export const useSetupHymnPlayer = ({ onLoad }: { onLoad?: () => void }) => {
         isInitialized.current = false
         console.log(error)
       })
-  }, [onLoad])
+  }, [onLoad, setupPlayer])
 }

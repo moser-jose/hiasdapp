@@ -1,5 +1,4 @@
 import { TouchableOpacity, View, ViewStyle, StyleSheet } from 'react-native'
-import TrackPlayer, { useIsPlaying } from 'react-native-track-player'
 import PlayButtonSVG from '../svg/PlayButtonSvg'
 import PauseButtonSVG from '../svg/PauseButtonSvg'
 import { colors } from '@/constants/styles'
@@ -7,6 +6,7 @@ import NextMusicButtonSVG from '../svg/NextMusicButtonSVG'
 import PreviousMusicButtonSVG from '../svg/PreviousMusicButtonSVG'
 import PlayerRepeatToogle from './PlayerRepeatToogle'
 import PlayerShuffleToogle from './PlayerShuffleToogle'
+import { usePlayerStore } from '@/store/playerStore'
 type PlayerControlsProps = {
   style?: ViewStyle
 }
@@ -32,15 +32,14 @@ export const PlayerControls = ({ style }: PlayerControlsProps) => {
 }
 
 const PlayPauseButton = ({ style, width, height }: PlayerButtonProps) => {
-  const { playing } = useIsPlaying()
-
+  const { play, pause, isPlaying } = usePlayerStore()
   return (
     <View style={style}>
       <TouchableOpacity
         activeOpacity={0.85}
-        onPress={playing ? TrackPlayer.pause : TrackPlayer.play}
+        onPress={() => (isPlaying ? pause() : play())}
       >
-        {playing ? (
+        {isPlaying ? (
           <PauseButtonSVG width={width} height={height} color={colors.green} />
         ) : (
           <PlayButtonSVG width={width} height={height} color={colors.green} />
@@ -51,22 +50,18 @@ const PlayPauseButton = ({ style, width, height }: PlayerButtonProps) => {
 }
 
 const SkipToNextButton = ({ width, height }: PlayerButtonProps) => {
+  const { skipToNext } = usePlayerStore()
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() => TrackPlayer.skipToNext()}
-    >
+    <TouchableOpacity activeOpacity={0.7} onPress={skipToNext}>
       <NextMusicButtonSVG width={width} height={height} color={colors.green} />
     </TouchableOpacity>
   )
 }
 
 const SkipToPreviousButton = ({ width, height }: PlayerButtonProps) => {
+  const { skipToPrevious } = usePlayerStore()
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() => TrackPlayer.skipToPrevious()}
-    >
+    <TouchableOpacity activeOpacity={0.7} onPress={skipToPrevious}>
       <PreviousMusicButtonSVG
         width={width}
         height={height}
