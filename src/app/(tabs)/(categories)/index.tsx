@@ -1,9 +1,10 @@
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
 import { ListCategoriesProps } from '@/types/hymnsTypes'
 import { useCategories } from '@/store/library'
+import { useRealm } from '@/hooks/useRealm'
 const CategoriesScreen = () => {
   const categories = useCategories()
 

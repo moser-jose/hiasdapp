@@ -43,6 +43,8 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
     []
   )
 
+  console.log('dfs')
+
   return (
     <FlatList
       contentContainerStyle={{ paddingTop: 16, paddingBottom: 128 }}

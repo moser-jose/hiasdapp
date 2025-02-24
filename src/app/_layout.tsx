@@ -19,11 +19,14 @@ import {
 import AppLoading from 'expo-app-loading'
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { useInitLibrary } from '@/store/library'
+import { HymnalDataInitializer } from '@/components/util/HymnalDataInitializer'
+import { RealmProvider } from '@/components/providers/RealmProvider'
 
 SplashScreen.preventAutoHideAsync()
 
-function App() {
+export default function App() {
   useInitLibrary()
+
   const [fontsLoaded] = useFonts({
     Rochester_400Regular,
     PlusJakartaSans_600SemiBold,
@@ -47,12 +50,14 @@ function App() {
     return <AppLoading />
   }
   return (
-    <SafeAreaProvider style={defaultStyles.container}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <RootNavigation />
-        <StatusBar style="auto" />
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <RealmProvider>
+      <SafeAreaProvider style={defaultStyles.container}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <RootNavigation />
+          <StatusBar style="auto" />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </RealmProvider>
   )
 }
 
@@ -78,5 +83,3 @@ const RootNavigation = () => {
     </Stack>
   )
 }
-
-export default App

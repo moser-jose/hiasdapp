@@ -4,15 +4,18 @@ import { ViewStyle } from 'react-native'
 
 // Basic interfaces
 interface Author {
+  id: number
   name: string | null
 }
 
 interface Verse {
+  id: number
   number: string | null
   verse: string | null
 }
 
 interface Chorus {
+  id: number
   name?: string | null
   choir?: string | null
 }
@@ -38,6 +41,7 @@ interface Hymn {
   biblicalText?: string | null
   category: HymnCategory | null
   url: string
+  urlOld?: string | null
   artwork: string
   artist: string
   lyrics: Lyrics | null

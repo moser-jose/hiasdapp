@@ -49,17 +49,20 @@ function transformHymn(hymn) {
       : null,
 
     lyrics: {
-      verses: hymn.estrofes.map(verse => ({
+      verses: hymn.estrofes.map((verse, index) => ({
+        id: index + 1,
         number: verse.numero,
         verse: verse.estrofe,
       })),
-      chorus: hymn.coro.map(coro => ({
+      chorus: hymn.coro.map((coro, index) => ({
+        id: index + 1,
         name: coro.nome_coro,
         choir: coro.coro,
       })),
     },
 
-    authors: hymn.autores.map(author => ({
+    authors: hymn.autores.map((author, index) => ({
+      id: index + 1,
       name: author.nome?.replace(/\([^)]*\)/g, '').trim(),
     })),
   }
