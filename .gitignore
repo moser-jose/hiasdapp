@@ -4,11 +4,10 @@
 node_modules/
 
 # realm
-src/app/index.tsx
-src/services/
-src/models/
-src/components/util/HymnalDataInitializer.tsx
-src/hooks/useRealm.ts
+# src/app/index.tsx
+# src/services/
+# src/models/
+#src/hooks/useRealm.ts
 
 # Expo
 .expo/
