@@ -113,7 +113,11 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
           </View>
         </View>
       ) : (
-        <ActivityIndicator testID="loading-indicator" size="large" />
+        <ActivityIndicator
+          style={{ marginTop: 16 }}
+          testID="loading-indicator"
+          size="large"
+        />
       )}
     </View>
   )

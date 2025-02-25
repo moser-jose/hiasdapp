@@ -8,11 +8,12 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 function categoryMap() {
+  let index = 0
   const category = oldData.categorias.map(categoria => ({
     id: categoria.id,
     name: categoria.categoria,
-    subCategories: categoria.sub_categorias.map((subCategoria, index) => ({
-      id: index + 1,
+    subCategories: categoria.sub_categorias.map(subCategoria => ({
+      id: (index += 1),
       name: subCategoria.title,
       hymns: subCategoria.hinos,
     })),
@@ -37,12 +38,11 @@ function transformHymn(hymn) {
     category: catInfo
       ? {
           id: catInfo.id,
-          name: hymn.categoria,
+          name: catInfo.name,
           subCategory: {
             id:
-              catInfo.subCategories.find(
-                sub => sub.title === hymn.sub_categoria
-              )?.id || 1,
+              catInfo.subCategories.find(sub => sub.name === hymn.sub_categoria)
+                ?.id || 1,
             name: hymn.sub_categoria,
           },
         }

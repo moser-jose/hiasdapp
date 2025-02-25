@@ -38,7 +38,7 @@ export const categoryImagesAntigo = {
   'Santa Escritura': SantaEscrituraImage,
   'O Evangelho': OEvangelhoImage,
   'Lar Cristão': larCristaoImage,
-  'Igreja e Doutrina': igrejaDoutrinaImage,
+  'Igreja e Doutrinas': igrejaDoutrinaImage,
   'Cânticos Responsivos': canticosResponsivosImage,
   Améns: AmenImage,
   'Vida Cristã': vidaCristaImage,

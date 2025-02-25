@@ -1,5 +1,4 @@
 import Realm from 'realm'
-
 // Schema for Authors
 export class Author extends Realm.Object<Author> {
   static schema = {
@@ -13,8 +12,11 @@ export class Author extends Realm.Object<Author> {
 
 // Schema for SubCategory
 export class SubCategory extends Realm.Object<SubCategory> {
+  id!: number
+  name!: string
   static schema = {
     name: 'SubCategory',
+    primaryKey: 'id',
     properties: {
       id: 'int',
       name: 'string',
@@ -24,8 +26,12 @@ export class SubCategory extends Realm.Object<SubCategory> {
 
 // Schema for Category
 export class Category extends Realm.Object<Category> {
+  id!: number
+  name!: string
+  subCategory!: SubCategory
   static schema = {
     name: 'Category',
+    primaryKey: 'id',
     properties: {
       id: 'int',
       name: 'string',
