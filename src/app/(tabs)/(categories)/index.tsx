@@ -2,11 +2,21 @@ import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
 import { useEffect, useMemo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
-import { ListCategoriesProps } from '@/types/hymnsTypes'
+import { Hymn, ListCategoriesProps } from '@/types/hymnsTypes'
 import { useCategories } from '@/store/library'
 import { useRealm } from '@/hooks/useRealm'
 const CategoriesScreen = () => {
   const categories = useCategories()
+
+  /* const { getFavoriteHymns, toggleFavorite } = useRealm()
+
+  toggleFavorite(1).then(() => {
+    console.log('Favorite toggled')
+  })
+
+  getFavoriteHymns().then(favorites => {
+    console.log(favorites)
+  }) */
 
   return (
     <View style={defaultStyles.container}>

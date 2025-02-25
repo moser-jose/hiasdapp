@@ -69,8 +69,8 @@ export class Lyrics extends Realm.Object<Lyrics> {
   static schema = {
     name: 'Lyrics',
     properties: {
-      verses: { type: 'list', objectType: 'Verse' },
-      chorus: { type: 'list', objectType: 'Chorus' },
+      verses: { type: 'list' as const, objectType: 'Verse' },
+      chorus: { type: 'list' as const, objectType: 'Chorus' },
     },
   }
 }
@@ -93,7 +93,8 @@ export class Hymn extends Realm.Object<Hymn> {
       artist: 'string?',
       category: 'Category',
       lyrics: 'Lyrics',
-      authors: { type: 'list', objectType: 'Author' },
+      isFavorite: { type: 'bool' as const, default: false },
+      authors: { type: 'list' as const, objectType: 'Author' },
     },
   }
 }

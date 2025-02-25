@@ -53,6 +53,22 @@ export function useRealm() {
     }
   }
 
+  const toggleFavorite = async (hymnId: number) => {
+    try {
+      return await realmService.toggleFavorite(hymnId)
+    } catch (err) {
+      setError(err as Error)
+    }
+  }
+
+  const getFavoriteHymns = async () => {
+    try {
+      return await realmService.getFavoriteHymns()
+    } catch (err) {
+      setError(err as Error)
+    }
+  }
+
   const checkIfDatabaseEmpty = async () => {
     try {
       setIsLoading(true)
@@ -72,6 +88,8 @@ export function useRealm() {
     getAllHymns,
     getHymnById,
     isLoading,
+    toggleFavorite,
+    getFavoriteHymns,
     error,
     isRealmReady: realm !== null,
     checkIfDatabaseEmpty,

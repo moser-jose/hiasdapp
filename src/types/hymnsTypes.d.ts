@@ -46,6 +46,7 @@ interface Hymn {
   artist: string
   lyrics: Lyrics | null
   authors: Author[] | []
+  isFavorite?: boolean
 }
 
 // Category interface
@@ -75,6 +76,7 @@ interface HymnTrack extends Track {
   url: string
   artwork: string
   artist: string
+  isFavorite?: boolean
 }
 
 // Props interfaces

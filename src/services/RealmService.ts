@@ -30,7 +30,7 @@ const realmConfig: Realm.Configuration = {
     Category.schema,
     SubCategory.schema,
   ],
-  schemaVersion: 2,
+  schemaVersion: 3,
 }
 
 export const { RealmProvider, useRealm, useObject, useQuery } =
@@ -124,6 +124,38 @@ class RealmService {
     return Array.from(
       realm.objects<HymnType>('Hymn').filtered('category.id == $0', categoryId)
     )
+  }
+
+  async toggleFavorite(hymnId: number): Promise<void> {
+    const realm = await this.initialize()
+    const hymn = realm.objectForPrimaryKey<HymnType>('Hymn', hymnId)
+
+    if (hymn) {
+      try {
+        realm.write(() => {
+          hymn.isFavorite = !hymn.isFavorite
+        })
+      } catch (error) {
+        console.error('Error toggling favorite:', error)
+        throw error
+      }
+    }
+  }
+
+  async getFavoriteHymns(): Promise<HymnType[]> {
+    const realm = await this.initialize()
+    return Array.from(
+      realm
+        .objects<HymnType>('Hymn')
+        .filtered('isFavorite == true')
+        .sorted('number')
+    )
+  }
+
+  async isFavorite(hymnId: number): Promise<boolean> {
+    const realm = await this.initialize()
+    const hymn = realm.objectForPrimaryKey<HymnType>('Hymn', hymnId)
+    return hymn?.isFavorite ?? false
   }
 
   async close() {

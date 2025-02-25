@@ -18,7 +18,7 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
         const isEmpty = await checkIfDatabaseEmpty()
 
         if (isEmpty) {
-          //await importData(hymnalData as Data)
+          await importData(hymnalData as Data)
         }
 
         setInitialized(true)
