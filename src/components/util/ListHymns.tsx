@@ -32,7 +32,7 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
     [handleHymnSelect]
   )
 
-  const keyExtractor = useCallback((item: Hymn) => item.id.toString(), [])
+  const keyExtractor = useCallback((item: Hymn) => item.id, [])
 
   const ListEmptyComponent = useMemo(
     () => (
@@ -42,8 +42,6 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
     ),
     []
   )
-
-  console.log('dfs')
 
   return (
     <FlatList

@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react'
-import { realmService } from '../services/RealmService'
-import { Category, Hymn } from '@/types/hymnsTypes'
+import { useState } from 'react'
+import { hymnService } from '../services/HymnService'
+import { Hymn } from '@/types/hymnsTypes'
 
-export function useRealm() {
+export function useHymn() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
   const [realm, setRealm] = useState<Realm | null>(null)
 
-  interface Data {
-    hymns: Hymn[]
-    categories: Category[]
-  }
-
-  const importData = async (data: Data) => {
+  const createHymns = async (data: Hymn[]) => {
     try {
       setIsLoading(true)
-      await realmService.importalData(data)
+      await hymnService.create(data)
     } catch (err) {
       setError(err as Error)
     } finally {
@@ -26,7 +21,7 @@ export function useRealm() {
   const getAllHymns = async () => {
     try {
       setIsLoading(true)
-      return await realmService.getAllHymns()
+      return await hymnService.getAll()
     } catch (err) {
       setError(err as Error)
       return []
@@ -37,16 +32,7 @@ export function useRealm() {
 
   const getHymnById = async (id: number) => {
     try {
-      return await realmService.getHymnById(id)
-    } catch (err) {
-      setError(err as Error)
-      return null
-    }
-  }
-
-  const getAllCategories = async () => {
-    try {
-      return await realmService.getAllCategories()
+      return await hymnService.findById(id)
     } catch (err) {
       setError(err as Error)
       return null
@@ -55,7 +41,7 @@ export function useRealm() {
 
   const toggleFavorite = async (hymnId: number) => {
     try {
-      return await realmService.toggleFavorite(hymnId)
+      return await hymnService.toggleFavorite(hymnId)
     } catch (err) {
       setError(err as Error)
     }
@@ -63,7 +49,7 @@ export function useRealm() {
 
   const getFavoriteHymns = async () => {
     try {
-      return await realmService.getFavoriteHymns()
+      return await hymnService.getFavoriteHymns()
     } catch (err) {
       setError(err as Error)
     }
@@ -72,7 +58,7 @@ export function useRealm() {
   const checkIfDatabaseEmpty = async () => {
     try {
       setIsLoading(true)
-      const hymns = await realmService.getAllHymns()
+      const hymns = await hymnService.getAll()
       return hymns.length === 0
     } catch (err) {
       setError(err as Error)
@@ -83,8 +69,7 @@ export function useRealm() {
   }
 
   return {
-    getAllCategories,
-    importData,
+    createHymns,
     getAllHymns,
     getHymnById,
     isLoading,

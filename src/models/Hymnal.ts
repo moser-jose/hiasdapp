@@ -1,8 +1,9 @@
 import Realm from 'realm'
-// Schema for Authors
+import { CategoryHymn } from './Category'
 export class Author extends Realm.Object<Author> {
   static schema = {
     name: 'Author',
+    embedded: true,
     properties: {
       id: 'int',
       name: 'string?',
@@ -10,40 +11,10 @@ export class Author extends Realm.Object<Author> {
   }
 }
 
-// Schema for SubCategory
-export class SubCategory extends Realm.Object<SubCategory> {
-  id!: number
-  name!: string
-  static schema = {
-    name: 'SubCategory',
-    primaryKey: 'id',
-    properties: {
-      id: 'int',
-      name: 'string',
-    },
-  }
-}
-
-// Schema for Category
-export class Category extends Realm.Object<Category> {
-  id!: number
-  name!: string
-  subCategory!: SubCategory
-  static schema = {
-    name: 'Category',
-    primaryKey: 'id',
-    properties: {
-      id: 'int',
-      name: 'string',
-      subCategory: 'SubCategory',
-    },
-  }
-}
-
-// Schema for Verse
 export class Verse extends Realm.Object<Verse> {
   static schema = {
     name: 'Verse',
+    embedded: true,
     properties: {
       id: 'int',
       number: 'string?',
@@ -52,7 +23,6 @@ export class Verse extends Realm.Object<Verse> {
   }
 }
 
-// Schema for Chorus
 export class Chorus extends Realm.Object<Chorus> {
   static schema = {
     name: 'Chorus',
@@ -64,18 +34,17 @@ export class Chorus extends Realm.Object<Chorus> {
   }
 }
 
-// Schema for Lyrics
 export class Lyrics extends Realm.Object<Lyrics> {
   static schema = {
     name: 'Lyrics',
+    embedded: true,
     properties: {
-      verses: { type: 'list' as const, objectType: 'Verse' },
-      chorus: { type: 'list' as const, objectType: 'Chorus' },
+      verses: 'Verse[]',
+      chorus: 'Chorus[]',
     },
   }
 }
 
-// Main Hymn Schema
 export class Hymn extends Realm.Object<Hymn> {
   static schema = {
     name: 'Hymn',
@@ -91,10 +60,10 @@ export class Hymn extends Realm.Object<Hymn> {
       urlOld: 'string?',
       artwork: 'string?',
       artist: 'string?',
-      category: 'Category',
+      category: 'CategoryHymn',
       lyrics: 'Lyrics',
       isFavorite: { type: 'bool' as const, default: false },
-      authors: { type: 'list' as const, objectType: 'Author' },
+      authors: 'Author[]',
     },
   }
 }

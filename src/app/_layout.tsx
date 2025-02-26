@@ -19,7 +19,6 @@ import {
 import AppLoading from 'expo-app-loading'
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { useInitLibrary } from '@/store/library'
-import { HymnalDataInitializer } from '@/components/util/HymnalDataInitializer'
 import { RealmProvider } from '@/components/providers/RealmProvider'
 
 SplashScreen.preventAutoHideAsync()

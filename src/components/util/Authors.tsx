@@ -12,12 +12,14 @@ const Authors = ({
   card: boolean
   style?: StyleProp<TextStyle>
 }) => {
+
+  console.log(authors)
   return (
     <View style={styles.container}>
       {authors === null || authors?.length === 0 ? (
         <Text style={style}>Desconhecido</Text>
       ) : (
-        authors.map((item: Author, index: number) => {
+        authors?.map((item: Author, index: number) => {
           const isLastItem = index === authors.length - 1
 
           const name =

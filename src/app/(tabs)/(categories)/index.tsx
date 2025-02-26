@@ -7,16 +7,18 @@ import { useCategories } from '@/store/library'
 import { useRealm } from '@/hooks/useRealm'
 const CategoriesScreen = () => {
   const categories = useCategories()
-
+  const { getAllHymns } = useRealm()
   /* const { getFavoriteHymns, toggleFavorite } = useRealm()
 
   toggleFavorite(1).then(() => {
     console.log('Favorite toggled')
   })
-
-  getFavoriteHymns().then(favorites => {
-    console.log(favorites)
+*/
+  /* getAllHymns().then(hymns => {
+    console.log(hymns)
   }) */
+
+    console.log(categories)
 
   return (
     <View style={defaultStyles.container}>

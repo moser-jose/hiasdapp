@@ -1,0 +1,112 @@
+import { useState } from 'react'
+import { hymnService } from '../services/HymnService'
+import { categoryService } from '../services/CategoryService'
+
+export function useRealm() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  const create = async (data: any) => {
+    try {
+      setIsLoading(true)
+      await categoryService.create(data.categories)
+      await hymnService.create(data.hymns)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const getAllHymns = async () => {
+    try {
+      setIsLoading(true)
+      return await hymnService.getAll()
+    } catch (err) {
+      setError(err as Error)
+      return []
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const getHymnById = async (id: number) => {
+    try {
+      return await hymnService.findById(id)
+    } catch (err) {
+      setError(err as Error)
+      return null
+    }
+  }
+
+  const toggleFavorite = async (hymnId: number) => {
+    try {
+      return await hymnService.toggleFavorite(hymnId)
+    } catch (err) {
+      setError(err as Error)
+    }
+  }
+
+  const getFavoriteHymns = async () => {
+    try {
+      return await hymnService.getFavoriteHymns()
+    } catch (err) {
+      setError(err as Error)
+    }
+  }
+
+  const getAllCategories = async () => {
+    try {
+      setIsLoading(true)
+      return await categoryService.getAll()
+    } catch (err) {
+      setError(err as Error)
+      return []
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const getCategoryById = async (id: number) => {
+    try {
+      return await categoryService.findById(id)
+    } catch (err) {
+      setError(err as Error)
+      return null
+    }
+  }
+
+  const checkIfDatabaseEmpty = async () => {
+    try {
+      setIsLoading(true)
+      const hymns = await hymnService.getAll()
+      const category = await categoryService.getAll()
+      return hymns.length === 0 && category.length === 0
+    } catch (err) {
+      setError(err as Error)
+      return true
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const closeRealm = async () => {
+    await hymnService.close()
+    await categoryService.close()
+  }
+
+  return {
+    create,
+    getAllHymns,
+    getHymnById,
+    isLoading,
+    toggleFavorite,
+    getFavoriteHymns,
+    getAllCategories,
+    getCategoryById,
+    error,
+    closeRealm,
+    //isRealmReady: realm !== null,
+    checkIfDatabaseEmpty,
+  }
+}

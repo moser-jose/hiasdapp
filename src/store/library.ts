@@ -3,8 +3,8 @@ import { Hymn, Category } from '@/types/hymnsTypes'
 import { Track } from 'react-native-track-player'
 import { create } from 'zustand'
 import * as msgpack from '@msgpack/msgpack'
-import hinos from '@/api/hiasd-old.json'
 import { useShallow } from 'zustand/react/shallow'
+import { useCategory } from '@/hooks/useCategory'
 import { useRealm } from '@/hooks/useRealm'
 
 interface LibraryState {
@@ -50,14 +50,18 @@ export const useInitLibrary = () => {
   React.useEffect(() => {
     getAllHymns().then(realmHymns => {
       if (realmHymns.length > 0) {
-        const hymns = msgpack.decode(msgpack.encode(hinos.hymns)) as Hymn[]
-        setHymns(hymns)
+        //console.log(JSON.stringify(realmHymns[0], null, 2))
+        const hymns = msgpack.decode(msgpack.encode(realmHymns)) as Hymn[]
+        setHymns(hymns.slice(0, 1))
       }
     })
 
-    getAllCategories().then(categories => {
-      if (categories) {
-        setCategories(categories as Category[])
+    getAllCategories().then(realmCategories => {
+      if (realmCategories) {
+        const categories = msgpack.decode(
+          msgpack.encode(realmCategories)
+        ) as Category[]
+        setCategories(categories)
       }
     })
   }, [getAllCategories, getAllHymns, setCategories, setHymns])

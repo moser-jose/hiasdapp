@@ -14,6 +14,7 @@ import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
+import { stringify } from 'querystring'
 
 const HymnsItem = memo(
   ({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) => {
@@ -89,7 +90,7 @@ const HymnsItem = memo(
         ),
       [favorites]
     )
-
+    
     return (
       <TouchableOpacity style={styles.container}>
         <View style={styles.card}>
@@ -109,11 +110,11 @@ const HymnsItem = memo(
             <View style={styles.ViewCard}>
               <Text style={titleStyle}>{truncateText(hymn.title, 29)}</Text>
               <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
-              <Authors
+              {/* <Authors
                 style={styles.author}
                 authors={hymn.authors}
                 card={false}
-              />
+              /> */}
             </View>
           </View>
           <TouchableOpacity activeOpacity={0.8} onPress={handleFavoritePress}>
