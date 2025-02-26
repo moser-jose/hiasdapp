@@ -12,7 +12,6 @@ const Authors = ({
   card: boolean
   style?: StyleProp<TextStyle>
 }) => {
-
   console.log(authors)
   return (
     <View style={styles.container}>

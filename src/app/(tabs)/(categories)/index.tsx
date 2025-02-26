@@ -18,7 +18,7 @@ const CategoriesScreen = () => {
     console.log(hymns)
   }) */
 
-    console.log(categories)
+  console.log(categories)
 
   return (
     <View style={defaultStyles.container}>

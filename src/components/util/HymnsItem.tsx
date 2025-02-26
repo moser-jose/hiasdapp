@@ -90,7 +90,7 @@ const HymnsItem = memo(
         ),
       [favorites]
     )
-    
+
     return (
       <TouchableOpacity style={styles.container}>
         <View style={styles.card}>
