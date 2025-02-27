@@ -16,7 +16,6 @@ import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 
 const { width } = Dimensions.get('window')
-console.log('er')
 const CategoryCard = ({
   category,
   index,

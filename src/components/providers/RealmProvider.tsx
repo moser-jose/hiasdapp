@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Realm from 'realm'
 import { RealmProvider as RProvider } from '@/services/BaseRealmService'
 import { View, Text } from 'react-native'
 import { useRealm } from '@/hooks/useRealm'
@@ -15,12 +14,11 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
       try {
         const isEmpty = await checkIfDatabaseEmpty()
 
-        //if (isEmpty) {
-        await create(hymnalData)
-        console.log('passou')
-        await closeRealm()
-        //}
+        if (isEmpty) {
+          await create(hymnalData)
+        }
 
+        await closeRealm()
         setInitialized(true)
       } catch (err) {
         console.error('Failed to initialize hymnal data:', err)

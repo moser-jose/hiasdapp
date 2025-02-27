@@ -39,10 +39,6 @@ export const useLibraryStore = create<LibraryState>()(set => ({
   addToPlayList: () => {},
 }))
 
-export const useHymns = () => useLibraryStore(useShallow(state => state.hymns))
-export const useCategories = () =>
-  useLibraryStore(useShallow(state => state.categories))
-
 export const useInitLibrary = () => {
   const setHymns = useLibraryStore(state => state.setHymns)
   const setCategories = useLibraryStore(state => state.setCategories)

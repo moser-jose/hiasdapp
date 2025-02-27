@@ -110,11 +110,11 @@ const HymnsItem = memo(
             <View style={styles.ViewCard}>
               <Text style={titleStyle}>{truncateText(hymn.title, 29)}</Text>
               <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
-              {/* <Authors
+              <Authors
                 style={styles.author}
-                authors={hymn.authors}
+                authors={Object.values(hymn.authors)}
                 card={false}
-              /> */}
+              />
             </View>
           </View>
           <TouchableOpacity activeOpacity={0.8} onPress={handleFavoritePress}>

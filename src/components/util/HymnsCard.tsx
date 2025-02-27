@@ -26,13 +26,13 @@ const HymnsCard = ({
       activeHymn: state.activeHymn,
     }))
   )
-  console.log('wd')
+
   const track: HymnTrack = {
     id: hymn.number,
     number: hymn.number,
     numberView: hymn.numberView,
     englishTitle: hymn.englishTitle,
-    authors: hymn.authors,
+    authors: Object.values(hymn.authors),
     title: hymn.title,
     url: hymn.url,
     lyrics: hymn.lyrics,

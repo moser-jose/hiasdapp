@@ -10,7 +10,6 @@ const ToogleLyricInPlayer = () => {
   const setViewPlayList = useStateStore(
     useShallow(state => state.setViewPlaylist)
   )
-  console.log('rendering player ef')
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={setViewPlayList}>
       {viewPlayList ? (

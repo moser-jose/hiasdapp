@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Tabs } from 'expo-router'
 import CategoriesSVG from '@/components/svg/CategoriesSvg'
 import CategoriesOutlineSVG from '@/components/svg/CategoriesOutlineSvg'
@@ -135,4 +135,4 @@ const TabsNavigation = () => {
   )
 }
 
-export default TabsNavigation
+export default memo(TabsNavigation)

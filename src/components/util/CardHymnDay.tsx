@@ -41,7 +41,6 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
     )
     return getBackgroundSource(categoryFound?.name ?? '')
   }
-
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {hymn ? (
@@ -80,7 +79,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
             <View>
               <View>
                 <View style={styles.hymnHeaderContentTitle}>
-                  <Text style={styles.hymnTitle}>{hymn.title}</Text>
+                  <Text style={styles.hymnTitle}>{hymn?.title}</Text>
                   <ActiveHymnsDownloadSVG
                     color={colors.green}
                     style={{ marginTop: 10 }}
@@ -90,7 +89,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                   <Text style={styles.hymnTitleNumber}>{hymn.numberView}</Text>
                   <Authors
                     style={styles.hymnTitleAuthor}
-                    authors={hymn.authors}
+                    authors={Object.values(hymn.authors)}
                     card={false}
                   />
                 </View>

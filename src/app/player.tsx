@@ -103,9 +103,7 @@ const PlayerScreen = () => {
       </View>
     )
   }
-
-  console.log('render')
-
+  
   return (
     <LinearGradient
       style={{ flex: 1 }}
@@ -152,7 +150,7 @@ const PlayerScreen = () => {
                   )}
                   <Authors
                     style={styles.authors}
-                    authors={activeHymn.authors}
+                    authors={Object.values(activeHymn.authors)}
                     card={false}
                   />
                 </View>

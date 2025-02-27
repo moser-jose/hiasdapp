@@ -20,22 +20,26 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
       }}
     >
       <View style={{ flex: 1 }}>
-        {lyrics.verses.map(({ verse, number }: Verse, index) => {
+        {Object.values(lyrics.verses).map(({ verse, number }: Verse, index) => {
           return (
             <View key={index}>
               {number && <Text style={styles.text}>{number}</Text>}
               <Text style={styles.text}>{verse}</Text>
 
-              {lyrics.chorus[index]?.choir ? (
+              {Object.values(lyrics.chorus)[index]?.choir ? (
                 <>
                   <Text style={styles.text}>Coro</Text>
-                  <Text style={styles.text}>{lyrics.chorus[index]?.choir}</Text>
+                  <Text style={styles.text}>
+                    {Object.values(lyrics.chorus)[index]?.choir}
+                  </Text>
                 </>
               ) : (
-                lyrics.chorus[0]?.choir && (
+                Object.values(lyrics.chorus)[0]?.choir && (
                   <>
                     <Text style={styles.text}>Coro</Text>
-                    <Text style={styles.text}>{lyrics.chorus[0]?.choir}</Text>
+                    <Text style={styles.text}>
+                      {Object.values(lyrics.chorus)[0]?.choir}
+                    </Text>
                   </>
                 )
               )}

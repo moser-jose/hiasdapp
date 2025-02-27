@@ -56,7 +56,7 @@ const FloatingPlayer = ({ style }: ViewProps) => {
 
         <Authors
           style={styles.authors}
-          authors={displayedHymn.authors}
+          authors={Object.values(displayedHymn.authors)}
           card={false}
         />
       </View>
