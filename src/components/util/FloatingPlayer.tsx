@@ -7,13 +7,11 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
-import { useActiveTrack } from 'react-native-track-player'
 import {
   PlayPauseButton,
   SkipToNextButton,
 } from '@/components/util/PlayerControls'
 import Authors from './Authors'
-import { useLastActiveHymn } from '@/hooks/useLastActiveHymn'
 import { MovingText } from './MovingText'
 import { router } from 'expo-router'
 import { memo, useCallback } from 'react'
@@ -48,7 +46,6 @@ const FloatingPlayer = ({ style }: ViewProps) => {
           style={styles.hymnTitle}
           text={displayedHymn.title ?? ''}
           animationThreshold={25}
-          numberOfLines={1}
         />
         {displayedHymn.englishTitle && (
           <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>

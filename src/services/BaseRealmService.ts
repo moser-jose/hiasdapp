@@ -17,16 +17,9 @@ const realmConfig: Realm.Configuration = {
     SubCategory.schema,
   ],
   schemaVersion: 7,
-  migration: (oldRealm, newRealm) => {
-    if (oldRealm.schemaVersion < 7) {
-      const oldCategories = oldRealm.objects('Category')
 
-      // Clear existing data since we have a schema mismatch
-      newRealm.deleteAll()
-    }
-  },
   // This will delete the realm if migration isn't possible
-  deleteRealmIfMigrationNeeded: true,
+  //deleteRealmIfMigrationNeeded: true,
 }
 export const { RealmProvider, useRealm, useObject, useQuery } =
   createRealmContext(realmConfig)

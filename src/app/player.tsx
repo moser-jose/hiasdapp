@@ -103,7 +103,7 @@ const PlayerScreen = () => {
       </View>
     )
   }
-  
+
   return (
     <LinearGradient
       style={{ flex: 1 }}

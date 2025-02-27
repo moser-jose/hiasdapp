@@ -14,7 +14,6 @@ import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
-import { stringify } from 'querystring'
 
 const HymnsItem = memo(
   ({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) => {
