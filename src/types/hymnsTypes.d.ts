@@ -88,8 +88,9 @@ interface HymnsProps {
 }
 
 // List Props Types
-type ListHymnsProps = Partial<FlatListProps<Hymn>> & {
-  hymns: Hymn[]
+type ListHymnsProps = Partial<FlatListProps<Track | Hymn>> & {
+  hymns: Hymn[] | Track[]
+  id?: string
 }
 
 type ListCategoriesProps = Partial<FlatListProps<Category>> & {

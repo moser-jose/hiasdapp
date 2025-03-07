@@ -7,15 +7,16 @@ import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useMemo, useCallback } from 'react'
+import { useMemo, useCallback, useRef } from 'react'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 import ToogleFavorites from './ToogleFavorites'
+
 import PlayButton from './PlayButton'
 
-function HymnsItem({ hymn, id }: HymnsProps) {
+function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
   const { play, pause, isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
       play: state.play,
@@ -29,15 +30,6 @@ function HymnsItem({ hymn, id }: HymnsProps) {
     () => activeHymn?.url === hymn.url,
     [activeHymn?.url, hymn.url]
   )
-
-  /* const handlePlayPress = useCallback(
-    (hymn: Hymn) => {
-      if (hymn.id !== activeHymn?.id) {
-        handleHymnSelect(hymn)
-      }
-    },
-    [activeHymn?.id, handleHymnSelect]
-  ) */
 
   const activeStyle = StyleSheet.create({
     activeTitle: {
@@ -90,9 +82,10 @@ function HymnsItem({ hymn, id }: HymnsProps) {
           testID={`play-button-${hymn.number}`}
           id={id as number}
           activeHymnId={activeHymn?.id as number}
-          handleHymnSelect={() =>
+          handleHymnSelect={() => handleTrackSelect(hymn)}
+          /* handleHymnSelect={() =>
             isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
-          }
+          } */
           height={34}
           width={34}
         />

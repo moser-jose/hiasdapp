@@ -24,6 +24,8 @@ const FloatingPlayer = ({ style }: ViewProps) => {
     useShallow(state => state.lastActiveHymn)
   )
 
+  console.log('activeHymn', activeHymn)
+
   const handlePress = useCallback(() => {
     try {
       router.push('/player')

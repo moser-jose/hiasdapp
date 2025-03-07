@@ -14,9 +14,9 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
       try {
         const isEmpty = await checkIfDatabaseEmpty()
 
-        if (isEmpty) {
-          await create(hymnalData)
-        }
+        //if (isEmpty) {
+        await create(hymnalData)
+        //}
 
         await closeRealm()
         setInitialized(true)

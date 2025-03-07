@@ -3,9 +3,9 @@ import { ActivityIndicator, FlatList, View, Text } from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import ItemDivider from './ItemDivider'
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { usePlayerStore } from '@/store/playerStore'
-import { Track } from 'react-native-track-player'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { usePlayerStore, useQueue } from '@/store/playerStore'
+import TrackPlayer, { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 import Hymns from '@/app/(tabs)/(hymns)'
 import HymnsCard from './HymnsCard'
@@ -15,15 +15,30 @@ import { ListHymnsFilter } from '@/helpers/filter'
 const TAMANHO_PAGINA = 20
 function ListHymns({
   hymns,
+  id,
   horizontal = false,
   ...listHymnsProps
 }: ListHymnsProps) {
-  const [displayedHymns, setDisplayedHymns] = useState<Hymn[]>([])
+  const [displayedHymns, setDisplayedHymns] = useState<Hymn[] | Track[]>([])
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [allLoaded, setAllLoaded] = useState(false)
 
-  const play = usePlayerStore(useShallow(state => state.play))
+  const activeHymn = usePlayerStore(state => state.activeHymn)
+
+  console.log('activeHymn', activeHymn)
+
+  const play = usePlayerStore(state => state.play)
+
+  const { skipTo, add, reset } = usePlayerStore(
+    useShallow(state => ({
+      add: state.add,
+      reset: state.reset,
+      skipTo: state.skipTo,
+    }))
+  )
+  const queueOffset = useRef(0)
+  const { activeQueueId, setActiveQueueId } = useQueue()
 
   const search = useNavigationSearch({
     searchBarOptions: {
@@ -31,12 +46,45 @@ function ListHymns({
     },
   })
 
-  const handleHymnSelect = useCallback(
+  const handleHymnSelectr = useCallback(
     async (hymn: Track | Hymn) => {
       await play(hymn)
     },
     [play]
   )
+
+  /* const handleHymnSelect = useCallback(
+    async (selectedHymn: Track | Hymn) => {
+      const hymnIndex = hymns.findIndex(hymn => hymn.id === selectedHymn.id)
+
+      if (hymnIndex === -1) return
+
+      const isChangingQueue = queueId !== activeQueueId
+
+      if (isChangingQueue) {
+        const beforeHymns = hymns.slice(0, hymnIndex)
+        const afterHymns = hymns.slice(hymnIndex + 1)
+        await TrackPlayer.reset()
+        await TrackPlayer.add(beforeHymns)
+        await TrackPlayer.add(afterHymns)
+        await TrackPlayer.add(beforeHymns)
+
+        await play()
+
+        queueOffset.current = hymnIndex
+        setActiveQueueId(queueId as string)
+      } else {
+        const nextHymnIndex =
+          hymnIndex - queueOffset.current < 0
+            ? hymns.length + hymnIndex - queueOffset.current
+            : hymnIndex - queueOffset.current
+        await TrackPlayer.skip(nextHymnIndex)
+        await play()
+      }
+    },
+    [activeQueueId, hymns, play, queueId, setActiveQueueId]
+  ) */
+
   useEffect(() => {
     if (hymns.length > 0) {
       setDisplayedHymns(hymns.slice(0, TAMANHO_PAGINA))
@@ -67,7 +115,7 @@ function ListHymns({
     }, 100)
   }, [hymns, displayedHymns, isLoading, allLoaded])
 
-  const filteredSearch: Hymn[] = useMemo(() => {
+  const filteredSearch: Hymn[] | Track[] = useMemo(() => {
     if (!search) return displayedHymns as Hymn[]
     const filterPredicate = ListHymnsFilter(search)
     return displayedHymns.filter(filterPredicate)
@@ -89,6 +137,45 @@ function ListHymns({
         <ActivityIndicator size="small" />
       </View>
     )
+  }
+
+  const handleHymnSelect = async (selectedTrack: Track | Hymn) => {
+    const trackIndex = hymns.findIndex(track => track.id === selectedTrack.id)
+
+    if (trackIndex === -1) return
+
+    const isChangingQueue = id !== activeQueueId
+    console.log('beforeTracks')
+    if (isChangingQueue) {
+      const beforeTracks = hymns.slice(0, trackIndex)
+      const afterTracks = hymns.slice(trackIndex + 1)
+      console.log('MKIN')
+      await reset()
+
+      // we construct the new queue
+      await add(selectedTrack)
+      await add(afterTracks)
+      await add(beforeTracks)
+
+      console.log('beforeTracks', beforeTracks)
+      /*  await TrackPlayer.add(selectedTrack)
+      await TrackPlayer.add(afterTracks)
+      await TrackPlayer.add(beforeTracks)
+ */
+      await play()
+
+      queueOffset.current = trackIndex
+      setActiveQueueId(id as string)
+    } else {
+      console.log('beforeTracke')
+      const nextTrackIndex =
+        trackIndex - queueOffset.current < 0
+          ? hymns.length + trackIndex - queueOffset.current
+          : trackIndex - queueOffset.current
+      console.log(nextTrackIndex)
+      await skipTo(nextTrackIndex)
+      play()
+    }
   }
 
   const renderItem = ({ item: hymn, index }: { item: Hymn; index: number }) => {
@@ -121,7 +208,7 @@ function ListHymns({
       }
       data={filteredSearch}
       ItemSeparatorComponent={horizontal ? null : ItemDivider}
-      keyExtractor={(hymn, index) => `hymn-${hymn.id}-${hymn.number}-${index}`}
+      keyExtractor={(item, index) => `hymn-${item.id}-${item.number}-${index}`}
       renderItem={renderItem}
       contentInsetAdjustmentBehavior="automatic"
       removeClippedSubviews={true}

@@ -9,6 +9,7 @@ import PlayerShuffleToogle from './PlayerShuffleToogle'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 import PlayButton from './PlayButton'
+import TrackPlayer from 'react-native-track-player'
 type PlayerControlsProps = {
   style?: ViewStyle
 }
