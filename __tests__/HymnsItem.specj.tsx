@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react-native'
 import HymnsItem from '@/components/util/HymnsItem'
 import { hymnsWithArtwork } from './data/DataMock'
-
+import { waitFor } from './wait-for'
 describe('Hymns Item', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -30,6 +30,9 @@ describe('Hymns Item', () => {
     )
     fireEvent.press(playButton)
 
-    expect(mockHymnSelect).toHaveBeenCalledWith(expectedTrack)
+    await waitFor(() => {
+      expect(mockHymnSelect).toHaveBeenCalledWith(expectedTrack)
+    })
+    //expect(mockHymnSelect).toHaveBeenCalledWith(expectedTrack)
   })
 })

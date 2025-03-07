@@ -26,16 +26,6 @@ function transformToHymn(rawHymn: Hymn): Hymn {
   if (!Array.isArray(rawHymn.authors) || !rawHymn.authors.every(isAuthor)) {
     //throw new Error('Invalid authors array');
   }
-  if (!Array.isArray(rawHymn.verses) || !rawHymn.verses.every(isVerse)) {
-    //console.log(rawHymn.verses)
-    //throw new Error('Invalid verses array');
-  }
-  if (
-    rawHymn.chorus &&
-    (!Array.isArray(rawHymn.chorus) || !rawHymn.chorus.every(isChorus))
-  ) {
-    //throw new Error('Invalid chorus array');
-  }
 
   return {
     id: rawHymn.id,
@@ -45,12 +35,11 @@ function transformToHymn(rawHymn: Hymn): Hymn {
     numberView: rawHymn.numberView || null,
     biblicalText: rawHymn.biblicalText || undefined,
     category: rawHymn.category,
-    chorus: rawHymn.chorus || [],
+    lyrics: rawHymn.lyrics,
     url: rawHymn.url,
     artwork: rawHymn.artwork || DEFAULT_ARTWORK,
     artist: rawHymn.artist || '',
     authors: rawHymn.authors || [],
-    verses: rawHymn.verses || [],
   }
 }
 
@@ -63,6 +52,8 @@ function transformCategory(category: Category): Category {
 }
 
 // Transform hymns to match the Hymn type
-export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(transformToHymn)
+export const hymnsWithArtwork: Hymn[] = HiasdAntigo.hymns.map(hymn =>
+  transformToHymn(hymn as Hymn)
+)
 export const categoriesTest: Category[] =
   HiasdAntigo.categories.map(transformCategory)
