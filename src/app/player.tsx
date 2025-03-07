@@ -10,10 +10,11 @@ import TooglePlayListInPlayer from '@/components/util/TooglePlayListInPlayer'
 import { logoApp } from '@/constants/images'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
+import { useFavorites } from '@/store/library'
 import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { defaultStyles } from '@/styles'
-import { memo, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Text,
   View,
@@ -90,8 +91,6 @@ const DismissPlayerSimbol = memo(() => {
 })
 
 const PlayerScreen = () => {
-  //const activeHymn = useActiveTrack()
-  //const activeHymn = usePlayerStore((use))
   const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
   const { background } = usePlayerBackground(logoApp)
   const { top, bottom } = useSafeAreaInsets()
@@ -140,7 +139,7 @@ const PlayerScreen = () => {
                       {activeHymn.numberView}
                     </Text>
 
-                    <ToogleFavorites />
+                    <ToogleFavorites id={activeHymn.id as number} />
                   </View>
 
                   {activeHymn.englishTitle && (

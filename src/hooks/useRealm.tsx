@@ -47,6 +47,14 @@ export function useRealm() {
     }
   }
 
+  const isFavorite = async (hymnId: number) => {
+    try {
+      return await hymnService.isFavorite(hymnId)
+    } catch (err) {
+      setError(err as Error)
+    }
+  }
+
   const getFavoriteHymns = async () => {
     try {
       return await hymnService.getFavoriteHymns()
@@ -100,6 +108,7 @@ export function useRealm() {
     getAllHymns,
     getHymnById,
     isLoading,
+    isFavorite,
     toggleFavorite,
     getFavoriteHymns,
     getAllCategories,

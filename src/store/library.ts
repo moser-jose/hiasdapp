@@ -9,18 +9,20 @@ import { useRealm } from '@/hooks/useRealm'
 interface LibraryState {
   hymns: Hymn[]
   categories: Category[]
+  favorites: Hymn[]
   setHymns: (hymns: Hymn[]) => void
   setCategories: (categories: Category[]) => void
-  toogleHymnFavorite: (hymn: Track | Hymn) => void
+  setFavorites: (favorites: Hymn[]) => void
   addToPlayList: (hymn: Track | Hymn, playlistName: string) => void
 }
 
 export const useLibraryStore = create<LibraryState>()(set => ({
   hymns: [],
   categories: [],
+  favorites: [],
   setHymns: hymns => set({ hymns }),
   setCategories: categories => set({ categories }),
-  toogleHymnFavorite: () => {},
+  setFavorites: favorites => set({ favorites }),
   addToPlayList: () => {},
 }))
 
@@ -55,10 +57,45 @@ export const useInitLibrary = () => {
 }
 
 export const useFavorites = () => {
-  const favorites = useLibraryStore(state =>
-    state.hymns.filter(hymn => hymn.id === 1)
-  )
+  const favorites = useLibraryStore(useShallow(state => state.favorites))
+  const setFavorites = useLibraryStore(state => state.setFavorites)
+  const { toggleFavorite, isFavorite, getFavoriteHymns } = useRealm()
 
-  const toogleHymnFavorite = useLibraryStore(state => state.toogleHymnFavorite)
-  return { favorites, toogleHymnFavorite }
+  const toggleFavoriteAndUpdate = async (hymnId: number) => {
+    // Update in Realm database
+    await toggleFavorite(hymnId)
+    // Refresh favorites in store
+    const updatedFavorites = await getFavoriteHymns()
+    if (updatedFavorites) {
+      const favorites = msgpack.decode(
+        msgpack.encode(updatedFavorites)
+      ) as Hymn[]
+      setFavorites(favorites)
+    }
+  }
+
+  const checkIsFavorite = async (hymnId: number) => {
+    return await isFavorite(hymnId)
+  }
+
+  const loadFavorites = async () => {
+    const realmFavorites = await getFavoriteHymns()
+    if (realmFavorites) {
+      const favorites = msgpack.decode(msgpack.encode(realmFavorites)) as Hymn[]
+      setFavorites(favorites)
+      return favorites
+    }
+    return []
+  }
+
+  React.useEffect(() => {
+    loadFavorites()
+  }, [])
+
+  return {
+    favorites,
+    toggleFavorite: toggleFavoriteAndUpdate,
+    isFavorite: checkIsFavorite,
+    loadFavorites,
+  }
 }

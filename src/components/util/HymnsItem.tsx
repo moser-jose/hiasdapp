@@ -1,23 +1,24 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import HeartSVG from '../svg/HeartSvg'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import PlayCardSVG from '../svg/PlayCardSvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { Hymn, HymnsProps, HymnTrack } from '@/types/hymnsTypes'
+import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useState, useMemo, useCallback, lazy, Suspense } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
-import { useHymns } from '@/store/library'
+import { useFavorites } from '@/store/library'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
-  const [favorites, setFavorites] = useState(false)
+  const { favorites, toggleFavorite, isFavorite } = useFavorites()
+  const [isFav, setIsFav] = useState(false)
 
   const { isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
@@ -47,9 +48,23 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
     [hymn]
   )
 
-  const handleFavoritePress = useCallback(() => {
-    setFavorites(prev => !prev)
-  }, [])
+  useEffect(() => {
+    const checkFavorite = async () => {
+      const result = await isFavorite(track.id as number)
+      setIsFav(result as boolean)
+    }
+    checkFavorite()
+  }, [track.id, isFavorite])
+
+  useEffect(() => {
+    const isInFavorites = favorites.some(hymn => hymn.id === track.id)
+    setIsFav(isInFavorites)
+  }, [favorites, track.id])
+
+  const handleFavoritePress = async () => {
+    await toggleFavorite(track.id as number)
+    setIsFav(!isFav)
+  }
 
   const handlePlayPress = useCallback(() => {
     if (track.id !== activeHymn?.id) {
@@ -60,7 +75,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
   const titleStyle = useMemo(
     () => ({
       ...styles.title,
-      fontWeight: isActiveHymn ? '500' : ('400' as const),
+      fontWeight: isActiveHymn ? '500' : '400',
       color: isActiveHymn ? colors.active : colors.text,
     }),
     [isActiveHymn]
@@ -79,15 +94,13 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
     return <PlayCardSVG width={35} height={35} color={colors.primary} />
   }, [activeHymn?.id, id, isActiveHymn, isPlaying])
 
-  const FavoriteButton = useMemo(
-    () =>
-      favorites ? (
-        <HeartFullSVG color={colors.green} />
-      ) : (
-        <HeartSVG color={colors.green} />
-      ),
-    [favorites]
-  )
+  const FavoriteButton = useMemo(() => {
+    return isFav ? (
+      <HeartFullSVG color={colors.green} />
+    ) : (
+      <HeartSVG color={colors.green} />
+    )
+  }, [isFav])
 
   return (
     <TouchableOpacity style={styles.container}>
