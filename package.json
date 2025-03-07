@@ -24,7 +24,7 @@
     "@expo-google-fonts/roboto": "0.2.3",
     "@expo-google-fonts/rochester": "0.2.3",
     "@expo-google-fonts/sacramento": "0.2.3",
-    "@expo/vector-icons": "^17.0.0",
+    "@expo/vector-icons": "14.0.4",
     "@mosmmy/shortname-js": "1.0.6",
     "@msgpack/msgpack": "3.1.0",
     "@react-native-async-storage/async-storage": "2.1.1",
