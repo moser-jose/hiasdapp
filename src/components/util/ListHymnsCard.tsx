@@ -28,7 +28,6 @@ export const ListHymnsCard = ({ hymns, ...props }: ListHymnsCardProps) => {
   const renderItem = useCallback(
     ({ item: hymn, index }: { item: Hymn; index: number }) => (
       <MemoizedHymnsCard
-        key={hymn.id}
         id={hymn.id}
         hymn={hymn}
         onHymnSelect={() => handleHymnSelect(hymn)}
@@ -42,7 +41,10 @@ export const ListHymnsCard = ({ hymns, ...props }: ListHymnsCardProps) => {
   )
 
   // Memoize the keyExtractor
-  const keyExtractor = useCallback((item: Hymn) => item.id.toString(), [])
+  const keyExtractor = useCallback(
+    (item: Hymn, index: number) => `hymnscard-${item.id}-${index}`,
+    []
+  )
 
   return (
     <FlatList

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { SVGIconProps } from '@/types/svgTypes'
 import Svg, { Path } from 'react-native-svg'
 
-const HeartFullSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
+function HeartFullSVG({ color, width, height }: SVGIconProps) {
   return (
     <Svg width={width ?? '26'} height={height ?? '26'} viewBox="0 0 24 24">
       <Path
@@ -14,4 +14,4 @@ const HeartFullSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
   )
 }
 
-export default HeartFullSVG
+export default memo(HeartFullSVG)

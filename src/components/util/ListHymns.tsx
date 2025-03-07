@@ -1,16 +1,29 @@
 /* eslint-disable react/prop-types */
-import { FlatList, View } from 'react-native'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
-import { utilsStyles } from '@/styles'
-import { Text } from 'react-native'
 import ItemDivider from './ItemDivider'
-import { useCallback, useMemo } from 'react'
+import {
+  lazy,
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 
-export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
+const TAMANHO_PAGINA = 20
+function ListHymns({ hymns, ...listHymnsProps }: ListHymnsProps) {
+  const [displayedHymns, setDisplayedHymns] = useState<Hymn[]>([])
+  const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [allLoaded, setAllLoaded] = useState(false)
+
   const play = usePlayerStore(useShallow(state => state.play))
 
   const handleHymnSelect = useCallback(
@@ -19,44 +32,67 @@ export const ListHymns = ({ hymns, ...listHymnsProps }: ListHymnsProps) => {
     },
     [play]
   )
+  useEffect(() => {
+    if (hymns.length > 0) {
+      setDisplayedHymns(hymns.slice(0, TAMANHO_PAGINA))
+      setAllLoaded(hymns.length <= TAMANHO_PAGINA)
+    }
+  }, [hymns])
 
-  const renderItem = useCallback(
-    ({ item: hymn, index }: { item: Hymn; index: number }) => (
-      <HymnsItem
-        id={hymn.id}
-        key={index}
-        hymn={hymn}
-        onHymnSelect={handleHymnSelect}
-      />
-    ),
-    [handleHymnSelect]
-  )
+  const loadMoreHymns = useCallback(() => {
+    if (isLoading || allLoaded) return
 
-  const keyExtractor = useCallback((item: Hymn) => item.id, [])
+    setIsLoading(true)
+    setTimeout(() => {
+      const nextItems = hymns.slice(
+        displayedHymns.length,
+        displayedHymns.length + TAMANHO_PAGINA
+      )
+      if (nextItems.length > 0) {
+        setDisplayedHymns(prev => [...prev, ...nextItems])
+        setPage(prev => prev + 1)
+      }
+      if (displayedHymns.length + nextItems.length >= hymns.length) {
+        setAllLoaded(true)
+      }
+      setIsLoading(false)
+    }, 500)
+  }, [hymns, displayedHymns, isLoading, allLoaded])
 
-  const ListEmptyComponent = useMemo(
-    () => (
-      <View>
-        <Text style={utilsStyles.emptyContentText}>No hymns found</Text>
+  const renderFooter = () => {
+    if (!isLoading) return null
+    return (
+      <View style={{ padding: 16, alignItems: 'center' }}>
+        <ActivityIndicator size="small" />
       </View>
-    ),
-    []
-  )
+    )
+  }
 
   return (
     <FlatList
       contentContainerStyle={{ paddingTop: 16, paddingBottom: 128 }}
-      ListFooterComponent={ItemDivider}
-      data={hymns}
+      data={displayedHymns}
       ItemSeparatorComponent={ItemDivider}
-      initialNumToRender={10}
+      keyExtractor={(hymn, index) => `hymn-${hymn.id}-${hymn.number}-${index}`}
+      renderItem={({ item: hymn }: { item: Hymn }) => (
+        <HymnsItem
+          id={hymn.id}
+          //key={hymn.id}
+          hymn={hymn}
+          onHymnSelect={handleHymnSelect}
+        />
+      )}
+      contentInsetAdjustmentBehavior="automatic"
+      removeClippedSubviews={true}
+      onEndReached={loadMoreHymns}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
       maxToRenderPerBatch={10}
-      windowSize={5}
-      keyExtractor={keyExtractor}
-      ListEmptyComponent={ListEmptyComponent}
-      renderItem={renderItem}
-      updateCellsBatchingPeriod={30}
+      updateCellsBatchingPeriod={50}
+      windowSize={10}
       {...listHymnsProps}
     />
   )
 }
+
+export default memo(ListHymns)

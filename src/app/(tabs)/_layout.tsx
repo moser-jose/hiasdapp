@@ -49,7 +49,7 @@ const IconRenderer = ({
   return focused ? <ActiveIcon color={color} /> : <InactiveIcon color={color} />
 }
 
-const TabsNavigation = () => {
+function TabsNavigation() {
   return (
     <>
       <Tabs

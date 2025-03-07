@@ -12,7 +12,6 @@ const Authors = ({
   card: boolean
   style?: StyleProp<TextStyle>
 }) => {
-  console.log(authors)
   return (
     <View style={styles.container}>
       {authors === null || authors?.length === 0 ? (
@@ -30,7 +29,7 @@ const Authors = ({
           const separator = !isLastItem ? ', ' : ''
 
           return (
-            <Text key={index} style={style}>
+            <Text key={`author-${item.id || `${index}-${name}`}`} style={style}>
               {card
                 ? authors.length === 1
                   ? name + '' + separator

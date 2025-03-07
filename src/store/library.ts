@@ -4,13 +4,11 @@ import { Track } from 'react-native-track-player'
 import { create } from 'zustand'
 import * as msgpack from '@msgpack/msgpack'
 import { useShallow } from 'zustand/react/shallow'
-import { useCategory } from '@/hooks/useCategory'
 import { useRealm } from '@/hooks/useRealm'
 
 interface LibraryState {
   hymns: Hymn[]
   categories: Category[]
-  //loadData: () => Promise<void>
   setHymns: (hymns: Hymn[]) => void
   setCategories: (categories: Category[]) => void
   toogleHymnFavorite: (hymn: Track | Hymn) => void
@@ -19,25 +17,17 @@ interface LibraryState {
 
 export const useLibraryStore = create<LibraryState>()(set => ({
   hymns: [],
-  categories: [] /* hinos.categories */,
+  categories: [],
   setHymns: hymns => set({ hymns }),
   setCategories: categories => set({ categories }),
-  /* loadData: async () => {
-    // Carrega dados do JSON primeiro
-    const packedHymns = msgpack.encode(hinos.hymns)
-    const decodedHymns = msgpack.decode(packedHymns) as Hymn[]
-
-    const packedCategories = msgpack.encode(hinos.categories)
-    const decodedCategories = msgpack.decode(
-      packedCategories
-    ) as ListCategoriesProps['categories']
-
-    set({ hymns: decodedHymns, categories: decodedCategories })
-  }, */
-
   toogleHymnFavorite: () => {},
   addToPlayList: () => {},
 }))
+
+export const useHymns = () => useLibraryStore(useShallow(state => state.hymns))
+
+export const useCategories = () =>
+  useLibraryStore(useShallow(state => state.categories))
 
 export const useInitLibrary = () => {
   const setHymns = useLibraryStore(state => state.setHymns)
@@ -46,12 +36,13 @@ export const useInitLibrary = () => {
   React.useEffect(() => {
     getAllHymns().then(realmHymns => {
       if (realmHymns.length > 0) {
-        //console.log(JSON.stringify(realmHymns[0], null, 2))
         const hymns = msgpack.decode(msgpack.encode(realmHymns)) as Hymn[]
-        setHymns(hymns.slice(0, 1))
+        setHymns(hymns)
       }
     })
+  }, [getAllHymns, setHymns])
 
+  React.useEffect(() => {
     getAllCategories().then(realmCategories => {
       if (realmCategories) {
         const categories = msgpack.decode(
@@ -60,7 +51,7 @@ export const useInitLibrary = () => {
         setCategories(categories)
       }
     })
-  }, [getAllCategories, getAllHymns, setCategories, setHymns])
+  }, [getAllCategories, setCategories])
 }
 
 export const useFavorites = () => {

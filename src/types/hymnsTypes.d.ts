@@ -90,6 +90,10 @@ interface HymnsProps {
 // List Props Types
 type ListHymnsProps = Partial<FlatListProps<Hymn>> & {
   hymns: Hymn[]
+  /* loading: boolean
+  listEnded: boolean
+  onEndReached: () => void
+  onEndReachedThreshold: number */
 }
 
 type ListCategoriesProps = Partial<FlatListProps<Category>> & {

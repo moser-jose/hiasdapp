@@ -23,7 +23,7 @@ type Playlist = {
 
 type dat = Playlist[]
 
-const HomeScreen = () => {
+function HomeScreen() {
   const categories = useCategories()
   const hymns = useHymns()
 

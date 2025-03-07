@@ -3,7 +3,7 @@ import { defaultStyles } from '@/styles'
 import { Stack } from 'expo-router'
 import { View } from 'react-native'
 
-const PlaylistsScreenLayout = () => {
+function PlaylistsScreenLayout() {
   return (
     <View style={defaultStyles.container}>
       <Stack>

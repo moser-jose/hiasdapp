@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Text,
+  ActivityIndicator,
 } from 'react-native'
 import {
   PlayPauseButton,
@@ -14,12 +15,17 @@ import {
 import Authors from './Authors'
 import { MovingText } from './MovingText'
 import { router } from 'expo-router'
-import { memo, useCallback } from 'react'
+import { lazy, memo, Suspense, useCallback } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
+  const lastActiveHymn = usePlayerStore(
+    useShallow(state => state.lastActiveHymn)
+  )
+
+  const displayedTrack = activeHymn ?? lastActiveHymn
 
   const handlePress = useCallback(() => {
     try {

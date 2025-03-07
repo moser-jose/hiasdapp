@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { fontFamily, fontSize } from '@/constants/styles'
 import React, { FC, ReactNode } from 'react'
-
+import { Ionicons } from '@expo/vector-icons'
 interface ContainerProps {
   title: string
   more?: boolean
@@ -20,8 +20,9 @@ const Separator: FC<ContainerProps> = ({
         <Text style={styles.title}>{title}</Text>
       </View>
       {more && (
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity style={styles.more} activeOpacity={0.8}>
           <Text style={styles.more}>Ver mais</Text>
+          <Ionicons name="chevron-forward-outline" size={16} />
         </TouchableOpacity>
       )}
     </View>
@@ -38,16 +39,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginVertical: 16,
     paddingHorizontal: fontSize.sm,
   },
   more: {
-    fontFamily: fontFamily.plusJakarta.regular,
+    alignItems: 'center',
+    flexDirection: 'row',
+    fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.sm,
+    gap: 4,
   },
   title: {
-    fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.base,
+    fontFamily: fontFamily.plusJakarta.bold,
+    fontSize: fontSize.lg,
   },
 })
 
