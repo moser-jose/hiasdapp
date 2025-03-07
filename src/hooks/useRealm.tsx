@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import { hymnService } from '../services/HymnService'
 import { categoryService } from '../services/CategoryService'
+import { Category } from '@/types/hymnsTypes'
+import { Hymn } from '@/types/hymnsTypes'
+
+type RealmData = {
+  categories: Category[]
+  hymns: Hymn[]
+}
 
 export function useRealm() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  const create = async (data: any) => {
+  const create = async (data: RealmData) => {
     try {
       setIsLoading(true)
       await categoryService.create(data.categories)

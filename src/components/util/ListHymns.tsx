@@ -3,16 +3,7 @@ import { ActivityIndicator, FlatList, View } from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import ItemDivider from './ItemDivider'
-import {
-  lazy,
-  memo,
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
@@ -75,12 +66,7 @@ function ListHymns({ hymns, ...listHymnsProps }: ListHymnsProps) {
       ItemSeparatorComponent={ItemDivider}
       keyExtractor={(hymn, index) => `hymn-${hymn.id}-${hymn.number}-${index}`}
       renderItem={({ item: hymn }: { item: Hymn }) => (
-        <HymnsItem
-          id={hymn.id}
-          //key={hymn.id}
-          hymn={hymn}
-          onHymnSelect={handleHymnSelect}
-        />
+        <HymnsItem id={hymn.id} hymn={hymn} onHymnSelect={handleHymnSelect} />
       )}
       contentInsetAdjustmentBehavior="automatic"
       removeClippedSubviews={true}

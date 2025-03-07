@@ -25,7 +25,6 @@ const CategoryCard = ({
   index: number
   style?: StyleProp<ViewStyle>
 }) => {
-  console.log('renderizou CategoryCard')
   return (
     <TouchableOpacity
       activeOpacity={0.8}

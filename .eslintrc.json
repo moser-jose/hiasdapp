@@ -55,7 +55,7 @@
     "react-native/no-color-literals": "off",
     "react-native/no-raw-text": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "react-hooks/exhaustive-deps": "warn"
+    //"no-console": ["warn", { "allow": ["warn", "error"] }]
   }
 }

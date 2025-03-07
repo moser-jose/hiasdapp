@@ -1,5 +1,4 @@
 import Realm from 'realm'
-import { CategoryHymn } from './Category'
 export class Author extends Realm.Object<Author> {
   static schema = {
     name: 'Author',

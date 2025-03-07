@@ -10,22 +10,14 @@ import TooglePlayListInPlayer from '@/components/util/TooglePlayListInPlayer'
 import { logoApp } from '@/constants/images'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
-import { useFavorites } from '@/store/library'
 import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { defaultStyles } from '@/styles'
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native'
+import { memo } from 'react'
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { LinearGradient } from 'react-native-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useActiveTrack } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 const PlayerArtwork = memo(
   ({

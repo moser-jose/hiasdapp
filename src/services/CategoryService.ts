@@ -1,10 +1,4 @@
-import Realm from 'realm'
-import { createRealmContext, useQuery } from '@realm/react'
-import { Category, SubCategory } from '../models/Category'
-import {
-  Category as CategoryType,
-  SubCategory as SubCategoryType,
-} from '@/types/hymnsTypes'
+import { Category as CategoryType } from '@/types/hymnsTypes'
 import { CategoryRepository } from '@/repositories/category-repository'
 import { BaseRealmService } from './BaseRealmService'
 

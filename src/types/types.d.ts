@@ -3,13 +3,13 @@ import { Hymn, ListHymnsProps } from './hymnsTypes'
 
 export type PlayList = {
   name: string
-  hymns: Tracks[]
+  hymns: Tracks[] | Hymn[]
   artworkPreview: string
 }
 
 export type Artist = {
   name: string
-  hymns: Tracks[]
+  hymns: Tracks[] | Hymn[]
 }
 
 export type HymnWithPlayList = (ListHymnsProps | Track) & {

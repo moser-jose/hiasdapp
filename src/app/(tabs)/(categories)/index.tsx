@@ -1,14 +1,10 @@
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import { memo, useEffect, useMemo } from 'react'
+import { memo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
-import { Hymn, ListCategoriesProps } from '@/types/hymnsTypes'
 import { useCategories } from '@/store/library'
-import { useRealm } from '@/hooks/useRealm'
-import { useCategory } from '@/hooks/useCategory'
 const CategoriesScreen = () => {
   const categories = useCategories()
-  console.log('renderizouCat')
   return (
     <View style={defaultStyles.container}>
       <ScrollView

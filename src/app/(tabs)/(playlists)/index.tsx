@@ -1,5 +1,4 @@
 import { defaultStyles } from '@/styles'
-import { memo } from 'react'
 import { View, Text } from 'react-native'
 
 function PlaylistsScreen() {
