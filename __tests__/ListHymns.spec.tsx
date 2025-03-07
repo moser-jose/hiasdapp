@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react-native'
-import { ListHymns } from '../src/components/util/ListHymns'
+import ListHymns from '../src/components/util/ListHymns'
 import { hymnsWithArtwork } from './data/DataMock'
 
 describe('ListHymns', () => {

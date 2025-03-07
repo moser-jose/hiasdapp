@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { fontFamily, fontSize } from '@/constants/styles'
-import React, { FC, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 interface ContainerProps {
   title: string
@@ -8,11 +8,7 @@ interface ContainerProps {
   children?: ReactNode
 }
 
-const Separator: FC<ContainerProps> = ({
-  title,
-  more,
-  children,
-}: ContainerProps) => {
+const Separator = ({ title, more, children }: ContainerProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.children}>

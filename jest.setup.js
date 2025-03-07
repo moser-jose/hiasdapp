@@ -36,3 +36,27 @@ jest.mock('react-native-track-player', () => ({
     play: jest.fn(),
   },
 }))
+
+// Simple mock for @expo/vector-icons
+jest.mock('@expo/vector-icons', () => {
+  const mockComponent = () => 'IconMock'
+  return {
+    Ionicons: mockComponent,
+    AntDesign: mockComponent,
+    Entypo: mockComponent,
+    EvilIcons: mockComponent,
+    Feather: mockComponent,
+    FontAwesome: mockComponent,
+    MaterialIcons: mockComponent,
+    MaterialCommunityIcons: mockComponent,
+  }
+})
+
+// Mock Image component and its methods
+jest.mock('react-native/Libraries/Image/Image', () => {
+  const originalImage = jest.requireActual('react-native/Libraries/Image/Image')
+  return {
+    ...originalImage,
+    resolveAssetSource: () => ({ uri: 'test-uri' }),
+  }
+})

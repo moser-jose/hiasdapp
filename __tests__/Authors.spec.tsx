@@ -2,17 +2,17 @@ import { render, screen } from '@testing-library/react-native'
 import Authors from '@/components/util/Authors'
 import { Author } from '@/types/hymnsTypes'
 describe('Authors Component', () => {
-  const singleAuthor: Author[] = [{ name: 'John Doe' }]
+  const singleAuthor: Author[] = [{ name: 'John Doe', id: 1 }]
 
   const twoAuthors: Author[] = [
-    { name: 'John Doe' },
-    { name: 'Jane Smith Justin John' },
+    { name: 'John Doe', id: 1 },
+    { name: 'Jane Smith Justin John', id: 2 },
   ]
 
   const threeAuthors: Author[] = [
-    { name: 'John Doe' },
-    { name: 'Jane Smith' },
-    { name: 'Robert Johnson' },
+    { name: 'John Doe', id: 1 },
+    { name: 'Jane Smith', id: 2 },
+    { name: 'Robert Johnson', id: 3 },
   ]
 
   it('should render single author correctly', () => {

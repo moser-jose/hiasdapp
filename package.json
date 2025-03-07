@@ -24,6 +24,7 @@
     "@expo-google-fonts/roboto": "0.2.3",
     "@expo-google-fonts/rochester": "0.2.3",
     "@expo-google-fonts/sacramento": "0.2.3",
+    "@expo/vector-icons": "^17.0.0",
     "@mosmmy/shortname-js": "1.0.6",
     "@msgpack/msgpack": "3.1.0",
     "@react-native-async-storage/async-storage": "2.1.1",
@@ -80,6 +81,7 @@
     "eslint-plugin-react-native": "5.0.0",
     "eslint-plugin-testing-library": "7.1.1",
     "jest": "29.7.0",
+    "jest-svg-transformer": "1.0.0",
     "prettier": "3.4.2",
     "react-test-renderer": "18.2.0",
     "typescript": "5.7.3"

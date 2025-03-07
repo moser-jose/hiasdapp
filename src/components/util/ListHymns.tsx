@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { ActivityIndicator, FlatList, View } from 'react-native'
+import { ActivityIndicator, FlatList, View, Text } from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import ItemDivider from './ItemDivider'
@@ -27,6 +27,9 @@ function ListHymns({ hymns, ...listHymnsProps }: ListHymnsProps) {
     if (hymns.length > 0) {
       setDisplayedHymns(hymns.slice(0, TAMANHO_PAGINA))
       setAllLoaded(hymns.length <= TAMANHO_PAGINA)
+    } else {
+      setDisplayedHymns([])
+      setAllLoaded(true)
     }
   }, [hymns])
 
@@ -51,7 +54,16 @@ function ListHymns({ hymns, ...listHymnsProps }: ListHymnsProps) {
   }, [hymns, displayedHymns, isLoading, allLoaded])
 
   const renderFooter = () => {
+    if (hymns.length === 0) {
+      return (
+        <View style={{ padding: 16, alignItems: 'center' }}>
+          <Text>No hymns found</Text>
+        </View>
+      )
+    }
+
     if (!isLoading) return null
+
     return (
       <View style={{ padding: 16, alignItems: 'center' }}>
         <ActivityIndicator size="small" />

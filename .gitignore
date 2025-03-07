@@ -40,3 +40,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+default.realm
+default.realm.local
+default.realm.note

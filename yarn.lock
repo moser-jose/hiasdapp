@@ -1355,7 +1355,7 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/vector-icons@^14.0.0":
+"@expo/vector-icons@^14.0.0", "@expo/vector-icons@^17.0.0":
   version "14.0.4"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-14.0.4.tgz#fa9d4351877312badf91a806598b2f0bab16039a"
   integrity sha512-+yKshcbpDfbV4zoXOgHxCwh7lkE9VVTT5T03OUlBsqfze1PLy6Hi4jp1vSb1GVbY6eskvMIivGVc9SKzIv0oEQ==
@@ -6102,6 +6102,11 @@ jest-snapshot@^29.7.0:
     natural-compare "^1.4.0"
     pretty-format "^29.7.0"
     semver "^7.5.3"
+
+jest-svg-transformer@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/jest-svg-transformer/-/jest-svg-transformer-1.0.0.tgz#e38884ca4cd8b2295cdfa2a0b24667920c3a8a6d"
+  integrity sha512-+kD21VthJFHIbI3DZRz+jo4sBOSR1qWEMXhVC28owRMqC5nA+zEiJrHOlj+EqQIztYMouRc1dIjE8SJfFPJUXA==
 
 jest-util@^29.7.0:
   version "29.7.0"
