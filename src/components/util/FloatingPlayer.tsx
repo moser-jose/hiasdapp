@@ -61,7 +61,11 @@ const FloatingPlayer = ({ style }: ViewProps) => {
         />
       </View>
       <View style={styles.hymnControlsContainer}>
-        <PlayPauseButton height={30} width={30} />
+        <PlayPauseButton
+          id={displayedHymn?.id as number}
+          height={38}
+          width={38}
+        />
         <SkipToNextButton height={22} width={22} />
       </View>
     </TouchableOpacity>

@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   trackTitleContainer: {
     flex: 1,
-    height: 70,
+    height: 73,
     overflow: 'hidden',
   },
   trackTitleContainerView: {

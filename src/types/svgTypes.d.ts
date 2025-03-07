@@ -4,4 +4,5 @@ export interface SVGIconProps extends SvgProps {
   color: string
   width?: number
   height?: number
+  backgroundColor?: string
 }

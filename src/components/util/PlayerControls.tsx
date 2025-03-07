@@ -8,6 +8,7 @@ import PlayerRepeatToogle from './PlayerRepeatToogle'
 import PlayerShuffleToogle from './PlayerShuffleToogle'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
+import PlayButton from './PlayButton'
 type PlayerControlsProps = {
   style?: ViewStyle
 }
@@ -16,6 +17,7 @@ type PlayerButtonProps = {
   style?: ViewStyle
   width?: number
   height?: number
+  id?: number
 }
 
 export const PlayerControls = ({ style }: PlayerControlsProps) => {
@@ -32,23 +34,24 @@ export const PlayerControls = ({ style }: PlayerControlsProps) => {
   )
 }
 
-const PlayPauseButton = ({ style, width, height }: PlayerButtonProps) => {
+const PlayPauseButton = ({ style, width, height, id }: PlayerButtonProps) => {
   const play = usePlayerStore(useShallow(state => state.play))
   const pause = usePlayerStore(useShallow(state => state.pause))
   const isPlaying = usePlayerStore(useShallow(state => state.isPlaying))
-
+  const displayedHymn = usePlayerStore(useShallow(state => state.activeHymn))
   return (
     <View style={style}>
-      <TouchableOpacity
-        activeOpacity={0.85}
-        onPress={() => (isPlaying ? pause() : play())}
-      >
-        {isPlaying ? (
-          <PauseButtonSVG width={width} height={height} color={colors.green} />
-        ) : (
-          <PlayButtonSVG width={width} height={height} color={colors.green} />
-        )}
-      </TouchableOpacity>
+      <PlayButton
+        isPlaying={isPlaying}
+        testID={`play-button-${displayedHymn?.number}`}
+        id={displayedHymn?.id as number}
+        activeHymnId={displayedHymn?.id as number}
+        handleHymnSelect={() => (isPlaying ? pause() : play())}
+        height={height}
+        backgroundColor="transparent"
+        width={width}
+        color={colors.green}
+      />
     </View>
   )
 }

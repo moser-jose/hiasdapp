@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { getDailyHymn } from '@/helpers/getDailyHymn'
 import { ListHymns, Hymn, Category } from '@/types/hymnsTypes'
-import PlayCardSVG from '../svg/PlayCardSvg'
+import PlayCardSVG from '../svg/PlaySvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
@@ -18,6 +18,9 @@ import Authors from './Authors'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { dateFormat } from '@/helpers/dateFormat'
 import { truncateText } from '@/helpers/textsWords'
+import PlayButton from './PlayButton'
+import { usePlayerStore } from '@/store/playerStore'
+import { useShallow } from 'zustand/react/shallow'
 
 interface CardHymnDayProps {
   hymns: ListHymns
@@ -26,6 +29,15 @@ interface CardHymnDayProps {
 
 const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
   const [hymn, setHymn] = useState<Hymn | undefined>()
+
+  const { isPlaying, play, pause, activeHymn } = usePlayerStore(
+    useShallow(state => ({
+      play: state.play,
+      pause: state.pause,
+      isPlaying: state.isPlaying,
+      activeHymn: state.activeHymn,
+    }))
+  )
 
   useEffect(() => {
     const fetchHymn = async () => {
@@ -98,12 +110,31 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                   <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.hymnTitlePlay}
+                    onPress={() =>
+                      isPlaying
+                        ? pause()
+                        : activeHymn?.id === hymn.id
+                          ? play()
+                          : play(hymn)
+                    }
                   >
-                    <Text style={styles.hymnTitlePlayText}>Tocar Agora</Text>
-                    <PlayCardSVG
-                      color={colors.primary}
-                      width={20}
+                    <Text style={styles.hymnTitlePlayText}>
+                      {isPlaying ? 'Pausar' : 'Tocar Agora'}
+                    </Text>
+
+                    <PlayButton
+                      isPlaying={isPlaying}
+                      id={hymn.id as number}
                       height={20}
+                      width={20}
+                      activeHymnId={activeHymn?.id as number}
+                      handleHymnSelect={() =>
+                        isPlaying
+                          ? pause()
+                          : activeHymn?.id === hymn.id
+                            ? play()
+                            : play(hymn)
+                      }
                     />
                   </TouchableOpacity>
                 </View>
@@ -182,8 +213,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     gap: 6,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
   hymnTitlePlayText: {
     color: 'white',
@@ -221,7 +252,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'white',
     fontFamily: fontFamily.rochester.regular,
-    fontSize: 30,
+    fontSize: 32,
   },
 })
 

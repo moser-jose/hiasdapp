@@ -1,6 +1,6 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback, useMemo } from 'react'
 
-import { TouchableOpacity } from 'react-native'
+import { ActivityIndicator, TouchableOpacity } from 'react-native'
 
 import HeartFullSVG from '../svg/HeartFullSvg'
 
@@ -10,8 +10,9 @@ import HeartSVG from '../svg/HeartSvg'
 import { useFavorites } from '@/store/library'
 
 const ToogleFavorites = ({ id }: { id: number }) => {
-  const { favorites, toggleFavorite, isFavorite } = useFavorites()
+  const { toggleFavorite, isFavorite } = useFavorites()
   const [isFav, setIsFav] = useState(false)
+  const [loadingFavorite, setLoadingFavorite] = useState(false)
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -21,23 +22,32 @@ const ToogleFavorites = ({ id }: { id: number }) => {
     checkFavorite()
   }, [id, isFavorite])
 
-  useEffect(() => {
-    const isInFavorites = favorites.some(hymn => hymn.id === id)
-    setIsFav(isInFavorites)
-  }, [favorites, id])
+  const handleFavoritePress = useCallback(async () => {
+    try {
+      setLoadingFavorite(true)
+      await toggleFavorite(id as number)
+      setIsFav(prevState => !prevState)
+    } catch (error) {
+      console.error('Error toggling favorite:', error)
+    } finally {
+      setLoadingFavorite(false)
+    }
+  }, [id, toggleFavorite])
 
-  const handleFavoritePress = async () => {
-    await toggleFavorite(id as number)
-    setIsFav(!isFav)
-  }
+  const FavoriteButton = useMemo(() => {
+    if (loadingFavorite) {
+      return <ActivityIndicator size="small" color={colors.green} />
+    }
+    return isFav ? (
+      <HeartFullSVG color={colors.green} />
+    ) : (
+      <HeartSVG color={colors.green} />
+    )
+  }, [isFav, loadingFavorite])
 
   return (
-    <TouchableOpacity onPress={handleFavoritePress}>
-      {isFav ? (
-        <HeartFullSVG color={colors.green} />
-      ) : (
-        <HeartSVG color={colors.green} />
-      )}
+    <TouchableOpacity activeOpacity={0.8} onPress={handleFavoritePress}>
+      {FavoriteButton}
     </TouchableOpacity>
   )
 }

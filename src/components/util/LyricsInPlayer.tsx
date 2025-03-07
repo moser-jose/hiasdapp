@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.semibold,
     fontSize: 30,
-    letterSpacing: -1,
+    letterSpacing: 2,
     marginBottom: 20,
   },
 })

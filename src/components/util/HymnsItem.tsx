@@ -1,27 +1,25 @@
 import { Text, TouchableOpacity, View } from 'react-native'
-import HeartSVG from '../svg/HeartSvg'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
-import PlayCardSVG from '../svg/PlayCardSvg'
+import PlayCardSVG from '../svg/PlaySvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { Author, HymnsProps } from '@/types/hymnsTypes'
+import { Author, Hymn, HymnsProps } from '@/types/hymnsTypes'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useState, useMemo, useCallback, useEffect } from 'react'
-import HeartFullSVG from '../svg/HeartFullSvg'
+import { useMemo, useCallback } from 'react'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
-import { useFavorites } from '@/store/library'
+import ToogleFavorites from './ToogleFavorites'
+import PlayButton from './PlayButton'
 
-function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
-  const { favorites, toggleFavorite, isFavorite } = useFavorites()
-  const [isFav, setIsFav] = useState(false)
-
-  const { isPlaying, activeHymn } = usePlayerStore(
+function HymnsItem({ hymn, id }: HymnsProps) {
+  const { play, pause, isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
+      play: state.play,
+      pause: state.pause,
       isPlaying: state.isPlaying,
       activeHymn: state.activeHymn,
     }))
@@ -32,59 +30,32 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
     [activeHymn?.url, hymn.url]
   )
 
-  useEffect(() => {
-    const checkFavorite = async () => {
-      const result = await isFavorite(hymn.id as number)
-      setIsFav(result as boolean)
-    }
-    checkFavorite()
-  }, [hymn.id, isFavorite])
+  /* const handlePlayPress = useCallback(
+    (hymn: Hymn) => {
+      if (hymn.id !== activeHymn?.id) {
+        handleHymnSelect(hymn)
+      }
+    },
+    [activeHymn?.id, handleHymnSelect]
+  ) */
 
-  useEffect(() => {
-    const isInFavorites = favorites.some(hymn => hymn.id === hymn.id)
-    setIsFav(isInFavorites)
-  }, [favorites, hymn.id])
-
-  const handleFavoritePress = async () => {
-    await toggleFavorite(hymn.id as number)
-    setIsFav(!isFav)
-  }
-
-  const handlePlayPress = useCallback(() => {
-    if (hymn.id !== activeHymn?.id) {
-      handleHymnSelect(hymn)
-    }
-  }, [hymn, activeHymn?.id, handleHymnSelect])
+  const activeStyle = StyleSheet.create({
+    activeTitle: {
+      ...styles.title,
+      color: colors.active,
+      fontWeight: 'bold',
+    },
+    normalTitle: {
+      ...styles.title,
+      color: colors.text,
+      fontWeight: 'normal',
+    },
+  })
 
   const titleStyle = useMemo(
-    () => ({
-      ...styles.title,
-      fontWeight: isActiveHymn ? '500' : '400',
-      color: isActiveHymn ? colors.active : colors.text,
-    }),
-    [isActiveHymn]
+    () => (isActiveHymn ? activeStyle.activeTitle : activeStyle.normalTitle),
+    [isActiveHymn, activeStyle]
   )
-
-  const PlayButton = useMemo(() => {
-    if (isActiveHymn && isPlaying && activeHymn?.id === id) {
-      return (
-        <LoaderKit
-          style={{ width: 25, height: 25 }}
-          name="LineScaleParty"
-          color={colors.icon}
-        />
-      )
-    }
-    return <PlayCardSVG width={35} height={35} color={colors.primary} />
-  }, [activeHymn?.id, id, isActiveHymn, isPlaying])
-
-  const FavoriteButton = useMemo(() => {
-    return isFav ? (
-      <HeartFullSVG color={colors.green} />
-    ) : (
-      <HeartSVG color={colors.green} />
-    )
-  }, [isFav])
 
   return (
     <TouchableOpacity style={styles.container}>
@@ -112,15 +83,19 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
             />
           </View>
         </View>
-        <TouchableOpacity activeOpacity={0.8} onPress={handleFavoritePress}>
-          {FavoriteButton}
-        </TouchableOpacity>
-        <TouchableOpacity
+        <ToogleFavorites id={hymn.id} />
+
+        <PlayButton
+          isPlaying={isPlaying}
           testID={`play-button-${hymn.number}`}
-          onPress={handlePlayPress}
-        >
-          {PlayButton}
-        </TouchableOpacity>
+          id={id as number}
+          activeHymnId={activeHymn?.id as number}
+          handleHymnSelect={() =>
+            isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
+          }
+          height={34}
+          width={34}
+        />
       </View>
     </TouchableOpacity>
   )

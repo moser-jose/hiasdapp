@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react-native'
 import ListHymns from '../src/components/util/ListHymns'
 import { hymnsWithArtwork } from './data/DataMock'
-import { useHymn } from '@/hooks/useHymn'
 
 describe('ListHymns', () => {
   beforeEach(() => {
