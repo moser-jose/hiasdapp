@@ -11,7 +11,7 @@ import HomeOutlineSVG from '@/components/svg/HomeOutlineSvg'
 import PlayListsSVG from '@/components/svg/PlayListsSVG'
 import PlayListsOutlineSVG from '@/components/svg/PlayListsOutlineSVG'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily } from '@/constants/styles'
 
 type IconProps = {
   color: string
@@ -23,16 +23,16 @@ const PLAYER_STYLES = {
   left: 8,
   right: 8,
   bottom: 94,
-  borderRadius: 8,
+  borderRadius: 12,
 }
 
 const TAB_BAR_OPTIONS = {
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.second,
   tabBarLabelStyle: {
-    fontSize: fontSize.xs,
+    fontSize: 14,
     flexDirection: 'row',
-    fontWeight: '500',
+    fontFamily: fontFamily.plusJakarta.medium,
   },
   headerShown: false,
 } as const
@@ -43,10 +43,14 @@ const IconRenderer = ({
   ActiveIcon,
   InactiveIcon,
 }: IconProps & {
-  ActiveIcon: React.FC<{ color: string }>
-  InactiveIcon: React.FC<{ color: string }>
+  ActiveIcon: React.FC<{ width?: number; height?: number; color: string }>
+  InactiveIcon: React.FC<{ width?: number; height?: number; color: string }>
 }) => {
-  return focused ? <ActiveIcon color={color} /> : <InactiveIcon color={color} />
+  return focused ? (
+    <ActiveIcon height={25} width={25} color={color} />
+  ) : (
+    <InactiveIcon height={25} width={25} color={color} />
+  )
 }
 
 function TabsNavigation() {

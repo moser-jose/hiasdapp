@@ -20,7 +20,7 @@ const Header = ({
         <Text style={styles.title}>{title}</Text>
         <View style={styles.view}>
           <Text style={styles.text}>{text}</Text>
-          <Topic text={year} />
+          <Topic text={year} style={{ fontSize: fontSize.sm }} />
         </View>
       </View>
       <TouchableOpacity>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#61788A',
     fontFamily: fontFamily.birthstoneBounce.medium,
-    fontSize: fontSize.base,
+    fontSize: fontSize.lg,
   },
   title: {
     color: colors.text,

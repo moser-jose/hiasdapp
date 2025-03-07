@@ -13,7 +13,8 @@ import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import { colors } from '@/constants/styles'
 import DownloadSVG from '@/components/svg/DownloadSvg'
 import { Hymn } from '@/types/hymnsTypes'
-import { useCategories, useHymns } from '@/store/library'
+import { useCategories, useFavorites, useHymns } from '@/store/library'
+import ListHymns from '@/components/util/ListHymns'
 
 import { useCallback } from 'react'
 type Playlist = {
@@ -26,6 +27,7 @@ type dat = Playlist[]
 function HomeScreen() {
   const categories = useCategories()
   const hymns = useHymns()
+  const { favorites } = useFavorites()
 
   const handleHymnSelect = useCallback(async (hymn: Track) => {
     await TrackPlayer.load(hymn)
@@ -56,10 +58,10 @@ function HomeScreen() {
         contentContainerStyle={{ paddingTop: 10, paddingBottom: 90 }}
         showsVerticalScrollIndicator={false}
       >
-        {/* <Separator title="Hinos" />
+        <Separator title="Hinos" />
 
-        <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
- */}
+        <ListHymns hymns={hymns} horizontal />
+
         <Separator title="Categorias" more />
         <ListCategories
           categories={categories}
@@ -71,12 +73,12 @@ function HomeScreen() {
 
         <CardHymnDay hymns={hymns} categories={categories} />
 
-        {/* <Separator title="Favoritos" more>
+        <Separator title="Favoritos" more>
           <HeartFullSVG color={colors.green} height={16} width={16} />
         </Separator>
 
-        <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
- */}
+        <ListHymns hymns={favorites} horizontal />
+
         {/* <Separator title="Hinos baixados" more>
           <DownloadSVG color={colors.green} height={16} width={16} />
         </Separator>

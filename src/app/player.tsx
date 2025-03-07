@@ -119,6 +119,9 @@ const PlayerScreen = () => {
                 }}
               >
                 <View style={styles.trackTitleContainer}>
+                  <Text style={styles.trackNumberView}>
+                    {activeHymn.numberView}
+                  </Text>
                   <View style={styles.trackTitleContainerView}>
                     <View style={{ maxWidth: '65%', overflow: 'hidden' }}>
                       <MovingText
@@ -127,9 +130,6 @@ const PlayerScreen = () => {
                         style={styles.trackTitleText}
                       />
                     </View>
-                    <Text style={styles.trackNumberView}>
-                      {activeHymn.numberView}
-                    </Text>
 
                     <ToogleFavorites id={activeHymn.id as number} />
                   </View>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   trackTitleContainer: {
     flex: 1,
-    height: 65,
+    height: 70,
     overflow: 'hidden',
   },
   trackTitleContainerView: {

@@ -12,7 +12,8 @@ import HeartFullSVG from '../svg/HeartFullSvg'
 import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
-
+import { Author } from '@/types/hymnsTypes'
+import ToogleFavorites from './ToogleFavorites'
 const HymnsCard = ({
   hymn,
   style,
@@ -32,7 +33,7 @@ const HymnsCard = ({
     number: hymn.number,
     numberView: hymn.numberView,
     englishTitle: hymn.englishTitle,
-    authors: Object.values(hymn.authors),
+    authors: Object.values(hymn.authors) as Author[],
     title: hymn.title,
     url: hymn.url,
     lyrics: hymn.lyrics,
@@ -43,12 +44,12 @@ const HymnsCard = ({
   return (
     <TouchableOpacity style={[hymnsCard.container, style]}>
       <View style={hymnsCard.card}>
-        <Text style={hymnsCard.number}>{hymn.numberView}</Text>
+        <Text style={hymnsCard.number}>{track.numberView}</Text>
         <View style={hymnsCard.ViewCard}>
           <View style={hymnsCard.cardTittle}>
             <View style={hymnsCard.viewTittle}>
               <Text style={hymnsCard.title}>
-                {truncateText(hymn.title, 15)}
+                {truncateText(track.title, 15)}
               </Text>
               <ActiveHymnsDownloadSVG color={colors.green} />
             </View>
@@ -56,24 +57,20 @@ const HymnsCard = ({
               activeOpacity={0.8}
               onPress={() => setFavorites(!favorites)}
             >
-              {favorites === true ? (
-                <HeartFullSVG color={colors.green} />
-              ) : (
-                <HeartSVG color={colors.green} />
-              )}
+              <ToogleFavorites id={track.id as number} />
             </TouchableOpacity>
           </View>
-          <Text style={hymnsCard.baseTitle}>{hymn.englishTitle}</Text>
+          <Text style={hymnsCard.baseTitle}>{track.englishTitle}</Text>
           <Authors
             style={hymnsCard.author}
-            authors={hymn.authors}
+            authors={track.authors || []}
             card={true}
           />
         </View>
       </View>
       <TouchableOpacity
         style={hymnsCard.play}
-        onPress={() => handleHymnSelect(track)}
+        onPress={() => handleHymnSelect(hymn)}
       >
         {isPlaying && id === activeHymn?.id ? (
           <PauseCardSVG color={colors.primary} />

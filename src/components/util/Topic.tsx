@@ -1,8 +1,14 @@
 import { colors } from '@/constants/styles'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
 
-const Topic = ({ text }: { text: string }) => {
-  return <Text style={styles.text}>{text}</Text>
+const Topic = ({
+  text,
+  style,
+}: {
+  text: string
+  style?: StyleProp<TextStyle>
+}) => {
+  return <Text style={[{ ...styles.text }, style]}>{text}</Text>
 }
 
 const styles = StyleSheet.create({

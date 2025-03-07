@@ -3,7 +3,7 @@ import HeartSVG from '../svg/HeartSvg'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import PlayCardSVG from '../svg/PlayCardSvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { HymnsProps, HymnTrack } from '@/types/hymnsTypes'
+import { Author, HymnsProps } from '@/types/hymnsTypes'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
@@ -32,45 +32,29 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
     [activeHymn?.url, hymn.url]
   )
 
-  const track: HymnTrack = useMemo(
-    () => ({
-      id: hymn.number,
-      number: hymn.number,
-      numberView: hymn.numberView,
-      englishTitle: hymn.englishTitle,
-      authors: hymn.authors,
-      title: hymn.title,
-      url: hymn.url,
-      lyrics: hymn.lyrics,
-      artwork: hymn.artwork,
-      artist: hymn.artist,
-    }),
-    [hymn]
-  )
-
   useEffect(() => {
     const checkFavorite = async () => {
-      const result = await isFavorite(track.id as number)
+      const result = await isFavorite(hymn.id as number)
       setIsFav(result as boolean)
     }
     checkFavorite()
-  }, [track.id, isFavorite])
+  }, [hymn.id, isFavorite])
 
   useEffect(() => {
-    const isInFavorites = favorites.some(hymn => hymn.id === track.id)
+    const isInFavorites = favorites.some(hymn => hymn.id === hymn.id)
     setIsFav(isInFavorites)
-  }, [favorites, track.id])
+  }, [favorites, hymn.id])
 
   const handleFavoritePress = async () => {
-    await toggleFavorite(track.id as number)
+    await toggleFavorite(hymn.id as number)
     setIsFav(!isFav)
   }
 
   const handlePlayPress = useCallback(() => {
-    if (track.id !== activeHymn?.id) {
-      handleHymnSelect(track)
+    if (hymn.id !== activeHymn?.id) {
+      handleHymnSelect(hymn)
     }
-  }, [track, activeHymn?.id, handleHymnSelect])
+  }, [hymn, activeHymn?.id, handleHymnSelect])
 
   const titleStyle = useMemo(
     () => ({
@@ -123,7 +107,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
             <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
             <Authors
               style={styles.author}
-              authors={Object.values(hymn.authors)}
+              authors={Object.values(hymn.authors) as Author[]}
               card={false}
             />
           </View>

@@ -9,7 +9,7 @@ function HymnsScreen() {
 
   return (
     <View style={defaultStyles.container}>
-      <ListHymns hymns={hymns} />
+      <ListHymns horizontal={false} hymns={hymns} />
     </View>
   )
 }
