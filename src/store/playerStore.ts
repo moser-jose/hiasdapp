@@ -5,6 +5,7 @@ import TrackPlayer, {
   Event,
   RepeatMode,
   AddTrack,
+  PlaybackActiveTrackChangedEvent,
 } from 'react-native-track-player'
 import React from 'react'
 import { Hymn } from '@/types/hymnsTypes'
@@ -98,19 +99,22 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
   skipTo: async (index: number) => {
     await TrackPlayer.skip(index)
+    const nextTrack = await TrackPlayer.getActiveTrack()
+    if (nextTrack) {
+      get().setActiveHymn(nextTrack as Track | Hymn)
+    }
   },
   setActiveQueueId: (id: string) => set({ activeQueueId: id }),
 }))
-
 export const useTrackUpdates = () => {
   const setActiveHymn = usePlayerStore(state => state.setActiveHymn)
 
   React.useEffect(() => {
     const subscription = TrackPlayer.addEventListener(
       Event.PlaybackActiveTrackChanged,
-      async ({ track }) => {
-        if (typeof track === 'number') {
-          const nextTrackObj = await TrackPlayer.getTrack(track)
+      async (event: PlaybackActiveTrackChangedEvent) => {
+        if (typeof event.track?.id === 'number') {
+          const nextTrackObj = await TrackPlayer.getActiveTrack()
           setActiveHymn(nextTrackObj || null)
         } else {
           setActiveHymn(null)
@@ -125,6 +129,8 @@ export const useTrackUpdates = () => {
 export const useSetupHymnPlayer = ({ onLoad }: { onLoad?: () => void }) => {
   const isInitialized = React.useRef(false)
   const setupPlayer = usePlayerStore(state => state.setupPlayer)
+  useTrackUpdates()
+
   React.useEffect(() => {
     setupPlayer()
       .then(() => {

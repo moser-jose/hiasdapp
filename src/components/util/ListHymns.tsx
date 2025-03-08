@@ -26,8 +26,6 @@ function ListHymns({
 
   const activeHymn = usePlayerStore(state => state.activeHymn)
 
-  console.log('activeHymn', activeHymn)
-
   const play = usePlayerStore(state => state.play)
 
   const { skipTo, add, reset } = usePlayerStore(
@@ -145,11 +143,10 @@ function ListHymns({
     if (trackIndex === -1) return
 
     const isChangingQueue = id !== activeQueueId
-    console.log('beforeTracks')
+    console.log(id)
     if (isChangingQueue) {
       const beforeTracks = hymns.slice(0, trackIndex)
       const afterTracks = hymns.slice(trackIndex + 1)
-      console.log('MKIN')
       await reset()
 
       // we construct the new queue
@@ -157,17 +154,11 @@ function ListHymns({
       await add(afterTracks)
       await add(beforeTracks)
 
-      console.log('beforeTracks', beforeTracks)
-      /*  await TrackPlayer.add(selectedTrack)
-      await TrackPlayer.add(afterTracks)
-      await TrackPlayer.add(beforeTracks)
- */
       await play()
 
       queueOffset.current = trackIndex
       setActiveQueueId(id as string)
     } else {
-      console.log('beforeTracke')
       const nextTrackIndex =
         trackIndex - queueOffset.current < 0
           ? hymns.length + trackIndex - queueOffset.current
