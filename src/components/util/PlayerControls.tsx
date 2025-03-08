@@ -12,6 +12,7 @@ import PlayButton from './PlayButton'
 import TrackPlayer from 'react-native-track-player'
 type PlayerControlsProps = {
   style?: ViewStyle
+  styleRow?: ViewStyle
 }
 
 type PlayerButtonProps = {
@@ -21,15 +22,30 @@ type PlayerButtonProps = {
   id?: number
 }
 
-export const PlayerControls = ({ style }: PlayerControlsProps) => {
+export const PlayerControls = ({ style, styleRow }: PlayerControlsProps) => {
   return (
     <View style={[styles.container, style]}>
-      <View style={styles.row}>
+      <View style={[styles.row, styleRow]}>
         <PlayerShuffleToogle />
         <SkipToPreviousButton width={30} height={35} />
         <PlayPauseButton width={55} height={55} />
         <SkipToNextButton width={30} height={29} />
         <PlayerRepeatToogle />
+      </View>
+    </View>
+  )
+}
+
+export const PlayerControlsLyrics = ({
+  style,
+  styleRow,
+}: PlayerControlsProps) => {
+  return (
+    <View style={[styles.container, style]}>
+      <View style={[styles.row, styleRow]}>
+        <SkipToPreviousButton width={30} height={35} />
+        <PlayPauseButton width={55} height={55} />
+        <SkipToNextButton width={30} height={29} />
       </View>
     </View>
   )

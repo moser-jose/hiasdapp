@@ -56,10 +56,15 @@ function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
         router.push({
           pathname: `/lyrics`,
           params: {
-            hymnId: hymn.id,
+            id: hymn.id,
+            numberView: hymn.numberView,
+            authors: hymn.authors ? JSON.stringify(hymn.authors) : null,
             lyrics: hymn.lyrics ? JSON.stringify(hymn.lyrics) : null,
-            hymnNumber: hymn.number,
-            hymnTitle: hymn.title,
+            number: hymn.number,
+            title: hymn.title,
+            englishTitle: hymn.englishTitle,
+            biblicalText: hymn.biblicalText,
+            url: hymn.url,
           },
         })
       }

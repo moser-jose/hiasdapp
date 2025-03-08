@@ -13,16 +13,40 @@ import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { useEffect, useState } from 'react'
 import { useLibraryStore } from '@/store/library'
 import { useShallow } from 'zustand/react/shallow'
-import { Hymn, Lyrics } from '@/types/hymnsTypes'
+import { Author, Hymn, Lyrics } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
+import {
+  PlayerControls,
+  PlayerControlsLyrics,
+} from '@/components/util/PlayerControls'
+import Authors from '@/components/util/Authors'
+import ToogleFavorites from '@/components/util/ToogleFavorites'
 
 export default function LyricsScreen() {
-  const { hymnId, hymnNumber, hymnTitle, lyrics } = useLocalSearchParams()
+  const {
+    id,
+    title,
+    lyrics,
+    biblicalText,
+    numberView,
+    englishTitle,
+    number,
+    authors,
+  } = useLocalSearchParams()
   const [lyricsContent, setLyricsContent] = useState<string>('')
   const [textSize, setTextSize] = useState<number>(fontSize.base)
+  const [paraAuthors, setParaAuthors] = useState<Author[]>(
+    Object.values(JSON.parse(authors as string) as Author[])
+  )
 
   const hymns = useLibraryStore(useShallow(state => state.hymns))
+
+  useEffect(() => {
+    if (authors) {
+      setParaAuthors(Object.values(JSON.parse(authors as string) as Author[]))
+    }
+  }, [authors])
 
   useEffect(() => {
     if (lyrics) {
@@ -66,15 +90,13 @@ export default function LyricsScreen() {
       }
     }
 
-    if (hymnId && hymns.length > 0) {
-      const hymn = hymns.find(
-        (h: Hymn) => h.id.toString() === hymnId.toString()
-      )
+    if (id && hymns.length > 0) {
+      const hymn = hymns.find((h: Hymn) => h.id.toString() === id.toString())
       if (hymn && typeof hymn.lyrics === 'string') {
         setLyricsContent(hymn.lyrics)
       }
     }
-  }, [hymnId, hymns, lyrics])
+  }, [id, hymns, lyrics])
 
   const handleGoBack = () => {
     router.back()
@@ -94,10 +116,10 @@ export default function LyricsScreen() {
 
   const handleShare = async () => {
     try {
-      const content = `${hymnTitle} (Hino ${hymnNumber})\n\n${lyricsContent}`
+      const content = `${title} (Hino ${number})\n\n${lyricsContent}`
       await Share.share({
         message: content,
-        title: `${hymnTitle} - Hino ${hymnNumber}`,
+        title: `${title} - Hino ${number}`,
       })
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível compartilhar a letra')
@@ -132,12 +154,34 @@ export default function LyricsScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={colors.primary} />
+          <Ionicons name="chevron-back" size={24} color={colors.primary} />
         </TouchableOpacity>
+
         <View style={styles.titleContainer}>
-          <Text style={styles.hymnNumber}>Hino {hymnNumber}</Text>
-          <Text style={styles.title}>{hymnTitle}</Text>
+          <View style={styles.hymnNumberContainer}>
+            <Text style={styles.hymnNumber}>{numberView}</Text>
+            <Text style={styles.biblicalText}>{biblicalText}</Text>
+          </View>
+          <View style={styles.titleContainerFavorite}>
+            <Text style={styles.title}>{title}</Text>
+            <ToogleFavorites id={parseInt(id as string)} />
+          </View>
+          <View style={styles.authorsContainer}>
+            {paraAuthors.map((author, index) => {
+              return (
+                <Text key={index}>
+                  {author.name}
+                  {index < paraAuthors.length - 1 && ', '}
+                </Text>
+              )
+            })}
+          </View>
         </View>
+
+        {/* <PlayerControlsLyrics
+          style={styles.playerControls}
+          styleRow={styles.playerControlsRow}
+        /> */}
         <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
@@ -194,6 +238,18 @@ export default function LyricsScreen() {
 }
 
 const styles = StyleSheet.create({
+  authorsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+
+  authorsTitle: {
+    color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.medium,
+    fontSize: fontSize.sm,
+  },
+
   backButton: {
     padding: 8,
   },
@@ -213,6 +269,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 8,
   },
+  biblicalText: {
+    color: colors.textMuted,
+    fontFamily: fontFamily.plusJakarta.medium,
+    fontSize: fontSize.sm,
+  },
   floatingPlayerSpace: {
     height: 100, // Ajustado para considerar o tamanho do FloatingPlayer (com padding e margens)
   },
@@ -222,17 +283,23 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: {
-    alignItems: 'center',
+    //alignItems: 'center',
     borderBottomColor: colors.third,
     borderBottomWidth: 1,
-    flexDirection: 'row',
+    //flexDirection: 'row',
     padding: 16,
   },
   hymnNumber: {
     color: colors.primary,
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.base,
     marginBottom: 4,
+  },
+
+  hymnNumberContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
   },
   lyrics: {
     color: colors.text,
@@ -251,6 +318,12 @@ const styles = StyleSheet.create({
     marginTop: 32,
     textAlign: 'center',
   },
+  /*   playerControls: {
+      justifyContent: 'flex-start',
+      marginTop: 10,
+      width: 180,
+    }, */
+  //playerControlsRow: {},
   scrollContent: {
     padding: 20,
     paddingBottom: 0, // Removemos o padding do fundo porque estamos usando o floatingPlayerSpace
@@ -275,13 +348,21 @@ const styles = StyleSheet.create({
     fontSize: fontSize.sm,
   },
   title: {
-    color: colors.text,
-    fontFamily: fontFamily.plusJakarta.bold,
+    //color: colors.text,
+    fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.lg,
-    textAlign: 'center',
+    //textAlign: 'center',
+    color: 'red',
   },
   titleContainer: {
+    marginTop: 10,
+    //alignItems: 'center',
+    //flex: 1,
+  },
+  titleContainerFavorite: {
     alignItems: 'center',
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 })
