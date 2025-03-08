@@ -77,6 +77,22 @@ const RootNavigation = () => {
           gestureEnabled: true,
           gestureDirection: 'vertical',
           animationDuration: 400,
+          contentStyle: {
+            zIndex: 6,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="lyrics"
+        options={{
+          headerShown: false,
+          presentation: 'card',
+          gestureEnabled: true,
+          gestureDirection: 'vertical',
+          animationDuration: 400,
+          /* contentStyle: {
+            zIndex: 1,
+          }, */
         }}
       />
     </Stack>

@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import { getDailyHymn } from '@/helpers/getDailyHymn'
 import { ListHymns, Hymn, Category } from '@/types/hymnsTypes'
-import PlayCardSVG from '../svg/PlaySvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
@@ -53,6 +52,7 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
     )
     return getBackgroundSource(categoryFound?.name ?? '')
   }
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {hymn ? (
@@ -119,7 +119,9 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
                     }
                   >
                     <Text style={styles.hymnTitlePlayText}>
-                      {isPlaying ? 'Pausar' : 'Tocar Agora'}
+                      {isPlaying && activeHymn?.id === hymn.id
+                        ? 'Pausar'
+                        : 'Tocar Agora'}
                     </Text>
 
                     <PlayButton

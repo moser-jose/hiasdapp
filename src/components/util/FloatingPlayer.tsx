@@ -35,6 +35,8 @@ const FloatingPlayer = ({ style }: ViewProps) => {
   const displayedHymn = activeHymn ?? lastActiveHymn
   if (!displayedHymn) return null
 
+  console.log('kjk')
+
   return (
     <TouchableOpacity
       onPress={handlePress}
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 16,
     paddingVertical: 14,
+    zIndex: 1000,
   },
   hymnControlsContainer: {
     alignItems: 'center',

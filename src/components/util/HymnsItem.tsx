@@ -15,6 +15,7 @@ import { useShallow } from 'zustand/react/shallow'
 import ToogleFavorites from './ToogleFavorites'
 
 import PlayButton from './PlayButton'
+import { router } from 'expo-router'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
   const { play, pause, isPlaying, activeHymn } = usePlayerStore(
@@ -50,7 +51,21 @@ function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
   )
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      onPress={() =>
+        router.push({
+          pathname: `/lyrics`,
+          params: {
+            hymnId: hymn.id,
+            lyrics: hymn.lyrics ? JSON.stringify(hymn.lyrics) : null,
+            hymnNumber: hymn.number,
+            hymnTitle: hymn.title,
+          },
+        })
+      }
+      activeOpacity={0.7}
+      style={styles.container}
+    >
       <View style={styles.card}>
         <View style={styles.cardSpreed}>
           <TouchableOpacity style={styles.cardSpreedTouch}>
@@ -76,7 +91,6 @@ function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
           </View>
         </View>
         <ToogleFavorites id={hymn.id} />
-
         <PlayButton
           isPlaying={isPlaying}
           testID={`play-button-${hymn.number}`}

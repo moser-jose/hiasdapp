@@ -1,14 +1,11 @@
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 
 import PlaySVG from '../svg/PlaySvg'
-import { colors } from '@/constants/styles'
 import PauseSVG from '../svg/PauseSvg'
-import { Hymn } from '@/types/hymnsTypes'
-import { hymnsCard } from '@/styles'
 
 type PlayButtonProps = {
   isPlaying: boolean
-  id: number
+  id?: number
   activeHymnId: number
   testID?: string
   style?: StyleProp<ViewStyle>
