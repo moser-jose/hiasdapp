@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import { ActivityIndicator, FlatList, View, Text } from 'react-native'
+import {
+  ActivityIndicator,
+  FlatList,
+  View,
+  Text,
+  ListRenderItem,
+} from 'react-native'
 import HymnsItem from './HymnsItem'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import ItemDivider from './ItemDivider'
@@ -139,11 +145,13 @@ function ListHymns({
   }
 
   const handleHymnSelect = async (selectedTrack: Track | Hymn) => {
+    console.log('queue', id)
     const trackIndex = hymns.findIndex(track => track.id === selectedTrack.id)
 
     if (trackIndex === -1) return
 
     const isChangingQueue = id !== activeQueueId
+
     if (isChangingQueue) {
       const beforeTracks = hymns.slice(0, trackIndex)
       const afterTracks = hymns.slice(trackIndex + 1)
@@ -201,7 +209,7 @@ function ListHymns({
       data={filteredSearch}
       ItemSeparatorComponent={horizontal ? null : ItemDivider}
       keyExtractor={(item, index) => `hymn-${item.id}-${item.number}-${index}`}
-      renderItem={renderItem}
+      renderItem={renderItem as ListRenderItem<Track | Hymn>}
       contentInsetAdjustmentBehavior="automatic"
       removeClippedSubviews={true}
       showsHorizontalScrollIndicator={false}

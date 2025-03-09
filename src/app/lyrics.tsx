@@ -19,6 +19,7 @@ import FloatingPlayer from '@/components/util/FloatingPlayer'
 import ToogleFavorites from '@/components/util/ToogleFavorites'
 import { PlayerControlsLyrics } from '@/components/util/PlayerControls'
 import { useStateStore } from '@/store/modal'
+import { truncateText } from '@/helpers/textsWords'
 export default function LyricsScreen() {
   const {
     id,
@@ -179,7 +180,7 @@ export default function LyricsScreen() {
             {paraAuthors.map((author, index) => {
               return (
                 <Text style={styles.authorsTitle} key={index}>
-                  {author.name}
+                  {truncateText(author.name as string, 18)}
                   {index < paraAuthors.length - 1 && ', '}
                 </Text>
               )

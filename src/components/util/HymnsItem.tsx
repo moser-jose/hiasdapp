@@ -18,7 +18,7 @@ import PlayButton from './PlayButton'
 import { router } from 'expo-router'
 import { useLyrics } from '@/store/library'
 
-function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
+function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
   const { play, pause, isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
       play: state.play,
@@ -102,7 +102,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
           testID={`play-button-${hymn.number}`}
           id={id as number}
           activeHymnId={activeHymn?.id as number}
-          handleHymnSelect={() => handleTrackSelect(hymn)}
+          handleHymnSelect={() => handleHymnSelect(hymn)}
           /* handleHymnSelect={() =>
             isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
           } */

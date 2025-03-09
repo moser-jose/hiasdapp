@@ -10,6 +10,7 @@ import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 import ToogleFavorites from './ToogleFavorites'
 import PlayButton from './PlayButton'
+import { router } from 'expo-router'
 const HymnsCard = ({
   hymn,
   style,
@@ -28,7 +29,26 @@ const HymnsCard = ({
   )
 
   return (
-    <TouchableOpacity style={[hymnsCard.container, style]}>
+    <TouchableOpacity
+      onPress={() =>
+        router.push({
+          pathname: `/lyrics`,
+          params: {
+            id: hymn.id,
+            numberView: hymn.numberView,
+            authors: hymn.authors ? JSON.stringify(hymn.authors) : null,
+            lyrics: hymn.lyrics ? JSON.stringify(hymn.lyrics) : null,
+            number: hymn.number,
+            title: hymn.title,
+            englishTitle: hymn.englishTitle,
+            biblicalText: hymn.biblicalText,
+            url: hymn.url,
+          },
+        })
+      }
+      activeOpacity={0.7}
+      style={[hymnsCard.container, style]}
+    >
       <View style={hymnsCard.card}>
         <Text style={hymnsCard.number}>{hymn.numberView}</Text>
         <View style={hymnsCard.ViewCard}>
@@ -60,8 +80,12 @@ const HymnsCard = ({
         isPlaying={isPlaying}
         id={id as number}
         activeHymnId={activeHymn?.id as number}
-        handleHymnSelect={() =>
+        handleHymnSelect={
+          /* () =>
           isPlaying ? pause() : activeHymn?.id === id ? play() : play(hymn)
+         */
+
+          () => handleHymnSelect(hymn)
         }
       />
     </TouchableOpacity>

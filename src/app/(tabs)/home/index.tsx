@@ -16,6 +16,7 @@ import ListHymns from '@/components/util/ListHymns'
 
 import { useCallback } from 'react'
 import React from 'react'
+import { generateTracksListId } from '@/helpers/j'
 type Playlist = {
   title: string
   hymns: number
@@ -52,7 +53,7 @@ function HomeScreen() {
       >
         <Separator title="Hinos" />
 
-        <ListHymns hymns={hymns} horizontal />
+        <ListHymns id={generateTracksListId('home')} hymns={hymns} horizontal />
 
         <Separator title="Categorias" more />
         <ListCategories

@@ -98,8 +98,6 @@ const PlayPauseButton = ({
   const lyrics = useLibraryStore(useShallow(state => state.lyrics))
   const setLyrics = useLibraryStore(useShallow(state => state.setLyrics))
 
-  console.log('lyricsk', lyrics)
-
   const isLyricsScreenOpen = useStateStore(
     useShallow(state => state.isLyricsScreenOpen)
   )
@@ -108,10 +106,12 @@ const PlayPauseButton = ({
     if (isLyricsScreenOpen === false) {
       setLyrics(null)
     }
-    return () => {
+    /* return () => {
       setLyrics(null)
-    }
-  }, [])
+    } */
+  }, [isLyricsScreenOpen, setLyrics])
+
+  console.log('lyricsk', lyrics)
 
   return (
     <View style={style}>
