@@ -14,6 +14,7 @@ import { useLibraryStore } from '@/store/library'
 import { Hymn } from '@/types/hymnsTypes'
 import { useStateStore } from '@/store/modal'
 import { useEffect } from 'react'
+import { reset } from 'react-native-track-player/lib/src/trackPlayer'
 type PlayerControlsProps = {
   style?: ViewStyle
   styleRow?: ViewStyle
@@ -101,9 +102,6 @@ const PlayPauseButton = ({
     useShallow(state => state.isLyricsScreenOpen)
   )
 
-  if (isLyricsScreenOpen === false) {
-    console.log('fechado')
-  }
 
   useEffect(() => {
     if (isLyricsScreenOpen === false) {
