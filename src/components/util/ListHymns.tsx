@@ -11,6 +11,7 @@ import Hymns from '@/app/(tabs)/(hymns)'
 import HymnsCard from './HymnsCard'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { ListHymnsFilter } from '@/helpers/filter'
+import { useLyrics } from '@/store/library'
 
 const TAMANHO_PAGINA = 20
 function ListHymns({
@@ -143,11 +144,11 @@ function ListHymns({
     if (trackIndex === -1) return
 
     const isChangingQueue = id !== activeQueueId
-    console.log(id)
     if (isChangingQueue) {
       const beforeTracks = hymns.slice(0, trackIndex)
       const afterTracks = hymns.slice(trackIndex + 1)
       await reset()
+      console.log('isChangingQueue', id, activeQueueId)
 
       // we construct the new queue
       await add(selectedTrack)

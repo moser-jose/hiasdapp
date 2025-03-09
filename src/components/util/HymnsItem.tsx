@@ -7,7 +7,7 @@ import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useMemo, useCallback, useRef } from 'react'
+import { useMemo, useCallback, useRef, useEffect } from 'react'
 import LoaderKit from 'react-native-loader-kit'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
@@ -16,6 +16,7 @@ import ToogleFavorites from './ToogleFavorites'
 
 import PlayButton from './PlayButton'
 import { router } from 'expo-router'
+import { useLyrics } from '@/store/library'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleTrackSelect }: HymnsProps) {
   const { play, pause, isPlaying, activeHymn } = usePlayerStore(

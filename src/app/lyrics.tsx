@@ -11,18 +11,14 @@ import {
 import { useLocalSearchParams, router } from 'expo-router'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { useEffect, useState } from 'react'
-import { useLibraryStore } from '@/store/library'
+import { useLibraryStore, useLyrics } from '@/store/library'
 import { useShallow } from 'zustand/react/shallow'
 import { Author, Hymn, Lyrics } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
-import {
-  PlayerControls,
-  PlayerControlsLyrics,
-} from '@/components/util/PlayerControls'
-import Authors from '@/components/util/Authors'
 import ToogleFavorites from '@/components/util/ToogleFavorites'
-
+import { PlayerControlsLyrics } from '@/components/util/PlayerControls'
+import { useStateStore } from '@/store/modal'
 export default function LyricsScreen() {
   const {
     id,
@@ -40,7 +36,20 @@ export default function LyricsScreen() {
     Object.values(JSON.parse(authors as string) as Author[])
   )
 
+  const av = useLyrics(parseInt(id as string))
+
   const hymns = useLibraryStore(useShallow(state => state.hymns))
+
+  const setLyricsScreenOpen = useStateStore(
+    useShallow(state => state.setLyricsScreenOpen)
+  )
+
+  useEffect(() => {
+    setLyricsScreenOpen(true)
+    return () => {
+      setLyricsScreenOpen(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (authors) {
@@ -169,7 +178,7 @@ export default function LyricsScreen() {
           <View style={styles.authorsContainer}>
             {paraAuthors.map((author, index) => {
               return (
-                <Text key={index}>
+                <Text style={styles.authorsTitle} key={index}>
                   {author.name}
                   {index < paraAuthors.length - 1 && ', '}
                 </Text>
@@ -178,10 +187,17 @@ export default function LyricsScreen() {
           </View>
         </View>
 
-        {/* <PlayerControlsLyrics
+        <PlayerControlsLyrics
           style={styles.playerControls}
           styleRow={styles.playerControlsRow}
-        /> */}
+          heightPlay={40}
+          widthPlay={40}
+          heightNext={30}
+          widthNext={30}
+          heightPrevious={30}
+          widthPrevious={30}
+        />
+
         <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
@@ -205,7 +221,7 @@ export default function LyricsScreen() {
 
       <View style={styles.footer}>
         <View style={styles.textSizeControls}>
-          <TouchableOpacity
+          {/*  <TouchableOpacity
             onPress={decreaseTextSize}
             style={styles.sizeButton}
             disabled={textSize <= 14}
@@ -227,7 +243,7 @@ export default function LyricsScreen() {
               size={24}
               color={textSize >= 24 ? colors.textMuted : colors.primary}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
 
@@ -275,7 +291,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.sm,
   },
   floatingPlayerSpace: {
-    height: 100, // Ajustado para considerar o tamanho do FloatingPlayer (com padding e margens)
+    height: 100,
   },
   footer: {
     borderTopColor: colors.third,
@@ -318,15 +334,18 @@ const styles = StyleSheet.create({
     marginTop: 32,
     textAlign: 'center',
   },
-  /*   playerControls: {
-      justifyContent: 'flex-start',
-      marginTop: 10,
-      width: 180,
-    }, */
-  //playerControlsRow: {},
+  playerControls: {
+    justifyContent: 'flex-start',
+    marginTop: 10,
+    width: 180,
+  },
+  playerControlsRow: {
+    justifyContent: 'flex-start',
+    gap: 10,
+  },
   scrollContent: {
     padding: 20,
-    paddingBottom: 0, // Removemos o padding do fundo porque estamos usando o floatingPlayerSpace
+    paddingBottom: 0,
   },
   shareButton: {
     padding: 8,
@@ -339,8 +358,8 @@ const styles = StyleSheet.create({
   },
   textSizeControls: {
     alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: 'row' /* 
+    justifyContent: 'center', */,
   },
   textSizeLabel: {
     color: colors.textMuted,
@@ -348,16 +367,12 @@ const styles = StyleSheet.create({
     fontSize: fontSize.sm,
   },
   title: {
-    //color: colors.text,
+    color: colors.text,
     fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.lg,
-    //textAlign: 'center',
-    color: 'red',
   },
   titleContainer: {
     marginTop: 10,
-    //alignItems: 'center',
-    //flex: 1,
   },
   titleContainerFavorite: {
     alignItems: 'center',

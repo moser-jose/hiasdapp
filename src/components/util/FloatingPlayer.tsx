@@ -35,8 +35,6 @@ const FloatingPlayer = ({ style }: ViewProps) => {
   const displayedHymn = activeHymn ?? lastActiveHymn
   if (!displayedHymn) return null
 
-  console.log('kjk')
-
   return (
     <TouchableOpacity
       onPress={handlePress}
