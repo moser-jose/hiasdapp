@@ -9,6 +9,7 @@ export class SubCategory extends Realm.Object<SubCategory> {
     properties: {
       id: 'int',
       name: 'string',
+      hymns: 'string?',
     },
   }
 }

@@ -145,7 +145,6 @@ function ListHymns({
   }
 
   const handleHymnSelect = async (selectedTrack: Track | Hymn) => {
-    console.log('queue', id)
     const trackIndex = hymns.findIndex(track => track.id === selectedTrack.id)
 
     if (trackIndex === -1) return

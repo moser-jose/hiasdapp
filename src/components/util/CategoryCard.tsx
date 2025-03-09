@@ -12,6 +12,7 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
+import { router } from 'expo-router'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -27,6 +28,16 @@ const CategoryCard = ({
 }) => {
   return (
     <TouchableOpacity
+      onPress={() =>
+        router.push({
+          pathname: `/categories`,
+          params: {
+            id: category.id,
+            name: category.name,
+            subCategories: JSON.stringify(category.subCategories),
+          },
+        })
+      }
       activeOpacity={0.8}
       style={[styles.container, index % 1 !== 0 && styles.spacingLeft, style]}
     >

@@ -17,10 +17,14 @@ function CategoriesScreenLayout() {
             headerLargeTitleStyle: {
               color: colors.text,
             },
+            headerStyle: {
+              backgroundColor: colors.third,
+            },
             headerTintColor: colors.text,
             headerBlurEffect: 'prominent',
-            headerShadowVisible: false,
+            headerShadowVisible: true,
             headerTransparent: true,
+
             headerTitle: 'Categorias',
           }}
         />

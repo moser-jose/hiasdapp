@@ -16,10 +16,7 @@ const realmConfig: Realm.Configuration = {
     Category.schema,
     SubCategory.schema,
   ],
-  schemaVersion: 7,
-
-  // This will delete the realm if migration isn't possible
-  //deleteRealmIfMigrationNeeded: true,
+  schemaVersion: 9,
 }
 export const { RealmProvider, useRealm, useObject, useQuery } =
   createRealmContext(realmConfig)
