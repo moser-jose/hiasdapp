@@ -98,6 +98,8 @@ const PlayPauseButton = ({
   const lyrics = useLibraryStore(useShallow(state => state.lyrics))
   const setLyrics = useLibraryStore(useShallow(state => state.setLyrics))
 
+  console.log('lyricsk', lyrics)
+
   const isLyricsScreenOpen = useStateStore(
     useShallow(state => state.isLyricsScreenOpen)
   )
@@ -125,13 +127,15 @@ const PlayPauseButton = ({
               ? pause()
               : isPlaying && lyrics?.id === displayedHymn?.id
                 ? pause()
-                : !isPlaying && !lyrics
+                : !isPlaying && lyrics?.id === displayedHymn?.id
                   ? play()
-                  : isPlaying && !lyrics
-                    ? /* play(displayedHymn as Hymn) */ pause()
-                    : !isPlaying && lyrics
-                      ? play(lyrics)
-                      : play()
+                  : !isPlaying && !lyrics
+                    ? play()
+                    : isPlaying && !lyrics
+                      ? pause()
+                      : !isPlaying && lyrics
+                        ? play(lyrics)
+                        : play()
         }
         height={height}
         backgroundColor="transparent"

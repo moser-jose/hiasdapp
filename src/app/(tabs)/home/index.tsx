@@ -5,18 +5,17 @@ import { Track } from 'react-native-track-player'
 import TrackPlayer from 'react-native-track-player/lib/src/trackPlayer'
 import { ListHymnsCard } from '@/components/util/ListHymnsCard'
 import HinosAntigo from '@/api/hiasd-old.json'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
 import CardHymnDay from '@/components/util/CardHymnDay'
 import { ListPlaylistsCard } from '@/components/util/ListPlaylistsCard'
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import { colors } from '@/constants/styles'
-import DownloadSVG from '@/components/svg/DownloadSvg'
-import { Hymn } from '@/types/hymnsTypes'
 import { useCategories, useFavorites, useHymns } from '@/store/library'
 import ListHymns from '@/components/util/ListHymns'
 
 import { useCallback } from 'react'
+import React from 'react'
 type Playlist = {
   title: string
   hymns: number
@@ -32,13 +31,6 @@ function HomeScreen() {
   const handleHymnSelect = useCallback(async (hymn: Track) => {
     await TrackPlayer.load(hymn)
   }, [])
-  /* const categories: Category[] = useMemo(() => {
-    return HinosAntigo.categories
-  }, []) */
-
-  /* const hymns: Hymn[] = useMemo(() => {
-    return HinosAntigo.hymns
-  }, []) */
 
   const data: dat = [
     {
@@ -73,11 +65,15 @@ function HomeScreen() {
 
         <CardHymnDay hymns={hymns} categories={categories} />
 
-        <Separator title="Favoritos" more>
-          <HeartFullSVG color={colors.green} height={16} width={16} />
-        </Separator>
+        {favorites.length > 0 && (
+          <>
+            <Separator title="Favoritos" more>
+              <HeartFullSVG color={colors.green} height={16} width={16} />
+            </Separator>
 
-        <ListHymns hymns={favorites} horizontal />
+            <ListHymns hymns={favorites} horizontal />
+          </>
+        )}
 
         {/* <Separator title="Hinos baixados" more>
           <DownloadSVG color={colors.green} height={16} width={16} />
