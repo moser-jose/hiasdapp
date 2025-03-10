@@ -32,6 +32,7 @@ interface PlayerState {
   add: (track: Track[] | Hymn[] | Track | Hymn) => Promise<void>
   reset: () => Promise<void>
   setActiveQueueId: (id: string) => void
+  setQueue: (tracks?: Track[] | Hymn[]) => Promise<void>
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -71,6 +72,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     await TrackPlayer.pause()
     set({ isPlaying: false })
   },
+
   add: async (track: Track[] | Hymn[] | Track | Hymn) => {
     if (Array.isArray(track)) {
       await TrackPlayer.add(track as AddTrack[] | Hymn[])
@@ -103,6 +105,44 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     if (nextTrack) {
       get().setActiveHymn(nextTrack as Track | Hymn)
     }
+  },
+  setQueue: async (tracks?: Track[] | Hymn[]) => {
+    await TrackPlayer.setQueue(tracks as Hymn[])
+    /* try {
+      // Validate tracks parameter
+      if (!tracks || !Array.isArray(tracks)) {
+        // If tracks is undefined/invalid, reset the player queue
+        await TrackPlayer.reset()
+        get().setActiveHymn(null)
+        get().setActiveQueueId('')
+        get().setIsPlaying(false)
+
+        return true
+      }
+
+      await TrackPlayer.setQueue(tracks)
+
+      // Update active hymn after setting queue
+      if (tracks.length > 0) {
+        const activeTrack = await TrackPlayer.getActiveTrack()
+        if (activeTrack) {
+          get().setActiveHymn(activeTrack as Track | Hymn)
+        }
+
+        // Generate a unique queue ID based on the first track and timestamp
+        const queueId = `queue-${tracks[0]?.id || 'unknown'}-${Date.now()}`
+        get().setActiveQueueId(queueId)
+      } else {
+        // If queue is empty, reset active hymn
+        get().setActiveHymn(null)
+        get().setActiveQueueId('')
+      }
+
+      return true
+    } catch (error) {
+      console.error('Error setting queue:', error)
+      return false
+    } */
   },
   setActiveQueueId: (id: string) => set({ activeQueueId: id }),
 }))

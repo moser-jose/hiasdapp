@@ -1,4 +1,10 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  ViewProps,
+} from 'react-native'
 import SongSVG from '@/components/svg/SongSvg'
 import ShuffleSVG from '../svg/ShuffleSVG'
 import { colors, fontFamily } from '@/constants/styles'
@@ -8,40 +14,51 @@ import PlayButton from './PlayButton'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 import { Hymn } from '@/types/hymnsTypes'
-import { useHymn } from '@/hooks/useHymn'
-import { useHymns } from '@/store/library'
-export const ListHeaderComponent = ({
-  handleHymnSelect,
-}: {
-  handleHymnSelect: (hymn: Hymn) => Promise<void>
-}) => {
-  const { play, pause, isPlaying, activeHymn } = usePlayerStore(
+import { Track } from 'react-native-track-player'
+
+type QueueControlsProps = {
+  hymns: Track[] | Hymn[]
+} & ViewProps
+
+export const ListHeaderComponent = ({ hymns }: QueueControlsProps) => {
+  const { play, isPlaying, activeHymn, setQueue } = usePlayerStore(
     useShallow(state => ({
       play: state.play,
-      pause: state.pause,
+      setQueue: state.setQueue,
       isPlaying: state.isPlaying,
       activeHymn: state.activeHymn,
     }))
   )
 
-  const hymns = useHymns()
+  const handlePlay = async () => {
+    await setQueue(hymns)
+    await play()
+  }
+
+  const handleShufflePlay = async () => {
+    const shuffledTracks = [...hymns].sort(() => Math.random() - 0.5)
+
+    await setQueue(shuffledTracks)
+    await play()
+  }
+
   return (
     <>
       <View style={styles.subCategoryContainerPlay}>
-        <TouchableOpacity
-          style={styles.playAll}
-          onPress={() => handleHymnSelect(hymns[0] as Hymn)}
-        >
+        <TouchableOpacity style={styles.playAll} onPress={handlePlay}>
           <PlayButton
             isPlaying={isPlaying}
             activeHymnId={activeHymn?.id}
-            handleHymnSelect={() => handleHymnSelect(hymns[0] as Hymn)}
+            handleHymnSelect={handlePlay}
             height={22}
             width={22}
           />
           <Text style={styles.playText}>Reproduzir</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.playAllShuffle} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.playAllShuffle}
+          onPress={handleShufflePlay}
+        >
           <ShuffleSVG color={colors.primary} width={20} height={20} />
           <Text style={[styles.playText, { color: colors.primary }]}>
             Misturar

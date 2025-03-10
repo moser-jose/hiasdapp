@@ -81,7 +81,9 @@ export default function SubCategories() {
 
         <ListHymns
           style={styles.listView}
-          ListHeaderComponent={ListHeaderComponent}
+          ListHeaderComponent={
+            <ListHeaderComponent hymns={hymns} id={idQueue as string} />
+          }
           hymns={hymns}
           id={idQueue as string}
           horizontal={false}

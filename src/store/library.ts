@@ -5,7 +5,6 @@ import { create } from 'zustand'
 import * as msgpack from '@msgpack/msgpack'
 import { useShallow } from 'zustand/react/shallow'
 import { useRealm } from '@/hooks/useRealm'
-import { usePlayerStore } from './playerStore'
 
 interface LibraryState {
   hymns: Hymn[]
