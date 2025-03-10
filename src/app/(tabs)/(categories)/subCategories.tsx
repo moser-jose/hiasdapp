@@ -6,20 +6,19 @@ import {
   TouchableOpacity,
   StatusBar,
   Platform,
-  FlatList,
 } from 'react-native'
 import { useLocalSearchParams, Stack, useRouter } from 'expo-router'
-import { SubCategory } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
-import Constants from 'expo-constants'
 import { useHymns } from '@/store/library'
 import ListHymns from '@/components/util/ListHymns'
 import { colors, fontFamily } from '@/constants/styles'
 import SongSVG from '@/components/svg/SongSvg'
 import ShuffleSVG from '@/components/svg/ShuffleSVG'
+import ItemDivider from '@/components/util/ItemDivider'
+import { ListHeaderComponent } from '@/components/util/ListHeaderComponent'
 
 export default function SubCategories() {
   const { idQueue, category, id, subCategory } = useLocalSearchParams()
@@ -30,7 +29,6 @@ export default function SubCategories() {
     hymn => hymn.category?.subCategory?.name === subCategory
   )
 
-  // Esconder completamente a barra de status
   React.useEffect(() => {
     StatusBar.setBarStyle('light-content')
     if (Platform.OS === 'ios') {
@@ -45,23 +43,6 @@ export default function SubCategories() {
       StatusBar.setHidden(false)
     }
   }, [])
-
-  const ListHeaderComponent = () => {
-    return (
-      <View style={styles.subCategoryContainerPlay}>
-        <TouchableOpacity style={styles.playAll} onPress={() => {}}>
-          <SongSVG color={colors.primary} width={20} height={20} />
-          <Text style={styles.playText}>Reproduzir</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.playAllShuffle} onPress={() => {}}>
-          <ShuffleSVG color={colors.primary} width={20} height={20} />
-          <Text style={[styles.playText, { color: colors.primary }]}>
-            Misturar
-          </Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
 
   return (
     <>
@@ -102,7 +83,7 @@ export default function SubCategories() {
           style={styles.listView}
           ListHeaderComponent={ListHeaderComponent}
           hymns={hymns}
-          id={id as string}
+          id={idQueue as string}
           horizontal={false}
         />
       </View>
@@ -114,36 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  subCategoryContainerPlay: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 20,
-  },
-  playAll: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    backgroundColor: colors.green,
-    padding: 16,
-    borderRadius: 20,
-  },
-  playText: {
-    fontSize: 16,
-    fontFamily: fontFamily.plusJakarta.bold,
-    letterSpacing: 0.5,
-    color: '#fff',
-  },
-  playAllShuffle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    backgroundColor: 'rgba(33, 26, 26, 0.07)',
-    padding: 16,
-    borderRadius: 20,
-  },
+
   backgroundImage: {
     position: 'absolute',
     top: 0,

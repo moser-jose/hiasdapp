@@ -1,14 +1,17 @@
 import { utilsStyles } from '@/styles'
-import { View } from 'react-native'
+import { View, ViewStyle } from 'react-native'
 
-const ItemDivider = () => {
+const ItemDivider = ({ style }: { style?: ViewStyle }) => {
   return (
     <View
-      style={{
-        ...utilsStyles.itemSeparator,
-        marginVertical: 9,
-        marginLeft: 16,
-      }}
+      style={[
+        {
+          ...utilsStyles.itemSeparator,
+          marginVertical: 9,
+          marginLeft: 16,
+        },
+        style,
+      ]}
     ></View>
   )
 }

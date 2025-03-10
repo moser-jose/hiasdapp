@@ -1,14 +1,12 @@
 import { Text, TouchableOpacity, View } from 'react-native'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
-import PlayCardSVG from '../svg/PlaySvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { Author, Hymn, HymnsProps } from '@/types/hymnsTypes'
+import { Author, HymnsProps } from '@/types/hymnsTypes'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import { truncateText } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
-import { useMemo, useCallback, useRef, useEffect } from 'react'
-import LoaderKit from 'react-native-loader-kit'
+import { useMemo } from 'react'
 import { memo } from 'react'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
@@ -16,10 +14,10 @@ import ToogleFavorites from './ToogleFavorites'
 
 import PlayButton from './PlayButton'
 import { router } from 'expo-router'
-import { useLyrics } from '@/store/library'
+import React from 'react'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
-  const { play, pause, isPlaying, activeHymn } = usePlayerStore(
+  const { isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
       play: state.play,
       pause: state.pause,

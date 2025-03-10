@@ -18,6 +18,7 @@ import HymnsCard from './HymnsCard'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { ListHymnsFilter } from '@/helpers/filter'
 import { useLyrics } from '@/store/library'
+import { ListHeaderComponent } from './ListHeaderComponent'
 
 const TAMANHO_PAGINA = 20
 function ListHymns({
@@ -200,6 +201,11 @@ function ListHymns({
   return (
     <FlatList
       horizontal={horizontal}
+      ListHeaderComponent={
+        !horizontal ? (
+          <ListHeaderComponent handleHymnSelect={handleHymnSelect} />
+        ) : null
+      }
       contentContainerStyle={
         horizontal === false
           ? { paddingTop: 16, paddingBottom: 128 }

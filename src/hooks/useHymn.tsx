@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { hymnService } from '../services/HymnService'
 import { Hymn } from '@/types/hymnsTypes'
 
-export function useHymn() {
+export function useHymn(p0: (state: { hymns: any }) => any) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
   const [realm, setRealm] = useState<Realm | null>(null)
