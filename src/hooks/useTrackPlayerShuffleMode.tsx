@@ -11,8 +11,9 @@ export const useTrackPlayerShuffleMode = () => {
     }))
   )
 
-  const { activeHymns, setQueue, setActiveHymns } = usePlayerStore(
+  const { activeHymn, activeHymns, setQueue, setActiveHymns } = usePlayerStore(
     useShallow(state => ({
+      activeHymn: state.activeHymn,
       activeHymns: state.activeHymns,
       setQueue: state.setQueue,
       setActiveHymns: state.setActiveHymns,
@@ -21,9 +22,7 @@ export const useTrackPlayerShuffleMode = () => {
 
   const handleShufflePress = useCallback(async () => {
     try {
-      // If shuffle is currently ON and we're turning it OFF
       if (shuffle && activeHymns) {
-        // Sort the hymns by their original order (assuming they have a 'number' property)
         const originalOrderHymns = [...activeHymns].sort((a, b) => {
           if (a.number && b.number) {
             return a.number - b.number
@@ -31,26 +30,31 @@ export const useTrackPlayerShuffleMode = () => {
           return 0
         })
 
-        // Update the queue with the original ordered tracks
-        await setQueue(originalOrderHymns)
-        setActiveHymns(originalOrderHymns)
-      }
-      // If shuffle is currently OFF and we're turning it ON
-      else if (!shuffle && activeHymns) {
-        // Create a shuffled version of the tracks
+        const activeHymnIndex = activeHymn
+          ? originalOrderHymns.findIndex(hymn => hymn.id === activeHymn.id)
+          : -1
+
+        let reorderedHymns = originalOrderHymns
+        if (activeHymnIndex > -1) {
+          const beforeActive = originalOrderHymns.slice(0, activeHymnIndex)
+          const fromActive = originalOrderHymns.slice(activeHymnIndex)
+          reorderedHymns = [...fromActive, ...beforeActive]
+        }
+
+        await setQueue(reorderedHymns)
+        setActiveHymns(reorderedHymns)
+      } else if (!shuffle && activeHymns) {
         const shuffledTracks = [...activeHymns].sort(() => Math.random() - 0.5)
 
-        // Update the queue with the shuffled tracks
         await setQueue(shuffledTracks)
         setActiveHymns(shuffledTracks)
       }
 
-      // Toggle the shuffle state in the store
       setShuffle()
     } catch (error) {
       console.error('Error toggling shuffle mode:', error)
     }
-  }, [shuffle, activeHymns, setQueue, setActiveHymns, setShuffle])
+  }, [shuffle, activeHymn, activeHymns, setQueue, setActiveHymns, setShuffle])
 
   return {
     handleShufflePress,
