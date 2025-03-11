@@ -1,6 +1,4 @@
 import { TouchableOpacity, View, ViewStyle, StyleSheet } from 'react-native'
-import PlayButtonSVG from '../svg/PlayButtonSvg'
-import PauseButtonSVG from '../svg/PauseButtonSvg'
 import { colors } from '@/constants/styles'
 import NextMusicButtonSVG from '../svg/NextMusicButtonSVG'
 import PreviousMusicButtonSVG from '../svg/PreviousMusicButtonSVG'
@@ -9,12 +7,9 @@ import PlayerShuffleToogle from './PlayerShuffleToogle'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
 import PlayButton from './PlayButton'
-import TrackPlayer from 'react-native-track-player'
 import { useLibraryStore } from '@/store/library'
-import { Hymn } from '@/types/hymnsTypes'
 import { useStateStore } from '@/store/modal'
 import { useEffect } from 'react'
-import { reset } from 'react-native-track-player/lib/src/trackPlayer'
 type PlayerControlsProps = {
   style?: ViewStyle
   styleRow?: ViewStyle
@@ -101,7 +96,7 @@ const PlayPauseButton = ({
   const isLyricsScreenOpen = useStateStore(
     useShallow(state => state.isLyricsScreenOpen)
   )
-
+  console.log('f')
   useEffect(() => {
     if (isLyricsScreenOpen === false) {
       setLyrics(null)
@@ -110,8 +105,6 @@ const PlayPauseButton = ({
       setLyrics(null)
     } */
   }, [isLyricsScreenOpen, setLyrics])
-
-  console.log('lyricsk', lyrics)
 
   return (
     <View style={style}>

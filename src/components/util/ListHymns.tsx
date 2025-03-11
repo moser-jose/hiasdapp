@@ -202,7 +202,9 @@ function ListHymns({
     <FlatList
       horizontal={horizontal}
       ListHeaderComponent={
-        !horizontal ? <ListHeaderComponent hymns={hymns} /> : null
+        !horizontal ? (
+          <ListHeaderComponent id={id as string} hymns={hymns} />
+        ) : null
       }
       contentContainerStyle={
         horizontal === false

@@ -1,45 +1,70 @@
+import { colors, fontFamily } from '@/constants/styles'
+import { usePlayerStore } from '@/store/playerStore'
+import { useStateStore } from '@/store/stateStore'
+import { Hymn } from '@/types/hymnsTypes'
+import React from 'react'
 import {
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
-  Text,
   ViewProps,
 } from 'react-native'
-import SongSVG from '@/components/svg/SongSvg'
+import { Track } from 'react-native-track-player'
+import { useShallow } from 'zustand/react/shallow'
 import ShuffleSVG from '../svg/ShuffleSVG'
-import { colors, fontFamily } from '@/constants/styles'
-import React from 'react'
 import ItemDivider from './ItemDivider'
 import PlayButton from './PlayButton'
-import { usePlayerStore } from '@/store/playerStore'
-import { useShallow } from 'zustand/react/shallow'
-import { Hymn } from '@/types/hymnsTypes'
-import { Track } from 'react-native-track-player'
-
 type QueueControlsProps = {
   hymns: Track[] | Hymn[]
+  id: string
 } & ViewProps
 
-export const ListHeaderComponent = ({ hymns }: QueueControlsProps) => {
-  const { play, isPlaying, activeHymn, setQueue } = usePlayerStore(
+export const ListHeaderComponent = ({ hymns, id }: QueueControlsProps) => {
+  const { shuffle, setShuffle } = useStateStore(
+    useShallow(state => ({
+      shuffle: state.shuffle,
+      setShuffle: state.setShuffle,
+    }))
+  )
+
+  const {
+    play,
+    isPlaying,
+    activeHymn,
+    setQueue,
+    setActiveHymns,
+    setActiveQueueId,
+  } = usePlayerStore(
     useShallow(state => ({
       play: state.play,
       setQueue: state.setQueue,
       isPlaying: state.isPlaying,
       activeHymn: state.activeHymn,
+      setActiveHymns: state.setActiveHymns,
+      setActiveQueueId: state.setActiveQueueId,
     }))
   )
 
   const handlePlay = async () => {
+    if (shuffle) {
+      setShuffle()
+    }
+    setActiveHymns(hymns)
     await setQueue(hymns)
     await play()
+    setActiveQueueId(id)
   }
 
   const handleShufflePlay = async () => {
     const shuffledTracks = [...hymns].sort(() => Math.random() - 0.5)
-
+    setActiveHymns(shuffledTracks)
     await setQueue(shuffledTracks)
     await play()
+    setActiveQueueId(id)
+    if (shuffle === false) {
+      setShuffle()
+    }
   }
 
   return (
@@ -60,7 +85,14 @@ export const ListHeaderComponent = ({ hymns }: QueueControlsProps) => {
           onPress={handleShufflePlay}
         >
           <ShuffleSVG color={colors.primary} width={20} height={20} />
-          <Text style={[styles.playText, { color: colors.primary }]}>
+          <Text
+            style={[
+              styles.playText,
+              {
+                color: colors.primary,
+              },
+            ]}
+          >
             Misturar
           </Text>
         </TouchableOpacity>
