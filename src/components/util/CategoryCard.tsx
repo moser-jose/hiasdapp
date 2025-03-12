@@ -2,17 +2,17 @@ import { fontFamily, fontSize } from '@/constants/styles'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { Category } from '@/types/hymnsTypes'
 
+import { router } from 'expo-router'
 import React from 'react'
 import {
-  View,
-  Text,
-  StyleSheet,
   Dimensions,
-  TouchableOpacity,
   StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
   ViewStyle,
 } from 'react-native'
-import { router } from 'expo-router'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: fontSize.base,
+    fontSize: fontSize.smB,
     textAlign: 'center',
   },
 })

@@ -1,17 +1,17 @@
-import React, { memo } from 'react'
-import { Tabs } from 'expo-router'
-import CategoriesSVG from '@/components/svg/CategoriesSvg'
 import CategoriesOutlineSVG from '@/components/svg/CategoriesOutlineSvg'
-import ConfigurationsSVG from '@/components/svg/ConfigurationsSvg'
+import CategoriesSVG from '@/components/svg/CategoriesSvg'
 import ConfigurationsOutlineSVG from '@/components/svg/ConfigurationsOutlineSvg'
-import HymnsSVG from '@/components/svg/HymnsSvg'
-import HymnsOutlineSvg from '@/components/svg/HymnsOutlineSvg'
-import HomeSVG from '@/components/svg/HomeSvg'
+import ConfigurationsSVG from '@/components/svg/ConfigurationsSvg'
 import HomeOutlineSVG from '@/components/svg/HomeOutlineSvg'
-import PlayListsSVG from '@/components/svg/PlayListsSVG'
+import HomeSVG from '@/components/svg/HomeSvg'
+import HymnsOutlineSvg from '@/components/svg/HymnsOutlineSvg'
+import HymnsSVG from '@/components/svg/HymnsSvg'
 import PlayListsOutlineSVG from '@/components/svg/PlayListsOutlineSVG'
+import PlayListsSVG from '@/components/svg/PlayListsSVG'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
 import { colors, fontFamily } from '@/constants/styles'
+import { Tabs } from 'expo-router'
+import React, { memo } from 'react'
 
 type IconProps = {
   color: string
@@ -30,7 +30,7 @@ const TAB_BAR_OPTIONS = {
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.second,
   tabBarLabelStyle: {
-    fontSize: 14,
+    fontSize: 12,
     flexDirection: 'row',
     fontFamily: fontFamily.plusJakarta.medium,
   },
@@ -47,9 +47,9 @@ const IconRenderer = ({
   InactiveIcon: React.FC<{ width?: number; height?: number; color: string }>
 }) => {
   return focused ? (
-    <ActiveIcon height={25} width={25} color={color} />
+    <ActiveIcon height={22} width={22} color={color} />
   ) : (
-    <InactiveIcon height={25} width={25} color={color} />
+    <InactiveIcon height={22} width={22} color={color} />
   )
 }
 

@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
     gap: 4,
   },
   title: {
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: fontSize.lg,
+    fontSize: fontSize.base,
   },
 })
 

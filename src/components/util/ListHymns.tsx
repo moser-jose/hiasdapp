@@ -175,6 +175,7 @@ function ListHymns({
     } else {
       if (shuffle || !shuffle) {
         await changingQueue(trackIndex, selectedTrack)
+        setShuffle()
       } else {
         const nextTrackIndex =
           trackIndex - queueOffset.current < 0

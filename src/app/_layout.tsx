@@ -90,9 +90,6 @@ const RootNavigation = () => {
           gestureEnabled: true,
           gestureDirection: 'vertical',
           animationDuration: 400,
-          /* contentStyle: {
-            zIndex: 1,
-          }, */
         }}
       />
     </Stack>

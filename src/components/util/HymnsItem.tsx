@@ -1,20 +1,18 @@
-import { Text, TouchableOpacity, View } from 'react-native'
-import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
+import { truncateText } from '@/helpers/textsWords'
+import { usePlayerStore } from '@/store/playerStore'
 import { Author, HymnsProps } from '@/types/hymnsTypes'
+import { memo, useMemo } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
+import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
-import { truncateText } from '@/helpers/textsWords'
-import { StyleSheet } from 'react-native'
-import { useMemo } from 'react'
-import { memo } from 'react'
-import { usePlayerStore } from '@/store/playerStore'
-import { useShallow } from 'zustand/react/shallow'
 import ToogleFavorites from './ToogleFavorites'
 
-import PlayButton from './PlayButton'
 import { router } from 'expo-router'
 import React from 'react'
+import PlayButton from './PlayButton'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
   const { isPlaying, activeHymn } = usePlayerStore(
@@ -162,7 +160,7 @@ const styles = StyleSheet.create({
   number: {
     color: colors.primary,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.base,
+    fontSize: fontSize.sm,
   },
   numberCard: {
     alignItems: 'center',
@@ -172,7 +170,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.base,
+    fontSize: fontSize.sm,
   },
 })
 export default memo(HymnsItem)

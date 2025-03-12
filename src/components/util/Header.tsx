@@ -1,8 +1,8 @@
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
-import LogoSVG from '../svg/LogoSVG'
-import ChangeHymnsSVG from '../svg/ChangeHymnsSVG'
-import Topic from './Topic'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import ChangeHymnsSVG from '../svg/ChangeHymnsSVG'
+import LogoSVG from '../svg/LogoSVG'
+import Topic from './Topic'
 
 const Header = ({
   title,
@@ -15,12 +15,12 @@ const Header = ({
 }) => {
   return (
     <View style={styles.container}>
-      <LogoSVG color="#29C17E" />
+      <LogoSVG color="#29C17E" height={64} width={63} />
       <View>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.view}>
           <Text style={styles.text}>{text}</Text>
-          <Topic text={year} style={{ fontSize: fontSize.sm }} />
+          <Topic text={year} style={{ fontSize: fontSize.xs }} />
         </View>
       </View>
       <TouchableOpacity>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.base,
+    fontSize: fontSize.smB,
   },
   view: {
     alignItems: 'center',

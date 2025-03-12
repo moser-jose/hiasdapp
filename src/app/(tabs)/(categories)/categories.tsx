@@ -1,21 +1,20 @@
-import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-  Platform,
-  FlatList,
-} from 'react-native'
-import { useLocalSearchParams, Stack, useRouter } from 'expo-router'
+import { colors, fontFamily } from '@/constants/styles'
+import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { SubCategory } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
-import LinearGradient from 'react-native-linear-gradient'
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
+import React from 'react'
+import {
+  FlatList,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { getBackgroundSource } from '@/helpers/getBackgroundSource'
-import Constants from 'expo-constants'
-import { colors, fontFamily } from '@/constants/styles'
+import LinearGradient from 'react-native-linear-gradient'
 
 export default function Categories() {
   const { id, name, subCategories } = useLocalSearchParams()
@@ -59,11 +58,11 @@ export default function Categories() {
         key={item.id}
         style={styles.subCategory}
       >
-        <Text style={styles.subCategoryName}>{item.name}</Text>
         <View style={styles.subCategoryHymnsContainer}>
+          <Text style={styles.subCategoryName}>{item.name}</Text>
           <Text style={styles.subCategoryHymns}>{item.hymns}</Text>
-          <Ionicons name="chevron-forward-outline" size={24} color="black" />
         </View>
+        <Ionicons name="chevron-forward-outline" size={24} color="black" />
       </TouchableOpacity>
     )
   }
@@ -176,6 +175,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   subCategoryName: {
     fontSize: 18,
@@ -187,9 +189,5 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.plusJakarta.regular,
     color: colors.fourth,
   },
-  subCategoryHymnsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+  subCategoryHymnsContainer: {},
 })

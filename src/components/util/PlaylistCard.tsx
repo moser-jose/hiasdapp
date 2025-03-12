@@ -6,10 +6,10 @@ import {
   ViewStyle,
 } from 'react-native'
 
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { truncateTextWords } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
 import SongSVG from '../svg/SongSvg'
-import { colors, fontFamily, fontSize } from '@/constants/styles'
 type dat = {
   title: string
   hymns: number
@@ -24,7 +24,7 @@ const PlaylistCard = ({ playlist, style }: PlaylistCardProps) => {
   return (
     <TouchableOpacity activeOpacity={0.8} style={[styles.container, style]}>
       <View style={styles.icon}>
-        <SongSVG color={colors.primary} />
+        <SongSVG height={18} width={18} color={colors.primary} />
       </View>
 
       <View style={styles.content}>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.greenRGBA,
     borderRadius: 8,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
     paddingHorizontal: 8,
     paddingVertical: 1,
   },
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(87, 86, 86, 0.14)',
     borderRadius: 8,
-    height: 45,
+    height: 32,
     justifyContent: 'center',
-    width: 45,
+    width: 32,
   },
   title: {
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.base,
+    fontSize: fontSize.sm,
   },
 })
 

@@ -90,7 +90,7 @@ export const hymnsCard = StyleSheet.create({
   number: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: fontSize.base,
+    fontSize: fontSize.smB,
   },
   play: {
     bottom: -20,
@@ -100,7 +100,7 @@ export const hymnsCard = StyleSheet.create({
   title: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.base,
+    fontSize: fontSize.smB,
   },
   viewTittle: {
     alignItems: 'center',
