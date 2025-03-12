@@ -83,7 +83,7 @@ export const hymnsCard = StyleSheet.create({
     marginHorizontal: 16,
     marginRight: 16,
     paddingHorizontal: 10,
-    paddingVertical: 15,
+    paddingVertical: 12,
     position: 'relative',
     width: 290,
   },
