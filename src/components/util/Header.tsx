@@ -15,7 +15,7 @@ const Header = ({
 }) => {
   return (
     <View style={styles.container}>
-      <LogoSVG color="#29C17E" height={64} width={63} />
+      <LogoSVG color="#29C17E" />
       <View>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.view}>

@@ -8,7 +8,6 @@ import HeartSVG from '../svg/HeartSvg'
 const ToogleFavorites = ({ id }: { id: number }) => {
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isFav, setIsFav] = useState(false)
-  const [loadingFavorite, setLoadingFavorite] = useState(false)
   const animatedValue = useRef(new Animated.Value(0)).current
   const pulseAnimation = useRef(new Animated.Value(1)).current
 
@@ -61,9 +60,9 @@ const ToogleFavorites = ({ id }: { id: number }) => {
 
   const FavoriteButton = useMemo(() => {
     return isFav ? (
-      <HeartFullSVG color={colors.green} />
+      <HeartFullSVG height={22} width={22} color={colors.green} />
     ) : (
-      <HeartSVG color={colors.green} />
+      <HeartSVG height={22} width={22} color={colors.green} />
     )
   }, [isFav])
 
@@ -91,7 +90,7 @@ const ToogleFavorites = ({ id }: { id: number }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 4,
-    borderRadius: 14,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },

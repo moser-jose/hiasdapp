@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   authors: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
   },
   overlayContainer: {
     ...defaultStyles.container,
@@ -221,16 +221,16 @@ const styles = StyleSheet.create({
   trackEnglishTitle: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
   },
   trackNumberView: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: 20,
+    fontSize: 18,
   },
   trackTitleContainer: {
     flex: 1,
-    height: 110,
+    height: 83,
     overflow: 'hidden',
   },
   trackTitleContainerView: {
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   trackTitleText: {
     color: 'white',
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: 22,
+    fontSize: 20,
     //maxWidth: '50%',
   },
 })

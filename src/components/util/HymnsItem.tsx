@@ -54,6 +54,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
           pathname: `/lyrics`,
           params: {
             id: hymn.id,
+            idQueue: id,
             numberView: hymn.numberView,
             authors: hymn.authors ? JSON.stringify(hymn.authors) : null,
             lyrics: hymn.lyrics ? JSON.stringify(hymn.lyrics) : null,
@@ -71,7 +72,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
       <View style={styles.card}>
         <View style={styles.cardSpreed}>
           <TouchableOpacity style={styles.cardSpreedTouch}>
-            <SpreedSVG color={colors.textMuted} />
+            <SpreedSVG width={16} color={colors.textMuted} />
           </TouchableOpacity>
         </View>
         <View style={styles.cardMore}>

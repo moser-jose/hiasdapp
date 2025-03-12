@@ -3,14 +3,13 @@ import React from 'react'
 import { SVGIconProps } from '@/types/svgTypes'
 import Svg, { Path } from 'react-native-svg'
 
-const SpreedSVG: React.FC<SVGIconProps> = ({ color, width, height }) => {
+const SpreedSVG: React.FC<SVGIconProps> = ({
+  color,
+  width = 18,
+  height = 4,
+}) => {
   return (
-    <Svg
-      width={width ?? '18'}
-      height={height ?? '4'}
-      viewBox="0 0 18 4"
-      fill="none"
-    >
+    <Svg width={width} height={height} viewBox="0 0 18 4" fill="none">
       <Path
         d="M4 2C4 3.10457 3.10457 4 2 4C0.89543 4 0 3.10457 0 2C0 0.89543 0.89543 0 2 0C3.10457 0 4 0.89543 4 2Z"
         fill={color}

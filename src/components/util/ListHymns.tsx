@@ -32,9 +32,9 @@ function ListHymns({
   const [allLoaded, setAllLoaded] = useState(false)
   const shuffle = useStateStore(useShallow(state => state.shuffle))
   const setShuffle = useStateStore(useShallow(state => state.setShuffle))
-  const activeHymn = usePlayerStore(state => state.activeHymn)
+  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
 
-  const play = usePlayerStore(state => state.play)
+  const play = usePlayerStore(useShallow(state => state.play))
 
   const { skipTo, add, reset } = usePlayerStore(
     useShallow(state => ({

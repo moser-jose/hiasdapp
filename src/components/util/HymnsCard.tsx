@@ -1,16 +1,16 @@
-import { memo, useState } from 'react'
-import { hymnsCard } from '@/styles'
-import { Text, TouchableOpacity, View } from 'react-native'
-import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import { colors } from '@/constants/styles'
 import { truncateText } from '@/helpers/textsWords'
-import Authors from './Authors'
-import { HymnsProps, Author } from '@/types/hymnsTypes'
 import { usePlayerStore } from '@/store/playerStore'
-import { useShallow } from 'zustand/react/shallow'
-import ToogleFavorites from './ToogleFavorites'
-import PlayButton from './PlayButton'
+import { hymnsCard } from '@/styles'
+import { Author, HymnsProps } from '@/types/hymnsTypes'
 import { router } from 'expo-router'
+import { memo, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
+import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
+import Authors from './Authors'
+import PlayButton from './PlayButton'
+import ToogleFavorites from './ToogleFavorites'
 const HymnsCard = ({
   hymn,
   style,
@@ -79,6 +79,8 @@ const HymnsCard = ({
         style={hymnsCard.play}
         isPlaying={isPlaying}
         id={id as number}
+        height={36}
+        width={36}
         activeHymnId={activeHymn?.id as number}
         handleHymnSelect={
           /* () =>

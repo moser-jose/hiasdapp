@@ -1,25 +1,28 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  Share,
-  Alert,
-} from 'react-native'
-import { useLocalSearchParams, router } from 'expo-router'
+import FloatingPlayer from '@/components/util/FloatingPlayer'
+import PlayButton from '@/components/util/PlayButton'
+import ToogleFavorites from '@/components/util/ToogleFavorites'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { useEffect, useState } from 'react'
+import { truncateText } from '@/helpers/textsWords'
 import { useLibraryStore, useLyrics } from '@/store/library'
-import { useShallow } from 'zustand/react/shallow'
+import { useStateStore as useModalStore } from '@/store/modal'
+import { usePlayerStore, useQueue } from '@/store/playerStore'
+import { useStateStore } from '@/store/stateStore'
 import { Author, Hymn, Lyrics } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
-import FloatingPlayer from '@/components/util/FloatingPlayer'
-import ToogleFavorites from '@/components/util/ToogleFavorites'
-import { PlayerControlsLyrics } from '@/components/util/PlayerControls'
-import { useStateStore } from '@/store/modal'
-import { truncateText } from '@/helpers/textsWords'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useEffect, useRef, useState } from 'react'
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { Track } from 'react-native-track-player'
+import { useShallow } from 'zustand/react/shallow'
 export default function LyricsScreen() {
   const {
     id,
@@ -30,6 +33,7 @@ export default function LyricsScreen() {
     englishTitle,
     number,
     authors,
+    idQueue,
   } = useLocalSearchParams()
   const [lyricsContent, setLyricsContent] = useState<string>('')
   const [textSize, setTextSize] = useState<number>(fontSize.base)
@@ -37,11 +41,27 @@ export default function LyricsScreen() {
     Object.values(JSON.parse(authors as string) as Author[])
   )
 
+  const shuffle = useStateStore(useShallow(state => state.shuffle))
+  const setShuffle = useStateStore(useShallow(state => state.setShuffle))
+  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
+
+  const play = usePlayerStore(useShallow(state => state.play))
+
+  const { skipTo, add, reset } = usePlayerStore(
+    useShallow(state => ({
+      add: state.add,
+      reset: state.reset,
+      skipTo: state.skipTo,
+    }))
+  )
+  const queueOffset = useRef(0)
+  const { activeQueueId, setActiveQueueId } = useQueue()
+
   const av = useLyrics(parseInt(id as string))
 
   const hymns = useLibraryStore(useShallow(state => state.hymns))
 
-  const setLyricsScreenOpen = useStateStore(
+  const setLyricsScreenOpen = useModalStore(
     useShallow(state => state.setLyricsScreenOpen)
   )
 
@@ -112,18 +132,6 @@ export default function LyricsScreen() {
     router.back()
   }
 
-  const increaseTextSize = () => {
-    if (textSize < 24) {
-      setTextSize(prevSize => prevSize + 2)
-    }
-  }
-
-  const decreaseTextSize = () => {
-    if (textSize > 14) {
-      setTextSize(prevSize => prevSize - 2)
-    }
-  }
-
   const handleShare = async () => {
     try {
       const content = `${title} (Hino ${number})\n\n${lyricsContent}`
@@ -160,6 +168,49 @@ export default function LyricsScreen() {
     })
   }
 
+  const changingQueue = async (
+    trackIndex: number,
+    selectedTrack: Track | Hymn
+  ) => {
+    const beforeTracks = hymns.slice(0, trackIndex)
+    const afterTracks = hymns.slice(trackIndex + 1)
+    await reset()
+
+    // we construct the new queue
+    await add(selectedTrack)
+    await add(afterTracks)
+    await add(beforeTracks)
+
+    await play()
+
+    queueOffset.current = trackIndex
+    setActiveQueueId(id as string)
+  }
+
+  const handleHymnSelect = async (selectedTrack: Track | Hymn) => {
+    const trackIndex = hymns.findIndex(track => track.id === selectedTrack.id)
+
+    if (trackIndex === -1) return
+
+    const isChangingQueue = idQueue !== activeQueueId
+
+    if (isChangingQueue) {
+      await changingQueue(trackIndex, selectedTrack)
+    } else {
+      if (shuffle || !shuffle) {
+        await changingQueue(trackIndex, selectedTrack)
+        setShuffle()
+      } else {
+        const nextTrackIndex =
+          trackIndex - queueOffset.current < 0
+            ? hymns.length + trackIndex - queueOffset.current
+            : trackIndex - queueOffset.current
+        await skipTo(nextTrackIndex)
+        play()
+      }
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -187,17 +238,32 @@ export default function LyricsScreen() {
             })}
           </View>
         </View>
-
-        <PlayerControlsLyrics
-          style={styles.playerControls}
-          styleRow={styles.playerControlsRow}
-          heightPlay={40}
-          widthPlay={40}
-          heightNext={30}
-          widthNext={30}
-          heightPrevious={30}
-          widthPrevious={30}
-        />
+        <TouchableOpacity
+          style={styles.play}
+          onPress={() => {
+            handleHymnSelect(
+              hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
+                | Track
+                | Hymn
+            )
+          }}
+        >
+          <PlayButton
+            isPlaying={false}
+            activeHymnId={0}
+            handleHymnSelect={() => {
+              handleHymnSelect(
+                hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
+                  | Track
+                  | Hymn
+              )
+            }}
+            color={colors.primary}
+            width={20}
+            height={20}
+          />
+          <Text style={styles.playText}>Reproduzir</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
@@ -380,5 +446,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+  },
+  play: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(41, 193, 127, 0.16)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 18,
+    width: 130,
+    borderWidth: 1,
+    borderColor: 'rgba(41, 193, 126, 0.15)',
+    shadowColor: colors.green,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+
+  playText: {
+    color: colors.primary,
+    fontFamily: fontFamily.plusJakarta.medium,
+    fontSize: fontSize.sm,
   },
 })

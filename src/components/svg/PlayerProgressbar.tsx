@@ -1,4 +1,4 @@
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { formatSecondsMinute } from '@/helpers/miscellaneous'
 import { utilsStyles } from '@/styles'
 import { StyleSheet, Text, View, ViewProps } from 'react-native'
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
   },
   timeText: {
     color: colors.second,
+    fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
-    fontWeight: '500',
     letterSpacing: 0.7,
     opacity: 0.75,
   },
