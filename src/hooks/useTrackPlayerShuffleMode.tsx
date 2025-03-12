@@ -44,7 +44,14 @@ export const useTrackPlayerShuffleMode = () => {
         await setQueue(reorderedHymns)
         setActiveHymns(reorderedHymns)
       } else if (!shuffle && activeHymns) {
-        const shuffledTracks = [...activeHymns].sort(() => Math.random() - 0.5)
+        const shuffledTracks = [...activeHymns]
+        for (let i = shuffledTracks.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[shuffledTracks[i], shuffledTracks[j]] = [
+            shuffledTracks[j],
+            shuffledTracks[i],
+          ]
+        }
 
         await setQueue(shuffledTracks)
         setActiveHymns(shuffledTracks)
