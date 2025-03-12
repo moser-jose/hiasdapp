@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { TextStyle } from 'react-native'
-import { StyleProp } from 'react-native'
+import { StyleProp, TextStyle } from 'react-native'
 import Animated, {
   Easing,
   cancelAnimation,
@@ -24,6 +23,7 @@ export const MovingText = ({
 }: MovingTextProps) => {
   const translateX = useSharedValue(0)
   const shouldAnimate = text.length >= animationThreshold
+  console.log(text.length, animationThreshold)
 
   const textWidth = text.length * 3
 

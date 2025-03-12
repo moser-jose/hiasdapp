@@ -1,23 +1,22 @@
 /* eslint-disable react/prop-types */
+import { ListHymnsFilter } from '@/helpers/filter'
+import { useNavigationSearch } from '@/hooks/useNavigationSearch'
+import { usePlayerStore, useQueue } from '@/store/playerStore'
+import { useStateStore } from '@/store/stateStore'
+import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   FlatList,
-  View,
-  Text,
   ListRenderItem,
+  Text,
+  View,
 } from 'react-native'
-import HymnsItem from './HymnsItem'
-import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
-import ItemDivider from './ItemDivider'
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { usePlayerStore, useQueue } from '@/store/playerStore'
-import TrackPlayer, { Track } from 'react-native-track-player'
+import { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
-import Hymns from '@/app/(tabs)/(hymns)'
 import HymnsCard from './HymnsCard'
-import { useNavigationSearch } from '@/hooks/useNavigationSearch'
-import { ListHymnsFilter } from '@/helpers/filter'
-import { useLyrics } from '@/store/library'
+import HymnsItem from './HymnsItem'
+import ItemDivider from './ItemDivider'
 import { ListHeaderComponent } from './ListHeaderComponent'
 
 const TAMANHO_PAGINA = 20
@@ -31,7 +30,8 @@ function ListHymns({
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [allLoaded, setAllLoaded] = useState(false)
-
+  const shuffle = useStateStore(useShallow(state => state.shuffle))
+  const setShuffle = useStateStore(useShallow(state => state.setShuffle))
   const activeHymn = usePlayerStore(state => state.activeHymn)
 
   const play = usePlayerStore(state => state.play)
@@ -144,6 +144,24 @@ function ListHymns({
       </View>
     )
   }
+  const changingQueue = async (
+    trackIndex: number,
+    selectedTrack: Track | Hymn
+  ) => {
+    const beforeTracks = hymns.slice(0, trackIndex)
+    const afterTracks = hymns.slice(trackIndex + 1)
+    await reset()
+
+    // we construct the new queue
+    await add(selectedTrack)
+    await add(afterTracks)
+    await add(beforeTracks)
+
+    await play()
+
+    queueOffset.current = trackIndex
+    setActiveQueueId(id as string)
+  }
 
   const handleHymnSelect = async (selectedTrack: Track | Hymn) => {
     const trackIndex = hymns.findIndex(track => track.id === selectedTrack.id)
@@ -153,28 +171,18 @@ function ListHymns({
     const isChangingQueue = id !== activeQueueId
 
     if (isChangingQueue) {
-      const beforeTracks = hymns.slice(0, trackIndex)
-      const afterTracks = hymns.slice(trackIndex + 1)
-      await reset()
-      console.log('isChangingQueue', id, activeQueueId)
-
-      // we construct the new queue
-      await add(selectedTrack)
-      await add(afterTracks)
-      await add(beforeTracks)
-
-      await play()
-
-      queueOffset.current = trackIndex
-      setActiveQueueId(id as string)
+      await changingQueue(trackIndex, selectedTrack)
     } else {
-      const nextTrackIndex =
-        trackIndex - queueOffset.current < 0
-          ? hymns.length + trackIndex - queueOffset.current
-          : trackIndex - queueOffset.current
-      console.log(nextTrackIndex)
-      await skipTo(nextTrackIndex)
-      play()
+      if (shuffle || !shuffle) {
+        await changingQueue(trackIndex, selectedTrack)
+      } else {
+        const nextTrackIndex =
+          trackIndex - queueOffset.current < 0
+            ? hymns.length + trackIndex - queueOffset.current
+            : trackIndex - queueOffset.current
+        await skipTo(nextTrackIndex)
+        play()
+      }
     }
   }
 

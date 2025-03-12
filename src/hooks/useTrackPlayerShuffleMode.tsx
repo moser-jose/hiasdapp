@@ -11,17 +11,21 @@ export const useTrackPlayerShuffleMode = () => {
     }))
   )
 
-  const { activeHymn, activeHymns, setQueue, setActiveHymns } = usePlayerStore(
-    useShallow(state => ({
-      activeHymn: state.activeHymn,
-      activeHymns: state.activeHymns,
-      setQueue: state.setQueue,
-      setActiveHymns: state.setActiveHymns,
-    }))
-  )
+  const { activeHymn, activeHymns, setQueue, setActiveHymns, setActiveHymn } =
+    usePlayerStore(
+      useShallow(state => ({
+        activeHymn: state.activeHymn,
+        activeHymns: state.activeHymns,
+        setQueue: state.setQueue,
+        setActiveHymns: state.setActiveHymns,
+        setActiveHymn: state.setActiveHymn,
+      }))
+    )
 
   const handleShufflePress = useCallback(async () => {
     try {
+      const currentActiveHymn = activeHymn
+
       if (shuffle && activeHymns) {
         const originalOrderHymns = [...activeHymns].sort((a, b) => {
           if (a.number && b.number) {
@@ -41,6 +45,9 @@ export const useTrackPlayerShuffleMode = () => {
           reorderedHymns = [...fromActive, ...beforeActive]
         }
 
+        // Manter o hymno ativo durante a operação
+        if (currentActiveHymn) setActiveHymn(currentActiveHymn)
+
         await setQueue(reorderedHymns)
         setActiveHymns(reorderedHymns)
       } else if (!shuffle && activeHymns) {
@@ -53,6 +60,9 @@ export const useTrackPlayerShuffleMode = () => {
           ]
         }
 
+        // Manter o hymno ativo durante a operação
+        if (currentActiveHymn) setActiveHymn(currentActiveHymn)
+
         await setQueue(shuffledTracks)
         setActiveHymns(shuffledTracks)
       }
@@ -61,7 +71,15 @@ export const useTrackPlayerShuffleMode = () => {
     } catch (error) {
       console.error('Error toggling shuffle mode:', error)
     }
-  }, [shuffle, activeHymn, activeHymns, setQueue, setActiveHymns, setShuffle])
+  }, [
+    shuffle,
+    activeHymn,
+    activeHymns,
+    setQueue,
+    setActiveHymns,
+    setShuffle,
+    setActiveHymn,
+  ])
 
   return {
     handleShufflePress,

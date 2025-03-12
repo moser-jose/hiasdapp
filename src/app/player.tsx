@@ -13,7 +13,7 @@ import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { defaultStyles } from '@/styles'
-import { memo } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { LinearGradient } from 'react-native-linear-gradient'
@@ -86,15 +86,26 @@ const PlayerScreen = () => {
   const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
   const { background } = usePlayerBackground(logoApp)
   const { top, bottom } = useSafeAreaInsets()
+  const prevActiveHymnRef = useRef(activeHymn)
 
-  if (!activeHymn) {
+  const shuffle = useStateStore(useShallow(state => state.shuffle))
+
+  useEffect(() => {
+    if (activeHymn) {
+      prevActiveHymnRef.current = activeHymn
+    }
+  }, [activeHymn])
+
+  const displayHymn = activeHymn || prevActiveHymnRef.current
+
+  if (!displayHymn) {
     return (
       <View style={[defaultStyles.container, { justifyContent: 'center' }]}>
         <ActivityIndicator color={colors.icon} />
       </View>
     )
   }
-  console.log('k')
+
   return (
     <LinearGradient
       style={{ flex: 1 }}
@@ -107,7 +118,7 @@ const PlayerScreen = () => {
       <View style={styles.overlayContainer}>
         <DismissPlayerSimbol />
         <PlayerArtwork artwork={logoApp} top={top} bottom={bottom} />
-        <LyricsInPlayer lyrics={activeHymn?.lyrics} />
+        <LyricsInPlayer lyrics={displayHymn?.lyrics} />
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 'auto' }}>
             <View /* style={{ height: 70 }} */>
@@ -120,28 +131,30 @@ const PlayerScreen = () => {
               >
                 <View style={styles.trackTitleContainer}>
                   <Text style={styles.trackNumberView}>
-                    {activeHymn.numberView}
+                    {displayHymn.numberView}
                   </Text>
                   <View style={styles.trackTitleContainerView}>
                     <View style={{ maxWidth: '65%', overflow: 'hidden' }}>
                       <MovingText
-                        text={activeHymn.title ?? ''}
-                        animationThreshold={30}
+                        text={displayHymn.title ?? ''}
+                        animationThreshold={23}
                         style={styles.trackTitleText}
                       />
                     </View>
 
-                    <ToogleFavorites id={activeHymn.id as number} />
+                    <View style={{ paddingHorizontal: 6 }}>
+                      <ToogleFavorites id={displayHymn.id as number} />
+                    </View>
                   </View>
 
-                  {activeHymn.englishTitle && (
+                  {displayHymn.englishTitle && (
                     <Text style={styles.trackEnglishTitle}>
-                      {activeHymn.englishTitle}
+                      {displayHymn.englishTitle}
                     </Text>
                   )}
                   <Authors
                     style={styles.authors}
-                    authors={Object.values(activeHymn.authors)}
+                    authors={Object.values(displayHymn.authors)}
                     card={false}
                   />
                 </View>
@@ -213,11 +226,11 @@ const styles = StyleSheet.create({
   trackNumberView: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: 18,
+    fontSize: 20,
   },
   trackTitleContainer: {
     flex: 1,
-    height: 73,
+    height: 110,
     overflow: 'hidden',
   },
   trackTitleContainerView: {

@@ -1,15 +1,15 @@
-import { TouchableOpacity, View, ViewStyle, StyleSheet } from 'react-native'
 import { colors } from '@/constants/styles'
-import NextMusicButtonSVG from '../svg/NextMusicButtonSVG'
-import PreviousMusicButtonSVG from '../svg/PreviousMusicButtonSVG'
-import PlayerRepeatToogle from './PlayerRepeatToogle'
-import PlayerShuffleToogle from './PlayerShuffleToogle'
-import { usePlayerStore } from '@/store/playerStore'
-import { useShallow } from 'zustand/react/shallow'
-import PlayButton from './PlayButton'
 import { useLibraryStore } from '@/store/library'
 import { useStateStore } from '@/store/modal'
+import { usePlayerStore } from '@/store/playerStore'
 import { useEffect } from 'react'
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
+import NextMusicButtonSVG from '../svg/NextMusicButtonSVG'
+import PreviousMusicButtonSVG from '../svg/PreviousMusicButtonSVG'
+import PlayButton from './PlayButton'
+import PlayerRepeatToogle from './PlayerRepeatToogle'
+import PlayerShuffleToogle from './PlayerShuffleToogle'
 type PlayerControlsProps = {
   style?: ViewStyle
   styleRow?: ViewStyle
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    paddingHorizontal: 10,
   },
 })
 

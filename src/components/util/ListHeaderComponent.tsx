@@ -57,7 +57,14 @@ export const ListHeaderComponent = ({ hymns, id }: QueueControlsProps) => {
   }
 
   const handleShufflePlay = async () => {
-    const shuffledTracks = [...hymns].sort(() => Math.random() - 0.5)
+    const shuffledTracks = [...hymns]
+    for (let i = shuffledTracks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[shuffledTracks[i], shuffledTracks[j]] = [
+        shuffledTracks[j],
+        shuffledTracks[i],
+      ]
+    }
     setActiveHymns(shuffledTracks)
     await setQueue(shuffledTracks)
     await play()
@@ -108,29 +115,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
   },
   playAll: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    justifyContent: 'center',
+    gap: 12,
     backgroundColor: colors.green,
-    padding: 16,
-    borderRadius: 20,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 18,
+    minWidth: 150,
+    shadowColor: colors.green,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 6,
   },
   playText: {
     fontSize: 16,
     fontFamily: fontFamily.plusJakarta.bold,
-    letterSpacing: 0.5,
+    letterSpacing: 0.3,
     color: '#fff',
   },
   playAllShuffle: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    backgroundColor: 'rgba(33, 26, 26, 0.07)',
-    padding: 16,
-    borderRadius: 20,
+    justifyContent: 'center',
+    gap: 12,
+    backgroundColor: 'rgba(41, 193, 127, 0.16)',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 18,
+    minWidth: 150,
+    borderWidth: 1,
+    borderColor: 'rgba(41, 193, 126, 0.15)',
+    shadowColor: colors.green,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
   },
 })

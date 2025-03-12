@@ -113,7 +113,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setQueue: async (tracks?: Track[] | Hymn[]) => {
     if (tracks && tracks.length > 0) {
       await TrackPlayer.setQueue(tracks as Hymn[])
-      set({ activeHymns: tracks }) // Update the activeHymns state when setting new queue
+      set({ activeHymns: tracks })
     } else {
       await TrackPlayer.reset()
       set({ activeHymns: [], activeHymn: null })
