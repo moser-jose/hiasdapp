@@ -121,7 +121,7 @@ const PlayerScreen = () => {
         <LyricsInPlayer lyrics={displayHymn?.lyrics} />
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 'auto' }}>
-            <View /* style={{ height: 70 }} */>
+            <View style={{ height: 70 }}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -160,12 +160,14 @@ const PlayerScreen = () => {
                 </View>
               </View>
             </View>
-            <PlayerProgressBar style={{ marginTop: 25, marginBottom: 42 }} />
-            <PlayerControls style={{ marginBottom: 30 }} />
+            <PlayerProgressBar
+              style={{ marginTop: '8%', marginBottom: '8%' }}
+            />
+            <PlayerControls style={{ marginBottom: '3%' }} />
           </View>
           <PlayerVolumeBar
             style={{
-              /* marginTop: 'auto' , */ marginBottom: 30,
+              marginTop: '2%', //marginBottom: 30,
               maxWidth: '100%',
               justifyContent: 'center',
               paddingHorizontal: 30,
@@ -177,7 +179,8 @@ const PlayerScreen = () => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-evenly',
-              marginBottom: 30,
+              marginTop: '2%',
+              marginBottom: '4%',
             }}
           >
             <ToogleLyricInPlayer />
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
   authors: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.xs,
+    fontSize: fontSize.xsm,
   },
   overlayContainer: {
     ...defaultStyles.container,
@@ -221,7 +224,7 @@ const styles = StyleSheet.create({
   trackEnglishTitle: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.xs,
+    fontSize: fontSize.xsm,
   },
   trackNumberView: {
     color: colors.second,
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
   },
   trackTitleContainer: {
     flex: 1,
-    height: 83,
+    height: 89,
     overflow: 'hidden',
   },
   trackTitleContainerView: {

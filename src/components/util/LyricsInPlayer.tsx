@@ -1,10 +1,10 @@
 import { colors, fontFamily } from '@/constants/styles'
-import { Lyrics, Verse } from '@/types/hymnsTypes'
-import { StyleSheet, ScrollView, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import React from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import { useStateStore } from '@/store/stateStore'
+import { Lyrics, Verse } from '@/types/hymnsTypes'
+import React from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useShallow } from 'zustand/react/shallow'
 
 const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
   const { top, bottom } = useSafeAreaInsets()
@@ -16,7 +16,7 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
       style={{
         flex: 1,
         marginTop: top + 40,
-        marginBottom: bottom - 30,
+        marginBottom: bottom + 10,
       }}
     >
       <View style={{ flex: 1 }}>
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
   text: {
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.semibold,
-    fontSize: 30,
-    letterSpacing: 2,
+    fontSize: 18,
+    letterSpacing: 0.5,
     marginBottom: 20,
   },
 })

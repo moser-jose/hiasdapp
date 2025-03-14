@@ -10,7 +10,7 @@ import { useStateStore } from '@/store/stateStore'
 import { Author, Hymn, Lyrics } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import {
   Alert,
   SafeAreaView,
@@ -21,6 +21,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 export default function LyricsScreen() {
@@ -36,10 +37,11 @@ export default function LyricsScreen() {
     idQueue,
   } = useLocalSearchParams()
   const [lyricsContent, setLyricsContent] = useState<string>('')
-  const [textSize, setTextSize] = useState<number>(fontSize.base)
+  const [textSize, setTextSize] = useState<number>(fontSize.smB)
   const [paraAuthors, setParaAuthors] = useState<Author[]>(
     Object.values(JSON.parse(authors as string) as Author[])
   )
+  const { bottom } = useSafeAreaInsets()
 
   const shuffle = useStateStore(useShallow(state => state.shuffle))
   const setShuffle = useStateStore(useShallow(state => state.setShuffle))
@@ -211,12 +213,40 @@ export default function LyricsScreen() {
     }
   }
 
+  const DismissPlayerSimbol = memo(() => {
+    const { top } = useSafeAreaInsets()
+    return (
+      <View
+        style={{
+          position: 'absolute',
+          top: top - 50,
+          right: 0,
+          left: 0,
+          justifyContent: 'center',
+          flexDirection: 'row',
+        }}
+      >
+        <View
+          accessible={false}
+          style={{
+            width: 50,
+            height: 8,
+            backgroundColor: colors.primary,
+            borderRadius: 8,
+            opacity: 0.7,
+          }}
+        />
+      </View>
+    )
+  })
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
+        <DismissPlayerSimbol />
+        {/* <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={styles.titleContainer}>
           <View style={styles.hymnNumberContainer}>
@@ -225,7 +255,16 @@ export default function LyricsScreen() {
           </View>
           <View style={styles.titleContainerFavorite}>
             <Text style={styles.title}>{title}</Text>
-            <ToogleFavorites id={parseInt(id as string)} />
+            <View style={styles.playerControlsRow}>
+              <ToogleFavorites id={parseInt(id as string)} />
+              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
+                <Ionicons
+                  name="ellipsis-vertical"
+                  size={22}
+                  color={colors.primary}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.authorsContainer}>
             {paraAuthors.map((author, index) => {
@@ -259,15 +298,15 @@ export default function LyricsScreen() {
               )
             }}
             color={colors.primary}
-            width={20}
-            height={20}
+            width={18}
+            height={18}
           />
           <Text style={styles.playText}>Reproduzir</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
+        {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView
@@ -315,7 +354,7 @@ export default function LyricsScreen() {
       </View>
 
       {/* Adiciona o FloatingPlayer diretamente na tela de lyrics */}
-      <FloatingPlayer style={styles.floatingPlayer} />
+      <FloatingPlayer style={[styles.floatingPlayer, { bottom: bottom }]} />
     </SafeAreaView>
   )
 }
@@ -330,7 +369,7 @@ const styles = StyleSheet.create({
   authorsTitle: {
     color: colors.textMuted,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xsm,
   },
 
   backButton: {
@@ -346,16 +385,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   floatingPlayer: {
-    borderRadius: 12,
-    bottom: 94,
-    left: 8,
+    borderRadius: 0,
+    //left: 8,
     position: 'absolute',
-    right: 8,
+    //right: 8,
   },
   biblicalText: {
     color: colors.textMuted,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
   },
   floatingPlayerSpace: {
     height: 100,
@@ -375,7 +413,7 @@ const styles = StyleSheet.create({
   hymnNumber: {
     color: colors.primary,
     fontFamily: fontFamily.plusJakarta.bold,
-    fontSize: fontSize.base,
+    fontSize: fontSize.sm,
     marginBottom: 4,
   },
 
@@ -397,7 +435,7 @@ const styles = StyleSheet.create({
   noLyrics: {
     color: colors.textMuted,
     fontFamily: fontFamily.plusJakarta.regular,
-    fontSize: fontSize.base,
+    fontSize: fontSize.smB,
     marginTop: 32,
     textAlign: 'center',
   },
@@ -407,7 +445,10 @@ const styles = StyleSheet.create({
     width: 180,
   },
   playerControlsRow: {
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    justifyContent: 'space-between',
     gap: 10,
   },
   scrollContent: {
@@ -415,7 +456,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   shareButton: {
-    padding: 8,
+    //padding: 8,
   },
   sizeButton: {
     backgroundColor: colors.third,
@@ -436,7 +477,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.lg,
+    fontSize: fontSize.smB,
   },
   titleContainer: {
     marginTop: 10,
@@ -456,7 +497,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 18,
-    width: 130,
+    width: 120,
     borderWidth: 1,
     borderColor: 'rgba(41, 193, 126, 0.15)',
     shadowColor: colors.green,
@@ -464,11 +505,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    marginTop: 10,
   },
 
   playText: {
     color: colors.primary,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xsm,
   },
 })

@@ -100,7 +100,7 @@ export const ListHeaderComponent = ({ hymns, id }: QueueControlsProps) => {
               },
             ]}
           >
-            Misturar
+            Embaralhar
           </Text>
         </TouchableOpacity>
       </View>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     backgroundColor: colors.green,
-    paddingVertical: 14,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 18,
     minWidth: 150,

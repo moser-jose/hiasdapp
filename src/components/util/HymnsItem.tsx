@@ -103,8 +103,8 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
           /* handleHymnSelect={() =>
             isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
           } */
-          height={34}
-          width={34}
+          height={30}
+          width={30}
         />
       </View>
     </TouchableOpacity>

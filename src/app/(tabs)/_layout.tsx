@@ -11,28 +11,45 @@ import PlayListsSVG from '@/components/svg/PlayListsSVG'
 import FloatingPlayer from '@/components/util/FloatingPlayer'
 import { colors, fontFamily } from '@/constants/styles'
 import { Tabs } from 'expo-router'
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
+import { Dimensions, Platform, ScaledSize } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+const { width, height } = Dimensions.get('window')
+
+// Calcular tamanhos responsivos
+const getResponsiveSizes = (screenWidth: number) => {
+  // Ajustar proporcionalmente com base na largura da tela
+  const baseIconSize = Math.max(18, Math.min(22, screenWidth * 0.055))
+  const baseFontSize = Math.max(10, Math.min(12, screenWidth * 0.03))
+
+  return {
+    iconSize: baseIconSize,
+    fontSize: baseFontSize,
+    tabBarHeight: Math.max(50, Math.min(90, screenWidth * 0.17)),
+  }
+}
+
+const responsiveSizes = getResponsiveSizes(width)
 
 type IconProps = {
   color: string
   focused: boolean
-}
-
-const PLAYER_STYLES = {
-  position: 'absolute' as const,
-  left: 8,
-  right: 8,
-  bottom: 94,
-  borderRadius: 12,
+  size?: number
 }
 
 const TAB_BAR_OPTIONS = {
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.second,
   tabBarLabelStyle: {
-    fontSize: 12,
+    fontSize: responsiveSizes.fontSize,
     flexDirection: 'row',
     fontFamily: fontFamily.plusJakarta.medium,
+    paddingBottom: Platform.OS === 'ios' ? 0 : 4,
+  },
+  tabBarStyle: {
+    height: responsiveSizes.tabBarHeight,
+    paddingTop: Platform.OS === 'ios' ? 6 : 0,
   },
   headerShown: false,
 } as const
@@ -40,6 +57,7 @@ const TAB_BAR_OPTIONS = {
 const IconRenderer = ({
   color,
   focused,
+  size = responsiveSizes.iconSize,
   ActiveIcon,
   InactiveIcon,
 }: IconProps & {
@@ -47,13 +65,62 @@ const IconRenderer = ({
   InactiveIcon: React.FC<{ width?: number; height?: number; color: string }>
 }) => {
   return focused ? (
-    <ActiveIcon height={22} width={22} color={color} />
+    <ActiveIcon height={size} width={size} color={color} />
   ) : (
-    <InactiveIcon height={22} width={22} color={color} />
+    <InactiveIcon height={size} width={size} color={color} />
   )
 }
 
 function TabsNavigation() {
+  const insets = useSafeAreaInsets()
+  const [dimensions, setDimensions] = useState({ width, height })
+  const [sizes, setSizes] = useState(responsiveSizes)
+  let PLAYER_STYLES = {}
+
+  // Adicionar listener para mudanças de dimensão (rotação de tela, etc)
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      'change',
+      ({ window }: { window: ScaledSize }) => {
+        setDimensions({ width: window.width, height: window.height })
+        setSizes(getResponsiveSizes(window.width))
+      }
+    )
+
+    return () => subscription.remove()
+  }, [])
+
+  // Configuração responsiva para todos os dispositivos
+  PLAYER_STYLES = {
+    position: 'absolute' as const,
+    //left: dimensions.width * 0.04,
+    //right: dimensions.width * 0.04,
+    borderRadius: 0,
+  }
+
+  if (Platform.OS === 'ios') {
+    // Ajuste específico para iOS
+    if (insets.bottom > 0) {
+      // Dispositivos com notch (iPhone X e mais recentes)
+      PLAYER_STYLES = {
+        ...PLAYER_STYLES,
+        bottom: insets.bottom + dimensions.height * 0.04,
+      }
+    } else {
+      // Dispositivos sem notch
+      PLAYER_STYLES = {
+        ...PLAYER_STYLES,
+        bottom: dimensions.height * 0.09,
+      }
+    }
+  } else {
+    // Ajuste para Android
+    PLAYER_STYLES = {
+      ...PLAYER_STYLES,
+      bottom: dimensions.height * 0.07,
+    }
+  }
+
   return (
     <>
       <Tabs
@@ -70,6 +137,7 @@ function TabsNavigation() {
               <IconRenderer
                 color={color}
                 focused={focused}
+                size={sizes.iconSize}
                 ActiveIcon={HomeSVG}
                 InactiveIcon={HomeOutlineSVG}
               />
@@ -84,6 +152,7 @@ function TabsNavigation() {
               <IconRenderer
                 color={color}
                 focused={focused}
+                size={sizes.iconSize}
                 ActiveIcon={HymnsSVG}
                 InactiveIcon={HymnsOutlineSvg}
               />
@@ -98,6 +167,7 @@ function TabsNavigation() {
               <IconRenderer
                 color={color}
                 focused={focused}
+                size={sizes.iconSize}
                 ActiveIcon={CategoriesSVG}
                 InactiveIcon={CategoriesOutlineSVG}
               />
@@ -112,6 +182,7 @@ function TabsNavigation() {
               <IconRenderer
                 color={color}
                 focused={focused}
+                size={sizes.iconSize}
                 ActiveIcon={PlayListsSVG}
                 InactiveIcon={PlayListsOutlineSVG}
               />
@@ -126,6 +197,7 @@ function TabsNavigation() {
               <IconRenderer
                 color={color}
                 focused={focused}
+                size={sizes.iconSize}
                 ActiveIcon={ConfigurationsSVG}
                 InactiveIcon={ConfigurationsOutlineSVG}
               />

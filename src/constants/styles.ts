@@ -36,6 +36,7 @@ const fontFamily = {
 const fontSize = {
   xss: 10,
   xs: 12,
+  xsm: 14,
   sm: 16,
   smB: 18,
   base: 20,
