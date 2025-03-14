@@ -16,7 +16,8 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
       style={{
         flex: 1,
         marginTop: top + 40,
-        marginBottom: bottom + 10,
+        marginBottom: bottom - 10,
+        backgroundColor: 'red',
       }}
     >
       <View style={{ flex: 1 }}>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.plusJakarta.semibold,
     fontSize: 18,
     letterSpacing: 0.5,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 })
 
