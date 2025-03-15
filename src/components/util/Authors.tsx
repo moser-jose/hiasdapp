@@ -34,7 +34,7 @@ const Authors = ({
                 ? authors.length === 1
                   ? name + '' + separator
                   : authors.length >= 2 &&
-                    truncateText(name, 14) + '' + separator
+                    truncateText(name, 1) + '' + separator
                 : name + '' + separator}
             </Text>
           )

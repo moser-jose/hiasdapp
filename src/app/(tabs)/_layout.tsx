@@ -49,7 +49,7 @@ const TAB_BAR_OPTIONS = {
   },
   tabBarStyle: {
     height: responsiveSizes.tabBarHeight,
-    paddingTop: Platform.OS === 'ios' ? 6 : 0,
+    paddingTop: Platform.OS === 'ios' ? 1 : 0,
   },
   headerShown: false,
 } as const
@@ -104,7 +104,7 @@ function TabsNavigation() {
       // Dispositivos com notch (iPhone X e mais recentes)
       PLAYER_STYLES = {
         ...PLAYER_STYLES,
-        bottom: insets.bottom + dimensions.height * 0.04,
+        bottom: insets.bottom + dimensions.height * 0.039,
       }
     } else {
       // Dispositivos sem notch

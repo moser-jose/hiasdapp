@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   activeIndicator: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 2,
     width: 4,
     height: 4,
     borderRadius: 2,

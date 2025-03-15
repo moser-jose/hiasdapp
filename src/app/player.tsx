@@ -433,7 +433,8 @@ const styles = StyleSheet.create({
   trackTitleContainer: {
     flex: 1,
     minHeight: 98,
-    maxHeight: 100,
+    height: 110,
+    //maxHeight: 100,
     overflow: 'hidden',
     justifyContent: 'center',
   },

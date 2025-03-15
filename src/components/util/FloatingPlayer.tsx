@@ -107,10 +107,7 @@ const FloatingPlayer = ({ style }: ViewProps) => {
           text={displayedHymn.title ?? ''}
           animationThreshold={25}
         />
-        {displayedHymn.englishTitle && (
-          <Text style={styles.hymnTitleBase}>{displayedHymn.englishTitle}</Text>
-        )}
-
+        
         <Authors
           style={styles.authors}
           authors={Object.values(displayedHymn.authors)}
