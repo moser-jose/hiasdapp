@@ -276,33 +276,35 @@ export default function LyricsScreen() {
               )
             })}
           </View>
+          <View style={styles.playContainer}>
+            <TouchableOpacity
+              style={styles.play}
+              onPress={() => {
+                handleHymnSelect(
+                  hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
+                    | Track
+                    | Hymn
+                )
+              }}
+            >
+              <PlayButton
+                isPlaying={false}
+                activeHymnId={0}
+                handleHymnSelect={() => {
+                  handleHymnSelect(
+                    hymns.find(
+                      (h: Hymn) => h.id.toString() === id.toString()
+                    ) as Track | Hymn
+                  )
+                }}
+                color={colors.primary}
+                width={18}
+                height={18}
+              />
+              <Text style={styles.playText}>Reproduzir</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.play}
-          onPress={() => {
-            handleHymnSelect(
-              hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
-                | Track
-                | Hymn
-            )
-          }}
-        >
-          <PlayButton
-            isPlaying={false}
-            activeHymnId={0}
-            handleHymnSelect={() => {
-              handleHymnSelect(
-                hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
-                  | Track
-                  | Hymn
-              )
-            }}
-            color={colors.primary}
-            width={18}
-            height={18}
-          />
-          <Text style={styles.playText}>Reproduzir</Text>
-        </TouchableOpacity>
 
         {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
@@ -353,13 +355,18 @@ export default function LyricsScreen() {
         </View>
       </View>
 
-      {/* Adiciona o FloatingPlayer diretamente na tela de lyrics */}
       <FloatingPlayer style={[styles.floatingPlayer, { bottom: bottom }]} />
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  playContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    flex: 0,
+  },
   authorsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -447,7 +454,6 @@ const styles = StyleSheet.create({
   playerControlsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'red',
     justifyContent: 'space-between',
     gap: 10,
   },
@@ -497,7 +503,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 18,
-    width: 120,
     borderWidth: 1,
     borderColor: 'rgba(41, 193, 126, 0.15)',
     shadowColor: colors.green,
