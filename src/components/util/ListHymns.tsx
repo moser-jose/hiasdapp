@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from 'react-native'
-import { Track } from 'react-native-track-player'
+import { RepeatMode, Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 import HymnsCard from './HymnsCard'
 import HymnsItem from './HymnsItem'
@@ -85,8 +85,8 @@ function ListHymns({
   const filteredSearch: Hymn[] | Track[] = useMemo(() => {
     if (!search) return displayedHymns as Hymn[]
     const filterPredicate = ListHymnsFilter(search)
-    return displayedHymns.filter(filterPredicate)
-  }, [displayedHymns, search])
+    return hymns.filter(filterPredicate)
+  }, [displayedHymns, hymns, search])
 
   const renderFooter = () => {
     if (hymns.length === 0) {
@@ -167,6 +167,10 @@ function ListHymns({
       )
     }
   }
+
+  useEffect(() => {
+    console.log('RepeatMode', RepeatMode.Off)
+  }, [])
 
   return (
     <FlatList

@@ -50,7 +50,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     })
 
     await TrackPlayer.setVolume(0.8)
-    await TrackPlayer.setRepeatMode(RepeatMode.Queue)
+    await TrackPlayer.setRepeatMode(RepeatMode.Off)
   },
   setActiveHymn: track => set({ activeHymn: track }),
   setActiveHymns: tracks => set({ activeHymns: tracks }),

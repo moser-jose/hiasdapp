@@ -78,14 +78,16 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
         <View style={styles.cardMore}>
           <View style={styles.numberCard}>
             <Text style={styles.number}>{hymn.number}</Text>
-            <ActiveHymnsDownloadSVG color={colors.green} />
+            <ActiveHymnsDownloadSVG color={colors.second} />
             {hymn.biblicalText && (
               <Text style={styles.baseTitle}>{hymn.biblicalText}</Text>
             )}
           </View>
           <View style={styles.ViewCard}>
             <Text style={titleStyle}>{truncateText(hymn.title, 29)}</Text>
-            <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
+            {hymn.englishTitle && (
+              <Text style={styles.baseTitle}>{hymn.englishTitle}</Text>
+            )}
             <Authors
               style={styles.author}
               authors={Object.values(hymn.authors) as Author[]}
