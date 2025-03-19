@@ -52,15 +52,6 @@ function ListHymns({
     },
   })
 
-  const handleHymnSelectr = useCallback(
-    async (hymn: Track | Hymn) => {
-      await play(hymn)
-    },
-    [play]
-  )
-
-  
-
   useEffect(() => {
     if (hymns.length > 0) {
       setDisplayedHymns(hymns.slice(0, TAMANHO_PAGINA))
