@@ -59,37 +59,7 @@ function ListHymns({
     [play]
   )
 
-  /* const handleHymnSelect = useCallback(
-    async (selectedHymn: Track | Hymn) => {
-      const hymnIndex = hymns.findIndex(hymn => hymn.id === selectedHymn.id)
-
-      if (hymnIndex === -1) return
-
-      const isChangingQueue = queueId !== activeQueueId
-
-      if (isChangingQueue) {
-        const beforeHymns = hymns.slice(0, hymnIndex)
-        const afterHymns = hymns.slice(hymnIndex + 1)
-        await TrackPlayer.reset()
-        await TrackPlayer.add(beforeHymns)
-        await TrackPlayer.add(afterHymns)
-        await TrackPlayer.add(beforeHymns)
-
-        await play()
-
-        queueOffset.current = hymnIndex
-        setActiveQueueId(queueId as string)
-      } else {
-        const nextHymnIndex =
-          hymnIndex - queueOffset.current < 0
-            ? hymns.length + hymnIndex - queueOffset.current
-            : hymnIndex - queueOffset.current
-        await TrackPlayer.skip(nextHymnIndex)
-        await play()
-      }
-    },
-    [activeQueueId, hymns, play, queueId, setActiveQueueId]
-  ) */
+  
 
   useEffect(() => {
     if (hymns.length > 0) {

@@ -45,11 +45,12 @@ const TAB_BAR_OPTIONS = {
     fontSize: responsiveSizes.fontSize,
     flexDirection: 'row',
     fontFamily: fontFamily.plusJakarta.medium,
-    paddingBottom: Platform.OS === 'ios' ? 0 : 4,
+    paddingBottom: Platform.OS === 'ios' ? 14 : 4,
   },
   tabBarStyle: {
     height: responsiveSizes.tabBarHeight,
     paddingTop: Platform.OS === 'ios' ? 1 : 0,
+    paddingBottom: Platform.OS === 'ios' ? 75 : 0,
   },
   headerShown: false,
 } as const
@@ -104,7 +105,7 @@ function TabsNavigation() {
       // Dispositivos com notch (iPhone X e mais recentes)
       PLAYER_STYLES = {
         ...PLAYER_STYLES,
-        bottom: insets.bottom + dimensions.height * 0.039,
+        bottom: insets.bottom + dimensions.height * 0.049,
       }
     } else {
       // Dispositivos sem notch

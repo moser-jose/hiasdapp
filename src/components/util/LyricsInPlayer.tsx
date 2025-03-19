@@ -14,13 +14,14 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
   return (
     <ScrollView
       style={{
-        flex: 1,
         marginTop: top + 40,
-        marginBottom: bottom - 10,
-        backgroundColor: 'red',
+        marginBottom: bottom - 30,
+        overflow: 'hidden',
+        height: 1,
+        maxHeight: '38%',
       }}
     >
-      <View style={{ flex: 1 }}>
+      <View>
         {Object.values(lyrics.verses).map(({ verse, number }: Verse, index) => {
           return (
             <View key={index}>
@@ -54,7 +55,7 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
 
 const styles = StyleSheet.create({
   text: {
-    color: colors.second,
+    color: colors.white,
     fontFamily: fontFamily.plusJakarta.semibold,
     fontSize: 18,
     letterSpacing: 0.5,

@@ -3,6 +3,12 @@ import { RealmProvider as RProvider } from '@/services/BaseRealmService'
 import { View, Text } from 'react-native'
 import { useRealm } from '@/hooks/useRealm'
 import hymnalData from '../../api/hiasd-old.json'
+import { Hymn, Category } from '@/types/hymnsTypes'
+
+type HymnalData = {
+  hymns: Hymn[]
+  categories: Category[]
+}
 
 export function RealmProvider({ children }: { children: React.ReactNode }) {
   const { closeRealm, create, error, isLoading, checkIfDatabaseEmpty } =
@@ -14,9 +20,9 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
       try {
         const isEmpty = await checkIfDatabaseEmpty()
 
-        //if (isEmpty) {
-        await create(hymnalData)
-        //}
+        if (isEmpty) {
+          await create(hymnalData as HymnalData)
+        }
 
         await closeRealm()
         setInitialized(true)

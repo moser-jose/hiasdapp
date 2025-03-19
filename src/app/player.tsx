@@ -113,8 +113,6 @@ const PlayerArtwork = memo(
               width: artworkSize,
               height: artworkSize,
               aspectRatio: 1,
-
-              backgroundColor: 'red',
             },
           ]}
         >
@@ -287,7 +285,6 @@ const PlayerScreen = () => {
           <View style={responsiveStyles.mainContent}>
             <PlayerArtwork artwork={logoApp} top={top} bottom={bottom} />
             <LyricsInPlayer lyrics={displayHymn?.lyrics} />
-
             <View style={responsiveStyles.playerControlsArea}>
               <View style={styles.controlsWrapper}>
                 <TrackInfo

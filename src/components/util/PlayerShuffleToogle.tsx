@@ -35,13 +35,16 @@ const PlayerShuffleToogle = () => {
       <Animated.View
         style={[
           styles.container,
-          shuffle && styles.activeContainer,
+          shuffle === true && styles.activeContainer,
           {
-            transform: [{ scale }, { rotate: shuffle ? rotation : '0deg' }],
+            transform: [
+              { scale },
+              { rotate: shuffle === true ? rotation : '0deg' },
+            ],
           },
         ]}
       >
-        {shuffle ? (
+        {shuffle === true ? (
           <ShuffleActiveSVG color="white" width={22} height={22} />
         ) : (
           <ShuffleSVG color="white" width={22} height={22} />

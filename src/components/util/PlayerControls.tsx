@@ -96,7 +96,6 @@ const PlayPauseButton = ({
   const isLyricsScreenOpen = useStateStore(
     useShallow(state => state.isLyricsScreenOpen)
   )
-  console.log('f')
   useEffect(() => {
     if (isLyricsScreenOpen === false) {
       setLyrics(null)

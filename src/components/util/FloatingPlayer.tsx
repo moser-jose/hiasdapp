@@ -18,9 +18,18 @@ import {
 import { useShallow } from 'zustand/react/shallow'
 import Authors from './Authors'
 import { MovingText } from './MovingText'
+import { useStateStore } from '@/store/stateStore'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const { width } = useWindowDimensions()
+  /* const { shuffle, setShuffle } = useStateStore(
+    useShallow(state => ({
+      shuffle: state.shuffle,
+      setShuffle: state.setShuffle,
+    }))
+  )
+
+  console.log('shuffle', shuffle) */
 
   // Responsive adjustments
   const responsivePadding = width * 0.04
@@ -52,7 +61,6 @@ const FloatingPlayer = ({ style }: ViewProps) => {
     container: {
       alignItems: 'center',
       backgroundColor: colors.primary,
-      borderRadius: 30,
       flexDirection: 'row',
       paddingLeft: responsivePadding,
       paddingVertical: responsivePadding * 0.9,
@@ -84,12 +92,6 @@ const FloatingPlayer = ({ style }: ViewProps) => {
       marginLeft: 10,
       overflow: 'hidden',
     },
-    /* trackArtworkImage: {
-      backgroundColor: colors.green,
-      borderRadius: 8,
-      height: 40,
-      width: 40,
-    }, */
   })
 
   return (
