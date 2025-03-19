@@ -29,8 +29,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/react/shallow'
 
 // Constantes
-const TABLET_BREAKPOINT = 768 // iPad mini e acima
-const LARGE_SCREEN_BREAKPOINT = 1024 // iPad Pro e acima
+const TABLET_BREAKPOINT = 768
+const LARGE_SCREEN_BREAKPOINT = 1024
 
 // Tipos
 interface ResponsiveStylesProps {
@@ -49,11 +49,11 @@ interface TrackInfoProps {
 // Função utilitária para calcular tamanhos responsivos
 const getResponsiveSize = (baseSize: number) => {
   const { width } = Dimensions.get('window')
-  const isSmallDevice = width < 375 // iPhone SE, etc.
+  const isSmallDevice = width < 375
   const isTablet = width >= TABLET_BREAKPOINT
   const isLargeScreen = width >= LARGE_SCREEN_BREAKPOINT
 
-  if (isSmallDevice) return Math.max(baseSize * 0.85, 9) // Nunca menor que 9pts
+  if (isSmallDevice) return Math.max(baseSize * 0.85, 9)
   if (isTablet) return baseSize * 1.2
   if (isLargeScreen) return baseSize * 1.4
   return baseSize
@@ -348,7 +348,6 @@ const createResponsiveStyles = ({
   })
 }
 
-// Estilos base
 const styles = StyleSheet.create({
   container: {
     flex: 1,

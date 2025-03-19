@@ -59,8 +59,6 @@ export default function LyricsScreen() {
   const queueOffset = useRef(0)
   const { activeQueueId, setActiveQueueId } = useQueue()
 
-  const av = useLyrics(parseInt(id as string))
-
   const hymns = useLibraryStore(useShallow(state => state.hymns))
 
   const setLyricsScreenOpen = useModalStore(

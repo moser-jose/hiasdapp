@@ -41,6 +41,7 @@ type IconProps = {
 const TAB_BAR_OPTIONS = {
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.second,
+
   tabBarLabelStyle: {
     fontSize: responsiveSizes.fontSize,
     flexDirection: 'row',
@@ -50,7 +51,7 @@ const TAB_BAR_OPTIONS = {
   tabBarStyle: {
     height: responsiveSizes.tabBarHeight,
     paddingTop: Platform.OS === 'ios' ? 1 : 0,
-    paddingBottom: Platform.OS === 'ios' ? 75 : 0,
+    paddingBottom: Platform.OS === 'ios' ? 80 : 0,
   },
   headerShown: false,
 } as const
@@ -105,7 +106,7 @@ function TabsNavigation() {
       // Dispositivos com notch (iPhone X e mais recentes)
       PLAYER_STYLES = {
         ...PLAYER_STYLES,
-        bottom: insets.bottom + dimensions.height * 0.049,
+        bottom: insets.bottom + dimensions.height * 0.05,
       }
     } else {
       // Dispositivos sem notch
@@ -206,7 +207,6 @@ function TabsNavigation() {
           }}
         />
       </Tabs>
-
       <FloatingPlayer style={PLAYER_STYLES} />
     </>
   )

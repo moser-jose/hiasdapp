@@ -9,7 +9,7 @@ import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
 import Authors from './Authors'
 import ToogleFavorites from './ToogleFavorites'
-
+import LoaderKit from 'react-native-loader-kit'
 import { router } from 'expo-router'
 import React from 'react'
 import PlayButton from './PlayButton'
@@ -70,11 +70,26 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
       style={styles.container}
     >
       <View style={styles.card}>
-        <View style={styles.cardSpreed}>
-          <TouchableOpacity style={styles.cardSpreedTouch}>
-            <SpreedSVG width={16} color={colors.textMuted} />
-          </TouchableOpacity>
-        </View>
+        {isPlaying && id === activeHymn?.id ? (
+          <LoaderKit
+            style={{ width: 20, height: 20, marginHorizontal: 6 }}
+            name={'LineScalePulseOut'}
+            color={colors.primary}
+          />
+        ) : (
+          <PlayButton
+            isPlaying={isPlaying}
+            testID={`play-button-${hymn.number}`}
+            id={id as number}
+            activeHymnId={activeHymn?.id as number}
+            handleHymnSelect={() => handleHymnSelect(hymn)}
+            /* handleHymnSelect={() =>
+            isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
+          } */
+            height={30}
+            width={32}
+          />
+        )}
         <View style={styles.cardMore}>
           <View style={styles.numberCard}>
             <Text style={styles.number}>{hymn.number}</Text>
@@ -96,18 +111,12 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
           </View>
         </View>
         <ToogleFavorites id={hymn.id} />
-        <PlayButton
-          isPlaying={isPlaying}
-          testID={`play-button-${hymn.number}`}
-          id={id as number}
-          activeHymnId={activeHymn?.id as number}
-          handleHymnSelect={() => handleHymnSelect(hymn)}
-          /* handleHymnSelect={() =>
-            isPlaying ? pause() : isActiveHymn ? play() : play(hymn)
-          } */
-          height={30}
-          width={30}
-        />
+
+        <View style={styles.cardSpreed}>
+          <TouchableOpacity style={styles.cardSpreedTouch}>
+            <SpreedSVG width={16} color={colors.textMuted} />
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableOpacity>
   )
@@ -172,7 +181,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.text,
-    fontFamily: fontFamily.plusJakarta.medium,
+    fontFamily: fontFamily.plusJakarta.bold,
     fontSize: fontSize.sm,
   },
 })

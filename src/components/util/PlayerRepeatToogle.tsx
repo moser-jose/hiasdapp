@@ -63,7 +63,6 @@ const PlayerRepeatToogle = () => {
   }
 
   const getRepeatIcon = () => {
-    console.log('repeatMode', RepeatMode)
     switch (repeatMode) {
       case RepeatMode.Off:
         return <RepeatSVG color="white" width={24} height={24} />

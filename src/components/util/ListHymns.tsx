@@ -18,6 +18,7 @@ import HymnsCard from './HymnsCard'
 import HymnsItem from './HymnsItem'
 import ItemDivider from './ItemDivider'
 import { ListHeaderComponent } from './ListHeaderComponent'
+import { colors } from '@/constants/styles'
 
 const TAMANHO_PAGINA = 20
 function ListHymns({
@@ -32,7 +33,6 @@ function ListHymns({
   const [allLoaded, setAllLoaded] = useState(false)
   const shuffle = useStateStore(useShallow(state => state.shuffle))
   const setShuffle = useStateStore(useShallow(state => state.setShuffle))
-  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
 
   const play = usePlayerStore(useShallow(state => state.play))
 
