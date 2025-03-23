@@ -3,7 +3,7 @@ import PlayButton from '@/components/util/PlayButton'
 import ToogleFavorites from '@/components/util/ToogleFavorites'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { truncateText } from '@/helpers/textsWords'
-import { useLibraryStore, useLyrics } from '@/store/library'
+import { useLibraryStore } from '@/store/library'
 import { useStateStore as useModalStore } from '@/store/modal'
 import { usePlayerStore, useQueue } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
@@ -301,6 +301,22 @@ export default function LyricsScreen() {
               />
               <Text style={styles.playText}>Reproduzir</Text>
             </TouchableOpacity>
+            <View style={styles.nextPreviousLyricsContainer}>
+              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
+                <Ionicons
+                  name="chevron-back"
+                  size={22}
+                  color={colors.primary}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={22}
+                  color={colors.primary}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -325,34 +341,6 @@ export default function LyricsScreen() {
         <View style={styles.floatingPlayerSpace} />
       </ScrollView>
 
-      <View style={styles.footer}>
-        <View style={styles.textSizeControls}>
-          {/*  <TouchableOpacity
-            onPress={decreaseTextSize}
-            style={styles.sizeButton}
-            disabled={textSize <= 14}
-          >
-            <Ionicons
-              name="remove"
-              size={24}
-              color={textSize <= 14 ? colors.textMuted : colors.primary}
-            />
-          </TouchableOpacity>
-          <Text style={styles.textSizeLabel}>Tamanho do texto</Text>
-          <TouchableOpacity
-            onPress={increaseTextSize}
-            style={styles.sizeButton}
-            disabled={textSize >= 24}
-          >
-            <Ionicons
-              name="add"
-              size={24}
-              color={textSize >= 24 ? colors.textMuted : colors.primary}
-            />
-          </TouchableOpacity> */}
-        </View>
-      </View>
-
       <FloatingPlayer style={[styles.floatingPlayer, { bottom: bottom }]} />
     </SafeAreaView>
   )
@@ -361,9 +349,15 @@ export default function LyricsScreen() {
 const styles = StyleSheet.create({
   playContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     gap: 4,
     flex: 0,
+  },
+  nextPreviousLyricsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 25,
   },
   authorsContainer: {
     flexDirection: 'row',
