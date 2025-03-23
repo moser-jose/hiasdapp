@@ -8,24 +8,22 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Modal,
   Dimensions,
 } from 'react-native'
 import { useShallow } from 'zustand/react/shallow'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import SpreedSVG from '../svg/SpreedSvg'
-import DownloadSVG from '../svg/DownloadSvg'
-//import ShareSVG from '../svg/ShareSvg'
 import Authors from './Authors'
 import ToogleFavorites from './ToogleFavorites'
 import LoaderKit from 'react-native-loader-kit'
 import { router } from 'expo-router'
 import React from 'react'
 import PlayButton from './PlayButton'
-import { Ionicons } from '@expo/vector-icons'
+import { ModalHymnItem } from './ModalHymnItem'
 
 function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
   const [modalVisible, setModalVisible] = useState(false)
+  const [lyricsContent, setLyricsContent] = useState('')
   const [modalPosition, setModalPosition] = useState({ top: 0, right: 0 })
   const spreedButtonRef = useRef<View>(null)
 
@@ -88,6 +86,47 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
         setModalVisible(true)
       }
     )
+
+    if (hymn.lyrics) {
+      try {
+        const paraLyrics = hymn.lyrics
+
+        let formattedLyrics = ''
+
+        if (
+          Object.values(paraLyrics.verses) &&
+          Object.values(paraLyrics.verses).length > 0
+        ) {
+          Object.values(paraLyrics.verses).forEach(verse => {
+            if (verse.number) {
+              formattedLyrics += `${verse.number}. `
+            }
+            if (verse.verse) {
+              formattedLyrics += `${verse.verse}\n\n`
+            }
+
+            if (
+              Object.values(paraLyrics.chorus) &&
+              Object.values(paraLyrics.chorus).length > 0
+            ) {
+              Object.values(paraLyrics.chorus).forEach(chorus => {
+                if (chorus.name) {
+                  formattedLyrics += `[CHORUS_START]${chorus.name}\n`
+                }
+                if (chorus.choir) {
+                  formattedLyrics += `${chorus.choir}\n\n`
+                }
+              })
+            }
+          })
+        }
+
+        setLyricsContent(formattedLyrics)
+        return
+      } catch (error) {
+        console.error('Failed to parse lyrics:', error)
+      }
+    }
   }
 
   return (
@@ -168,7 +207,7 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
       </View>
 
       {/* Modal de opções */}
-      <Modal
+      {/* <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
@@ -217,7 +256,17 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
-      </Modal>
+      </Modal> */}
+
+      <ModalHymnItem
+        hymn={hymn.number}
+        title={hymn.title}
+        number={hymn.number}
+        lyrics={lyricsContent}
+        modalPosition={modalPosition}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </TouchableOpacity>
   )
 }
@@ -292,7 +341,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 4,
     padding: 5,
-    width: '40%',
+    /* width: '40%', */
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

@@ -1,4 +1,5 @@
 import FloatingPlayer from '@/components/util/FloatingPlayer'
+import { ModalHymnItem } from '@/components/util/ModalHymnItem'
 import PlayButton from '@/components/util/PlayButton'
 import ToogleFavorites from '@/components/util/ToogleFavorites'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
@@ -13,6 +14,8 @@ import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { memo, useEffect, useRef, useState } from 'react'
 import {
   Alert,
+  Dimensions,
+  Modal,
   SafeAreaView,
   ScrollView,
   Share,
@@ -37,6 +40,11 @@ export default function LyricsScreen() {
   } = useLocalSearchParams()
   const [lyricsContent, setLyricsContent] = useState<string>('')
   const [textSize, setTextSize] = useState<number>(fontSize.smB)
+
+  const [modalVisible, setModalVisible] = useState(false)
+  const [modalPosition, setModalPosition] = useState({ top: 0, right: 0 })
+  const spreedButtonRef = useRef<View>(null)
+
   const [paraAuthors, setParaAuthors] = useState<Author[]>(
     Object.values(JSON.parse(authors as string) as Author[])
   )
@@ -126,10 +134,6 @@ export default function LyricsScreen() {
     }
   }, [id, hymns, lyrics])
 
-  const handleGoBack = () => {
-    router.back()
-  }
-
   const handleNextHymn = () => {
     if (hymns.length === 0) return
 
@@ -178,18 +182,6 @@ export default function LyricsScreen() {
         idQueue: idQueue || '',
       },
     })
-  }
-
-  const handleShare = async () => {
-    try {
-      const content = `${title} (Hino ${number})\n\n${lyricsContent}`
-      await Share.share({
-        message: content,
-        title: `${title} - Hino ${number}`,
-      })
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível compartilhar a letra')
-    }
   }
 
   const formatLyrics = (lyrics: string) => {
@@ -286,15 +278,35 @@ export default function LyricsScreen() {
     )
   })
 
+  const handleDownload = () => {
+    setModalVisible(false)
+  }
+
+  const handleSpreedPress = () => {
+    spreedButtonRef.current?.measure(
+      (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        pageX: number,
+        pageY: number
+      ) => {
+        setModalPosition({
+          top: pageY + height,
+          right: Dimensions.get('window').width - (pageX + width),
+        })
+        setModalVisible(true)
+      }
+    )
+  }
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <DismissPlayerSimbol />
-          {/* <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color={colors.primary} />
-        </TouchableOpacity> */}
 
           <View style={styles.titleContainer}>
             <View style={styles.hymnNumberContainer}>
@@ -305,7 +317,11 @@ export default function LyricsScreen() {
               <Text style={styles.title}>{title}</Text>
               <View style={styles.playerControlsRow}>
                 <ToogleFavorites id={parseInt(id as string)} />
-                <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
+                <TouchableOpacity
+                  ref={spreedButtonRef}
+                  onPress={handleSpreedPress}
+                  style={styles.shareButton}
+                >
                   <Ionicons
                     name="ellipsis-vertical"
                     size={22}
@@ -372,13 +388,17 @@ export default function LyricsScreen() {
                     color={colors.primary}
                   />
                 </TouchableOpacity>
+                <ModalHymnItem
+                  title={title.toString()}
+                  number={Number(number)}
+                  lyrics={lyricsContent.replaceAll('[CHORUS_START]', '')}
+                  modalPosition={modalPosition}
+                  modalVisible={modalVisible}
+                  setModalVisible={setModalVisible}
+                />
               </View>
             </View>
           </View>
-
-          {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
-          <Ionicons name="share-outline" size={24} color={colors.primary} />
-        </TouchableOpacity> */}
         </View>
 
         <ScrollView
@@ -587,5 +607,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  modalContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 4,
+    padding: 5,
+    width: '40%',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  modalOption: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  modalOptionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  modalOptionText: {
+    color: colors.text,
+    fontFamily: fontFamily.plusJakarta.medium,
+    fontSize: fontSize.xsm,
+  },
+  modalDivider: {
+    height: 0.3,
+    backgroundColor: colors.textMuted,
+    marginHorizontal: 0,
   },
 })
