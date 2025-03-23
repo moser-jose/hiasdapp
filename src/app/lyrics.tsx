@@ -9,7 +9,7 @@ import { usePlayerStore, useQueue } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { Author, Hymn, Lyrics } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
-import { router, useLocalSearchParams } from 'expo-router'
+import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { memo, useEffect, useRef, useState } from 'react'
 import {
   Alert,
@@ -31,7 +31,6 @@ export default function LyricsScreen() {
     lyrics,
     biblicalText,
     numberView,
-    englishTitle,
     number,
     authors,
     idQueue,
@@ -45,7 +44,6 @@ export default function LyricsScreen() {
 
   const shuffle = useStateStore(useShallow(state => state.shuffle))
   const setShuffle = useStateStore(useShallow(state => state.setShuffle))
-  const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
 
   const play = usePlayerStore(useShallow(state => state.play))
 
@@ -130,6 +128,56 @@ export default function LyricsScreen() {
 
   const handleGoBack = () => {
     router.back()
+  }
+
+  const handleNextHymn = () => {
+    if (hymns.length === 0) return
+
+    const currentIndex = hymns.findIndex((h: Hymn) => h.id.toString() === id)
+    if (currentIndex === -1) return
+
+    const nextIndex = (currentIndex + 1) % hymns.length
+    const nextHymn = hymns[nextIndex]
+
+    router.push({
+      pathname: '/lyrics',
+      params: {
+        id: nextHymn.id,
+        title: nextHymn.title,
+        lyrics: JSON.stringify(nextHymn.lyrics),
+        biblicalText: nextHymn.biblicalText || '',
+        numberView: nextHymn.numberView || nextHymn.number,
+        englishTitle: nextHymn.englishTitle || '',
+        number: nextHymn.number,
+        authors: JSON.stringify(nextHymn.authors || []),
+        idQueue: idQueue || '',
+      },
+    })
+  }
+
+  const handlePreviousHymn = () => {
+    if (hymns.length === 0) return
+
+    const currentIndex = hymns.findIndex((h: Hymn) => h.id.toString() === id)
+    if (currentIndex === -1) return
+
+    const previousIndex = (currentIndex - 1 + hymns.length) % hymns.length
+    const previousHymn = hymns[previousIndex]
+
+    router.push({
+      pathname: '/lyrics',
+      params: {
+        id: previousHymn.id,
+        title: previousHymn.title,
+        lyrics: JSON.stringify(previousHymn.lyrics),
+        biblicalText: previousHymn.biblicalText || '',
+        numberView: previousHymn.numberView || previousHymn.number,
+        englishTitle: previousHymn.englishTitle || '',
+        number: previousHymn.number,
+        authors: JSON.stringify(previousHymn.authors || []),
+        idQueue: idQueue || '',
+      },
+    })
   }
 
   const handleShare = async () => {
@@ -217,7 +265,7 @@ export default function LyricsScreen() {
       <View
         style={{
           position: 'absolute',
-          top: top - 50,
+          top: top + 5,
           right: 0,
           left: 0,
           justifyContent: 'center',
@@ -239,110 +287,120 @@ export default function LyricsScreen() {
   })
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <DismissPlayerSimbol />
-        {/* <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <DismissPlayerSimbol />
+          {/* <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color={colors.primary} />
         </TouchableOpacity> */}
 
-        <View style={styles.titleContainer}>
-          <View style={styles.hymnNumberContainer}>
-            <Text style={styles.hymnNumber}>{numberView}</Text>
-            <Text style={styles.biblicalText}>{biblicalText}</Text>
-          </View>
-          <View style={styles.titleContainerFavorite}>
-            <Text style={styles.title}>{title}</Text>
-            <View style={styles.playerControlsRow}>
-              <ToogleFavorites id={parseInt(id as string)} />
-              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
-                <Ionicons
-                  name="ellipsis-vertical"
-                  size={22}
-                  color={colors.primary}
-                />
-              </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <View style={styles.hymnNumberContainer}>
+              <Text style={styles.hymnNumber}>{numberView}</Text>
+              <Text style={styles.biblicalText}>{biblicalText}</Text>
             </View>
-          </View>
-          <View style={styles.authorsContainer}>
-            {paraAuthors.map((author, index) => {
-              return (
-                <Text style={styles.authorsTitle} key={index}>
-                  {truncateText(author.name as string, 18)}
-                  {index < paraAuthors.length - 1 && ', '}
-                </Text>
-              )
-            })}
-          </View>
-          <View style={styles.playContainer}>
-            <TouchableOpacity
-              style={styles.play}
-              onPress={() => {
-                handleHymnSelect(
-                  hymns.find((h: Hymn) => h.id.toString() === id.toString()) as
-                    | Track
-                    | Hymn
+            <View style={styles.titleContainerFavorite}>
+              <Text style={styles.title}>{title}</Text>
+              <View style={styles.playerControlsRow}>
+                <ToogleFavorites id={parseInt(id as string)} />
+                <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
+                  <Ionicons
+                    name="ellipsis-vertical"
+                    size={22}
+                    color={colors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.authorsContainer}>
+              {paraAuthors.map((author, index) => {
+                return (
+                  <Text style={styles.authorsTitle} key={index}>
+                    {truncateText(author.name as string, 18)}
+                    {index < paraAuthors.length - 1 && ', '}
+                  </Text>
                 )
-              }}
-            >
-              <PlayButton
-                isPlaying={false}
-                activeHymnId={0}
-                handleHymnSelect={() => {
+              })}
+            </View>
+            <View style={styles.playContainer}>
+              <TouchableOpacity
+                style={styles.play}
+                onPress={() => {
                   handleHymnSelect(
                     hymns.find(
                       (h: Hymn) => h.id.toString() === id.toString()
                     ) as Track | Hymn
                   )
                 }}
-                color={colors.primary}
-                width={18}
-                height={18}
-              />
-              <Text style={styles.playText}>Reproduzir</Text>
-            </TouchableOpacity>
-            <View style={styles.nextPreviousLyricsContainer}>
-              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
-                <Ionicons
-                  name="chevron-back"
-                  size={22}
+              >
+                <PlayButton
+                  isPlaying={false}
+                  activeHymnId={0}
+                  handleHymnSelect={() => {
+                    handleHymnSelect(
+                      hymns.find(
+                        (h: Hymn) => h.id.toString() === id.toString()
+                      ) as Track | Hymn
+                    )
+                  }}
                   color={colors.primary}
+                  width={18}
+                  height={18}
                 />
+                <Text style={styles.playText}>Reproduzir</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {}} style={styles.shareButton}>
-                <Ionicons
-                  name="chevron-forward"
-                  size={22}
-                  color={colors.primary}
-                />
-              </TouchableOpacity>
+              <View style={styles.nextPreviousLyricsContainer}>
+                <TouchableOpacity
+                  onPress={handlePreviousHymn}
+                  style={styles.navigationButton}
+                >
+                  <Ionicons
+                    name="chevron-back"
+                    size={20}
+                    color={colors.primary}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleNextHymn}
+                  style={styles.navigationButton}
+                >
+                  <Ionicons
+                    name="chevron-forward"
+                    size={20}
+                    color={colors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
+          {/* <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
         </TouchableOpacity> */}
-      </View>
-
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.lyricsContainer}>
-          {lyricsContent ? (
-            formatLyrics(lyricsContent)
-          ) : (
-            <Text style={styles.noLyrics}>
-              Letra não disponível para este hino.
-            </Text>
-          )}
         </View>
-        <View style={styles.floatingPlayerSpace} />
-      </ScrollView>
 
-      <FloatingPlayer style={[styles.floatingPlayer, { bottom: bottom }]} />
-    </SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          style={{ top: 166 }}
+          //showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.lyricsContainer}>
+            {lyricsContent ? (
+              formatLyrics(lyricsContent)
+            ) : (
+              <Text style={styles.noLyrics}>
+                Letra não disponível para este hino.
+              </Text>
+            )}
+          </View>
+          <View style={styles.floatingPlayerSpace} />
+        </ScrollView>
+
+        <FloatingPlayer style={[styles.floatingPlayer, { bottom: bottom }]} />
+      </SafeAreaView>
+    </>
   )
 }
 
@@ -380,7 +438,8 @@ const styles = StyleSheet.create({
     //marginLeft: 10,
   },
   container: {
-    backgroundColor: colors.background,
+    //backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    position: 'relative',
     flex: 1,
   },
   floatingPlayer: {
@@ -404,8 +463,13 @@ const styles = StyleSheet.create({
   },
   header: {
     //alignItems: 'center',
-    borderBottomColor: colors.third,
+    borderBottomColor: 'rgba(0, 0, 0, 0.06)',
+    position: 'absolute',
+    top: 0,
+    zIndex: 10000,
     borderBottomWidth: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    //backgroundColor: 'red',
     //flexDirection: 'row',
     padding: 16,
   },
@@ -420,6 +484,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 8,
+    marginTop: 60,
   },
   lyrics: {
     color: colors.text,
@@ -452,6 +517,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: 20,
     paddingBottom: 0,
+    //paddingTop: 150,
   },
   shareButton: {
     //padding: 8,
@@ -509,5 +575,17 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontFamily: fontFamily.plusJakarta.medium,
     fontSize: fontSize.xsm,
+  },
+  navigationButton: {
+    backgroundColor: 'rgba(41, 193, 127, 0.12)',
+    borderRadius: 30,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(41, 193, 126, 0.15)',
+    shadowColor: colors.green,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
 })
