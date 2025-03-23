@@ -29,21 +29,6 @@ export default function SubCategories() {
     hymn => hymn.category?.subCategory?.name === subCategory
   )
 
-  React.useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    if (Platform.OS === 'ios') {
-      StatusBar.setHidden(false)
-      StatusBar.setBarStyle('light-content')
-    } else {
-      StatusBar.setTranslucent(true)
-      StatusBar.setBackgroundColor('transparent')
-    }
-
-    return () => {
-      StatusBar.setHidden(false)
-    }
-  }, [])
-
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />

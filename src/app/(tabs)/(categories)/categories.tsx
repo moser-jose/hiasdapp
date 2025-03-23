@@ -24,22 +24,6 @@ export default function Categories() {
     JSON.parse(subCategories as string) as SubCategory[]
   )
 
-  // Esconder completamente a barra de status
-  React.useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    if (Platform.OS === 'ios') {
-      StatusBar.setHidden(false)
-      StatusBar.setBarStyle('light-content')
-    } else {
-      StatusBar.setTranslucent(true)
-      StatusBar.setBackgroundColor('transparent')
-    }
-
-    return () => {
-      StatusBar.setHidden(false)
-    }
-  }, [])
-
   const renderItem = ({ item }: { item: SubCategory }) => {
     return (
       <TouchableOpacity

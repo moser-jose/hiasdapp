@@ -55,9 +55,7 @@ class PlaylistService extends BaseRealmService implements PlaylistRepository {
     } catch (error) {
       console.error('Error getting all playlists:', error)
       throw error
-    }/*  finally {
-      realm.close()
-    } */
+    }
   }
 
   async addHymnToPlaylist(id: number, hymn: number): Promise<boolean> {
@@ -75,8 +73,6 @@ class PlaylistService extends BaseRealmService implements PlaylistRepository {
     } catch (error) {
       console.error('Error adding hymn to playlist:', error)
       throw error
-    } finally {
-      realm.close()
     }
   }
 
@@ -101,8 +97,6 @@ class PlaylistService extends BaseRealmService implements PlaylistRepository {
     } catch (error) {
       console.error('Error removing hymn from playlist:', error)
       throw error
-    } finally {
-      realm.close()
     }
   }
 
@@ -121,8 +115,6 @@ class PlaylistService extends BaseRealmService implements PlaylistRepository {
     } catch (error) {
       console.error('Error updating playlist:', error)
       throw error
-    } finally {
-      realm.close()
     }
   }
 
@@ -141,8 +133,6 @@ class PlaylistService extends BaseRealmService implements PlaylistRepository {
     } catch (error) {
       console.error('Error deleting playlist:', error)
       throw error
-    } finally {
-      realm.close()
     }
   }
 }
