@@ -1,4 +1,4 @@
-import { colors } from '@/constants/styles'
+import { colors, fontFamily } from '@/constants/styles'
 import { defaultStyles } from '@/styles'
 import { Stack } from 'expo-router'
 import { View } from 'react-native'
@@ -19,7 +19,7 @@ function PlaylistsScreenLayout() {
             },
             headerTintColor: colors.text,
             headerBlurEffect: 'prominent',
-            headerShadowVisible: false,
+            headerShadowVisible: true,
             headerTransparent: true,
             headerTitle: 'Coletâneas',
           }}

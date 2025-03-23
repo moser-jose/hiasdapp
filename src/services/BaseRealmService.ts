@@ -4,6 +4,7 @@ import Realm from 'realm'
 import { createRealmContext } from '@realm/react'
 import { Author } from '@/models/Hymnal'
 import { CategoryHymn, Category, SubCategory } from '@/models/Category'
+import { Playlist } from '@/models/Playlist'
 
 const realmConfig: Realm.Configuration = {
   schema: [
@@ -15,8 +16,9 @@ const realmConfig: Realm.Configuration = {
     CategoryHymn.schema,
     Category.schema,
     SubCategory.schema,
+    Playlist.schema,
   ],
-  schemaVersion: 9,
+  schemaVersion: 10,
 }
 export const { RealmProvider, useRealm, useObject, useQuery } =
   createRealmContext(realmConfig)

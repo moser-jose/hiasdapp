@@ -3,7 +3,7 @@ import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
 import { Track } from 'react-native-track-player'
 import TrackPlayer from 'react-native-track-player/lib/src/trackPlayer'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
 import CardHymnDay from '@/components/util/CardHymnDay'
 import { ListPlaylistsCard } from '@/components/util/ListPlaylistsCard'
@@ -15,6 +15,8 @@ import ListHymns from '@/components/util/ListHymns'
 import { useCallback } from 'react'
 import React from 'react'
 import { generateTracksListId } from '@/helpers/j'
+import { usePlaylist } from '@/hooks/usePlaylist'
+import ListPlayLists from '@/components/util/ListPlayLists'
 type Playlist = {
   title: string
   hymns: number
@@ -30,17 +32,26 @@ function HomeScreen() {
   const handleHymnSelect = useCallback(async (hymn: Track) => {
     await TrackPlayer.load(hymn)
   }, [])
-
   const data: dat = [
     {
-      title: 'Amor da vida',
-      hymns: 34,
+      title: 'Favoritos',
+      hymns: favorites.length,
     },
     {
       title: 'Fé e oração',
       hymns: 346,
     },
   ]
+
+  const playlists = usePlaylist()
+
+  /* useEffect(() => {
+    playlists.createPlaylist({
+      id: 1,
+      name: 'Hoje é dia de cantar',
+      hymns: [1, 2, 3],
+    })
+  }, [playlists]) */
 
   return (
     <View style={defaultStyles.container}>
@@ -53,14 +64,14 @@ function HomeScreen() {
 
         <ListHymns id={generateTracksListId('home')} hymns={hymns} horizontal />
 
-        <Separator title="Categorias" more />
+        <Separator title="Categorias" />
         <ListCategories
           categories={categories}
           horizontal
           showsHorizontalScrollIndicator={false}
         />
         <Separator title="Coletâneas" />
-        <ListPlaylistsCard hymns={hymns} data={data} />
+        <ListPlayLists horizontal showsHorizontalScrollIndicator={false} />
 
         <CardHymnDay hymns={hymns} categories={categories} />
 

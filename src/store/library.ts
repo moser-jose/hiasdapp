@@ -136,3 +136,7 @@ export const useClickPlay = () => {
 
   return incrementClickPlay
 }
+
+export const countFavorites = (hymns: Hymn[]) => {
+  return hymns.filter(hymn => hymn.isFavorite).length
+}

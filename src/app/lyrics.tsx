@@ -403,7 +403,7 @@ export default function LyricsScreen() {
 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
-          style={{ top: 166 }}
+          style={{ top: 173 }}
           //showsVerticalScrollIndicator={false}
         >
           <View style={styles.lyricsContainer}>

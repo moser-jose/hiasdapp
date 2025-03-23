@@ -3,7 +3,7 @@ import { ListHymnsFilter } from '@/helpers/filter'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { usePlayerStore, useQueue } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
-import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
+import { Hymn, ListHymnsProps, Playlist } from '@/types/hymnsTypes'
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
@@ -19,6 +19,8 @@ import HymnsItem from './HymnsItem'
 import ItemDivider from './ItemDivider'
 import { ListHeaderComponent } from './ListHeaderComponent'
 import { colors } from '@/constants/styles'
+import { usePlaylist } from '@/hooks/usePlaylist'
+import { useFavorites } from '@/store/library'
 
 const TAMANHO_PAGINA = 20
 function ListHymns({
@@ -167,10 +169,6 @@ function ListHymns({
       )
     }
   }
-
-  useEffect(() => {
-    console.log('RepeatMode', RepeatMode.Off)
-  }, [])
 
   return (
     <FlatList

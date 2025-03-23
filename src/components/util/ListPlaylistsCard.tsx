@@ -1,24 +1,21 @@
 import { FlatList } from 'react-native'
-import { ListPlaylistsProps } from '@/types/hymnsTypes'
+import { ListPlaylistsProps, Playlist } from '@/types/hymnsTypes'
 
 import PlaylistCard from './PlaylistCard'
+import { useEffect, useState } from 'react'
+import { usePlaylist } from '@/hooks/usePlaylist'
+import { useFavorites } from '@/store/library'
+import { isArrayBindingPattern } from 'typescript'
 
 export const ListPlaylistsCard = ({
   data,
   ...listHymnsProps
 }: ListPlaylistsProps) => {
   return (
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={data}
-      renderItem={({ item: list, index }) => (
-        <PlaylistCard
-          playlist={list}
-          style={index === 0 && { marginLeft: 16 }}
-          {...listHymnsProps}
-        />
-      )}
+    <PlaylistCard
+      playlist={data as unknown as Playlist}
+      style={index === 0 && { marginLeft: 16 }}
+      {...listHymnsProps}
     />
   )
 }

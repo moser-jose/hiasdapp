@@ -97,10 +97,7 @@ type ListCategoriesProps = Partial<FlatListProps<Category>> & {
   categories: Category[]
 }
 
-type ListPlaylistsProps = Partial<FlatListProps<unknown>> & {
-  hymns: Hymn[]
-  data: Playlist[]
-}
+type ListPlaylistsProps = Partial<FlatListProps<Playlist>> & {}
 
 // List Types
 type ListHymns = Hymn[]
@@ -110,8 +107,10 @@ type ListCategories = Partial<Category[]> & {
 }
 
 interface Playlist {
-  title: string
-  hymns: number
+  id: number
+  name: string
+  description?: string
+  hymns: number[]
 }
 
 export {
@@ -119,6 +118,7 @@ export {
   HymnCategory,
   HymnTrack,
   HymnsProps,
+  Playlist,
   ListPlaylistsProps,
   ListCategories,
   ListHymns,

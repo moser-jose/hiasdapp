@@ -10,13 +10,10 @@ import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { truncateTextWords } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
 import SongSVG from '../svg/SongSvg'
-type dat = {
-  title: string
-  hymns: number
-}
+import { Playlist } from '@/types/hymnsTypes'
 
 interface PlaylistCardProps {
-  playlist: dat
+  playlist: Playlist
   style?: StyleProp<ViewStyle>
 }
 
@@ -28,8 +25,8 @@ const PlaylistCard = ({ playlist, style }: PlaylistCardProps) => {
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.title}>{truncateTextWords(playlist.title, 3)}</Text>
-        <Text style={styles.hymns}>{playlist.hymns}</Text>
+        <Text style={styles.title}>{truncateTextWords(playlist.name, 3)}</Text>
+        <Text style={styles.hymns}>{playlist.hymns.length}</Text>
       </View>
     </TouchableOpacity>
   )

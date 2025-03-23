@@ -23,7 +23,6 @@ export const MovingText = ({
 }: MovingTextProps) => {
   const translateX = useSharedValue(0)
   const shouldAnimate = text.length >= animationThreshold
-  console.log(text.length, animationThreshold)
 
   const textWidth = text.length * 3
 

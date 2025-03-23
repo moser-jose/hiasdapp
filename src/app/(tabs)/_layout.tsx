@@ -52,6 +52,7 @@ const TAB_BAR_OPTIONS = {
     height: responsiveSizes.tabBarHeight,
     paddingTop: Platform.OS === 'ios' ? 1 : 0,
     paddingBottom: Platform.OS === 'ios' ? 80 : 0,
+    backgroundColor: 'colors.white',
   },
   headerShown: false,
 } as const
