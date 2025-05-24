@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { Hymn } from '@/types/hymnsTypes'
 import React from 'react'
 import TrackPlayer, {
   AddTrack,
+  Capability,
   Event,
   PlaybackActiveTrackChangedEvent,
   RepeatMode,
@@ -47,6 +49,37 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setupPlayer: async () => {
     await TrackPlayer.setupPlayer({
       maxCacheSize: 1024 * 10,
+      // Add more options as needed:
+
+      autoHandleInterruptions: true,
+      backBuffer: 60, // Keep 60 seconds of audio loaded before current position
+    })
+
+    await TrackPlayer.updateOptions({
+      // keep playback active when the app is in background
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+        Capability.SeekTo,
+        Capability.SetRating,
+        Capability.JumpBackward,
+        Capability.JumpForward,
+      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
+      notificationCapabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+        Capability.SeekTo,
+        Capability.SetRating,
+        Capability.JumpBackward,
+        Capability.JumpForward,
+      ],
     })
 
     await TrackPlayer.setVolume(0.8)

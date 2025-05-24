@@ -5,14 +5,10 @@ import { memo, useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import ItemDivider from './ItemDivider'
-import { colors } from '@/constants/styles'
-import { ListPlaylistsCard } from './ListPlaylistsCard'
 import PlaylistCard from './PlaylistCard'
 import { useFavorites } from '@/store/library'
 import { usePlaylist } from '@/hooks/usePlaylist'
 import PlayListItem from './PlayListItem'
-import { ListHeaderComponent } from './ListHeaderComponent'
-import { View, Text } from 'react-native'
 
 const TAMANHO_PAGINA = 20
 function ListPlayLists({

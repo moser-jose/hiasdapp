@@ -11,6 +11,7 @@ import { truncateTextWords } from '@/helpers/textsWords'
 import { StyleSheet } from 'react-native'
 import SongSVG from '../svg/SongSvg'
 import { Playlist } from '@/types/hymnsTypes'
+import { router } from 'expo-router'
 
 interface PlaylistCardProps {
   playlist: Playlist
@@ -19,7 +20,19 @@ interface PlaylistCardProps {
 
 const PlaylistCard = ({ playlist, style }: PlaylistCardProps) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={[styles.container, style]}>
+    <TouchableOpacity
+      onPress={() => {
+        router.replace({
+          pathname: '/(tabs)/(playlists)/playlistHymns',
+          params: {
+            hymnsId: playlist.hymns,
+            name: playlist.name,
+          },
+        })
+      }}
+      activeOpacity={0.8}
+      style={[styles.container, style]}
+    >
       <View style={styles.icon}>
         <SongSVG height={18} width={18} color={colors.primary} />
       </View>

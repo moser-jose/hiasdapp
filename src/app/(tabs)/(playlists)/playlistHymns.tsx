@@ -1,15 +1,19 @@
 import React from 'react'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { Hymn } from '@/types/hymnsTypes'
 import ListHymns from '@/components/util/ListHymns'
 import { useHymns } from '@/store/library'
-import { colors } from '@/constants/styles'
+import { colors, fontFamily } from '@/constants/styles'
+import { Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 export default function PlaylistHymns() {
   const { id, name, hymnsId } = useLocalSearchParams()
   function tryParseHymnsId(str: string) {
     try {
       // Tenta converter de JSON primeiro
+
       return JSON.parse(str)
     } catch (e) {
       // Se falhar, verifica se é uma lista separada por vírgulas
@@ -24,7 +28,7 @@ export default function PlaylistHymns() {
       return !isNaN(num) ? [num] : []
     }
   }
-
+  console.log(hymnsId)
   const hymns = useHymns().filter((hymn: Hymn) =>
     tryParseHymnsId(hymnsId as string).includes(hymn.id)
   )
@@ -32,21 +36,14 @@ export default function PlaylistHymns() {
   return (
     <>
       <Stack.Screen
-        name="playlistHymns"
         options={{
-          headerLargeTitle: false,
-          headerLargeStyle: {
-            backgroundColor: colors.background,
-          },
-          headerLargeTitleStyle: {
-            color: colors.text,
-          },
-          headerBackTitle: 'voltar',
-          headerTintColor: colors.text,
-          headerBlurEffect: 'prominent',
-          headerShadowVisible: true,
-          headerTransparent: false,
           headerTitle: name as string,
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="chevron-back" size={24} color="black" />
+            </TouchableOpacity>
+          ),
         }}
       />
       <ListHymns hymns={hymns} horizontal={false} />

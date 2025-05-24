@@ -59,14 +59,11 @@ HiASD is a modern iOS application developed to facilitate access and management 
 - [x] View lyrics and sheet music
 - [x] Hymn audio playback
 - Night mode for comfortable reading
-- Dynamic Island and iOS widgets support
+- [x] Dynamic Island and iOS widgets support
 
 ### 🎵 Playlists
 
 - Unlimited playlist creation
-- Custom hymn organization
-- Playlist sharing via AirDrop
-- iCloud synchronization
 - Siri Shortcuts integration
 
 ### ⬇️ Offline Mode
