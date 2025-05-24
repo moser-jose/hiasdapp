@@ -12,10 +12,8 @@
       "resizeMode": "contain",
       "backgroundColor": "#29C17E"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "icon":{
+    "assetBundlePatterns": ["**/*"],
+    "icon": {
       "light": "./assets/logo.png",
       "dark": "./assets/logo.png",
       "tinted": "./assets/logo.png"
@@ -25,9 +23,7 @@
       "bundleIdentifier": "com.moserjose.ha7d",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "Este app precisa de acesso ao microfone para reproduzir áudio.",
-        "UIBackgroundModes": [
-          "audio"
-        ]
+        "UIBackgroundModes": ["audio"]
       }
     },
     "android": {
