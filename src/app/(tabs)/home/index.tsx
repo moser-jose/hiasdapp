@@ -45,7 +45,6 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
 
-        
         <Separator title="Coletâneas" more>
           <PlayListsSvg color={colors.green} height={16} width={16} />
         </Separator>
