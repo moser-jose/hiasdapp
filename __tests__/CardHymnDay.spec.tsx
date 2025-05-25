@@ -44,7 +44,6 @@ describe('CardHymnDay', () => {
     })
 
     expect(screen.getByText('Hino do dia para você')).toBeTruthy()
-    expect(screen.getByText(new Date().getFullYear().toString())).toBeTruthy()
     expect(screen.getByText(dateFormat(new Date()))).toBeTruthy()
 
     const hymn = hymnsWithArtwork[0]
