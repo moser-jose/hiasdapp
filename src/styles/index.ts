@@ -100,7 +100,7 @@ export const hymnsCard = StyleSheet.create({
   },
   title: {
     color: colors.text,
-    fontFamily: fontFamily.plusJakarta.regular,
+    fontFamily: fontFamily.plusJakarta.semibold,
     fontSize: fontSize.smB,
   },
   viewTittle: {

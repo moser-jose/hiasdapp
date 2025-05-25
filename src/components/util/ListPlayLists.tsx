@@ -15,11 +15,11 @@ function ListPlayLists({
   ...listHymnsProps
 }: ListPlaylistsProps) {
   const [playlists, setPlaylists] = useState<Playlist[]>([])
-  const usPlaylists = usePlaylist()
+  const usePlaylists = usePlaylist()
   const favorites = useFavorites()
 
   useEffect(() => {
-    usPlaylists.getAllPlaylists().then(itens => {
+    usePlaylists.getAllPlaylists().then(itens => {
       setPlaylists(itens)
     })
   }, [])
@@ -78,19 +78,6 @@ function ListPlayLists({
           : { paddingTop: 0, paddingBottom: 0 }
       }
       data={dataPlaylists()}
-      /* ListHeaderComponent={
-        !horizontal ? (
-          <View
-            style={{
-              paddingHorizontal: 16,
-              paddingBottom: 19,
-              borderBottomWidth: 1,
-              borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-            }}
-          >
-          </View>
-        ) : null
-      } */
       ItemSeparatorComponent={horizontal ? null : ItemDivider}
       keyExtractor={(item, index) => `playlist-${item.id}-${index}`}
       renderItem={renderItem}

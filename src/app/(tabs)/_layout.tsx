@@ -133,6 +133,21 @@ function TabsNavigation() {
         }}
       >
         <Tabs.Screen
+          name="home"
+          options={{
+            tabBarLabel: 'Início',
+            tabBarIcon: ({ color, focused }) => (
+              <IconRenderer
+                color={color}
+                focused={focused}
+                size={sizes.iconSize}
+                ActiveIcon={HomeSVG}
+                InactiveIcon={HomeOutlineSVG}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="(hymns)"
           options={{
             tabBarLabel: 'Hinos',
@@ -173,21 +188,6 @@ function TabsNavigation() {
                 size={sizes.iconSize}
                 ActiveIcon={PlayListsSVG}
                 InactiveIcon={PlayListsOutlineSVG}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="home"
-          options={{
-            tabBarLabel: 'Início',
-            tabBarIcon: ({ color, focused }) => (
-              <IconRenderer
-                color={color}
-                focused={focused}
-                size={sizes.iconSize}
-                ActiveIcon={HomeSVG}
-                InactiveIcon={HomeOutlineSVG}
               />
             ),
           }}

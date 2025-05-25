@@ -20,6 +20,8 @@ import { truncateText, truncateTextWords } from '@/helpers/textsWords'
 import PlayButton from './PlayButton'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
+import CategoriesSVG from '../svg/CategoriesSvg'
+import CategoriesOutlineSVG from '../svg/CategoriesOutlineSvg'
 
 interface CardHymnDayProps {
   hymns: ListHymns
@@ -67,25 +69,39 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
             style={styles.backgroundImage}
           />
           <View style={styles.content}>
-            <View style={styles.headerContent}>
+            <View>
               <View style={styles.headerContentText}>
                 <View style={styles.headerContentTitle}>
                   <View style={styles.title}>
-                    <Text style={styles.titleText}>Hino do Dia</Text>
-                    <Text style={styles.titleAno}>
-                      {new Date().getFullYear()}
-                    </Text>
-                    <Text style={styles.titleCategoria}>
-                      {hymn?.category
-                        ? truncateText(hymn?.category?.name, 12)
-                        : ''}
-                    </Text>
+                    <Text style={styles.titleText}>Hino do dia para você</Text>
+                    <View style={styles.headerContentCategoria}>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={{ paddingTop: 8 }}
+                      >
+                        <SpreedSVG color="white" />
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  <Text style={styles.titleDate}>{dateFormat(new Date())}</Text>
+                  <View style={styles.headerContentCategoria}>
+                    <Text style={styles.titleDate}>
+                      {dateFormat(new Date())}
+                    </Text>
+
+                    <View style={styles.headerContentCategoriaIcon}>
+                      <CategoriesOutlineSVG
+                        color={colors.white}
+                        height={12}
+                        width={12}
+                      />
+                      <Text style={styles.titleCategoria}>
+                        {hymn?.category
+                          ? truncateText(hymn?.category?.name, 12)
+                          : ''}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-                <TouchableOpacity activeOpacity={0.8} style={{ padding: 8 }}>
-                  <SpreedSVG color="white" />
-                </TouchableOpacity>
               </View>
             </View>
             <View>
@@ -160,11 +176,10 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
-    borderRadius: 8,
+    borderRadius: 20,
   },
   container: {
     flex: 1,
-    height: 180,
     marginHorizontal: 16,
     marginTop: 16,
     position: 'relative',
@@ -175,8 +190,10 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
   },
-  headerContent: {
-    //flex: 1,
+  headerContentCategoria: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
   headerContentText: {
     alignItems: 'center',
@@ -227,6 +244,8 @@ const styles = StyleSheet.create({
   title: {
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
     gap: 8,
   },
   titleAno: {
@@ -240,27 +259,32 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 3,
   },
-  titleCategoria: {
+  headerContentCategoriaIcon: {
     backgroundColor: colors.cards,
     borderColor: colors.cards,
     borderWidth: 1,
     borderRadius: 8,
+    padding: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+
+  titleCategoria: {
     color: 'white',
     fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     fontWeight: '600',
-    padding: 3,
   },
   titleDate: {
     color: 'white',
     fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
-    //marginTop: -5,
   },
   titleText: {
     color: 'white',
     fontFamily: fontFamily.rochester.regular,
-    fontSize: 32,
+    fontSize: 30,
   },
 })
 
