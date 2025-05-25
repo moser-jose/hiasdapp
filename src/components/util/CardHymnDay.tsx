@@ -16,7 +16,7 @@ import FastImage from 'react-native-fast-image'
 import Authors from './Authors'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { dateFormat } from '@/helpers/dateFormat'
-import { truncateText } from '@/helpers/textsWords'
+import { truncateText, truncateTextWords } from '@/helpers/textsWords'
 import PlayButton from './PlayButton'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
@@ -91,7 +91,9 @@ const CardHymnDay = ({ hymns, categories }: CardHymnDayProps) => {
             <View>
               <View>
                 <View style={styles.hymnHeaderContentTitle}>
-                  <Text style={styles.hymnTitle}>{hymn?.title}</Text>
+                  <Text style={styles.hymnTitle}>
+                    {truncateTextWords(hymn?.title, 4)}
+                  </Text>
                   <ActiveHymnsDownloadSVG
                     color={colors.green}
                     style={{ marginTop: 10 }}
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerContent: {
-    flex: 1,
+    //flex: 1,
   },
   headerContentText: {
     alignItems: 'center',
@@ -229,6 +231,8 @@ const styles = StyleSheet.create({
   },
   titleAno: {
     backgroundColor: colors.greenRGBA,
+    borderColor: colors.green,
+    borderWidth: 1,
     borderRadius: 8,
     color: 'white',
     fontFamily: fontFamily.plusJakarta.regular,
@@ -238,6 +242,8 @@ const styles = StyleSheet.create({
   },
   titleCategoria: {
     backgroundColor: colors.cards,
+    borderColor: colors.cards,
+    borderWidth: 1,
     borderRadius: 8,
     color: 'white',
     fontFamily: fontFamily.plusJakarta.regular,
@@ -249,7 +255,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
-    marginTop: -5,
+    //marginTop: -5,
   },
   titleText: {
     color: 'white',

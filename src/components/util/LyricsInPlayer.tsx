@@ -56,8 +56,8 @@ const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
 const styles = StyleSheet.create({
   text: {
     color: colors.white,
-    fontFamily: fontFamily.plusJakarta.semibold,
-    fontSize: 18,
+    fontFamily: fontFamily.plusJakarta.bold,
+    fontSize: 28,
     letterSpacing: 0.5,
     marginBottom: 10,
   },
