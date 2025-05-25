@@ -55,13 +55,13 @@ describe('Authors Component', () => {
   })
 
   it('should handle unknown author name', () => {
-    const unknownAuthor: Author[] = [{ name: 'Desconhecido' }]
+    const unknownAuthor: Author[] = [{ name: 'Desconhecido', id: 1 }]
     render(<Authors authors={unknownAuthor} card={false} />)
     expect(screen.getByText('Desconhecido')).toBeTruthy()
   })
 
   it('should handle unknown author name null', () => {
-    const unknownAuthor: Author[] = [{ name: null }]
+    const unknownAuthor: Author[] = [{ name: null, id: 1 }]
     render(<Authors authors={unknownAuthor} card={false} />)
     expect(screen.getByText('Desconhecido')).toBeTruthy()
   })
@@ -99,7 +99,7 @@ describe('Authors Component', () => {
   })
 
   it('should handle undefined result from shortName function', () => {
-    const authorWithSpecialName: Author[] = [{ name: '123' }]
+    const authorWithSpecialName: Author[] = [{ name: '123', id: 1 }]
     render(<Authors authors={authorWithSpecialName} card={false} />)
     expect(screen.getByText('Desconhecido')).toBeTruthy()
   })
