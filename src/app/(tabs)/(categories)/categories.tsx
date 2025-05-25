@@ -7,6 +7,7 @@ import React from 'react'
 import {
   FlatList,
   Platform,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -53,6 +54,7 @@ export default function Categories() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
+      <StatusBar barStyle="light-content" />
 
       <View style={styles.container}>
         <FastImage
