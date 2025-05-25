@@ -25,8 +25,8 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
 
         if (isEmpty) {
           create(hymnalData as HymnalData)
-          setHymns(hymnalData.hymns)
-          setCategories(hymnalData.categories)
+          setHymns(hymnalData.hymns as Hymn[])
+          setCategories(hymnalData.categories as Category[])
         }
 
         setInitialized(true)
