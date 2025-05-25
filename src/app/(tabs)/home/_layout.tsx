@@ -12,7 +12,7 @@ const HeaderComponent = () => {
   )
 }
 
-const HomeScreenLayout = () => {
+export default function HomeScreenLayout() {
   return (
     <View style={defaultStyles.container}>
       <Stack>
@@ -27,4 +27,3 @@ const HomeScreenLayout = () => {
   )
 }
 
-export default HomeScreenLayout

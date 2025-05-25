@@ -16,7 +16,6 @@ import {
   PlusJakartaSans_600SemiBold,
   PlusJakartaSans_700Bold,
 } from '@expo-google-fonts/plus-jakarta-sans'
-import AppLoading from 'expo-app-loading'
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { useInitLibrary } from '@/store/library'
 import { RealmProvider } from '@/components/providers/RealmProvider'
@@ -46,7 +45,7 @@ export default function App() {
   useLogHymnPlayerState()
 
   if (!fontsLoaded) {
-    return <AppLoading />
+    return null
   }
   return (
     <RealmProvider>

@@ -13,11 +13,12 @@ export function useRealm() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  const create = async (data: RealmData) => {
+  const create = (data: RealmData) => {
     try {
       setIsLoading(true)
-      await categoryService.create(data.categories)
-      await hymnService.create(data.hymns)
+      categoryService.create(data.categories)
+      hymnService.create(data.hymns)
+      console.log('foi criada')
     } catch (err) {
       setError(err as Error)
     } finally {
@@ -94,9 +95,12 @@ export function useRealm() {
   const checkIfDatabaseEmpty = async () => {
     try {
       setIsLoading(true)
-      const hymns = await hymnService.getAll()
-      const category = await categoryService.getAll()
-      return hymns.length === 0 && category.length === 0
+      const [hymns, category] = await Promise.all([
+        hymnService.getAll(),
+        categoryService.getAll(),
+      ])
+
+      return hymns?.length === 0 && category?.length === 0
     } catch (err) {
       setError(err as Error)
       return true
@@ -106,8 +110,7 @@ export function useRealm() {
   }
 
   const closeRealm = async () => {
-    await hymnService.close()
-    await categoryService.close()
+    Promise.all([hymnService.close(), categoryService.close()])
   }
 
   return {

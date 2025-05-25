@@ -14,8 +14,6 @@ import { Ionicons } from '@expo/vector-icons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
-import Constants from 'expo-constants'
-import { ScreenStack } from 'react-native-screens'
 
 export default function Categories() {
   const { id, name, subCategories } = useLocalSearchParams()
