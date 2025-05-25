@@ -10,7 +10,6 @@ import { useFavorites } from '@/store/library'
 import { usePlaylist } from '@/hooks/usePlaylist'
 import PlayListItem from './PlayListItem'
 
-const TAMANHO_PAGINA = 20
 function ListPlayLists({
   horizontal = false,
   ...listHymnsProps

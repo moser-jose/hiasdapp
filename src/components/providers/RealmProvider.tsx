@@ -6,6 +6,7 @@ import { useRealm } from '@/hooks/useRealm'
 import hymnalData from '../../api/hiasd-old.json'
 import { Hymn, Category } from '@/types/hymnsTypes'
 import { colors, fontFamily } from '@/constants/styles'
+import { useLibraryStore } from '@/store/library'
 
 type HymnalData = {
   hymns: Hymn[]
@@ -13,9 +14,9 @@ type HymnalData = {
 }
 
 export function RealmProvider({ children }: { children: React.ReactNode }) {
-  const { closeRealm, create, error, isLoading, checkIfDatabaseEmpty } =
-    useRealm()
+  const { create, error, isLoading, checkIfDatabaseEmpty } = useRealm()
   const [initialized, setInitialized] = useState(false)
+  const { setHymns, setCategories } = useLibraryStore()
 
   useEffect(() => {
     const initializeData = async () => {
@@ -23,10 +24,11 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
         const isEmpty = await checkIfDatabaseEmpty()
 
         if (isEmpty) {
-          await create(hymnalData as HymnalData)
+          create(hymnalData as HymnalData)
+          setHymns(hymnalData.hymns as Hymn[])
+          setCategories(hymnalData.categories as Category[])
         }
 
-        await closeRealm()
         setInitialized(true)
       } catch (err) {
         console.error('Failed to initialize hymnal data:', err)
@@ -34,9 +36,10 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
     }
 
     if (!initialized) {
+      console.log('está nullo 2')
       initializeData()
     }
-  }, [initialized, checkIfDatabaseEmpty, create, closeRealm])
+  }, [initialized, checkIfDatabaseEmpty, create, setHymns, setCategories])
 
   if (error) {
     return (

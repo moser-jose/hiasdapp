@@ -19,10 +19,8 @@ const HymnsCard = ({
 }: HymnsProps) => {
   const [favorites, setFavorites] = useState(false)
 
-  const { isPlaying, play, pause, activeHymn } = usePlayerStore(
+  const { isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
-      play: state.play,
-      pause: state.pause,
       isPlaying: state.isPlaying,
       activeHymn: state.activeHymn,
     }))

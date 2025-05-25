@@ -2,7 +2,6 @@ import { registerRootComponent } from 'expo'
 
 import App from './src/app/_layout'
 import TrackPlayer from 'react-native-track-player'
-import { AudioService } from '@/services/AudioService'
 //import PlaybackService from '@/services/PlaybackService'
 
 registerRootComponent(App)

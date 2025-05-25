@@ -18,7 +18,6 @@ import {
 import { useShallow } from 'zustand/react/shallow'
 import Authors from './Authors'
 import { MovingText } from './MovingText'
-import { useStateStore } from '@/store/stateStore'
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const { width } = useWindowDimensions()

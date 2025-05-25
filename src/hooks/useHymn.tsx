@@ -2,10 +2,9 @@ import { useState } from 'react'
 import { hymnService } from '../services/HymnService'
 import { Hymn } from '@/types/hymnsTypes'
 
-export function useHymn(p0: (state: { hymns: any }) => any) {
+export function useHymn() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
-  const [realm, setRealm] = useState<Realm | null>(null)
 
   const createHymns = async (data: Hymn[]) => {
     try {
@@ -76,7 +75,6 @@ export function useHymn(p0: (state: { hymns: any }) => any) {
     toggleFavorite,
     getFavoriteHymns,
     error,
-    isRealmReady: realm !== null,
     checkIfDatabaseEmpty,
   }
 }

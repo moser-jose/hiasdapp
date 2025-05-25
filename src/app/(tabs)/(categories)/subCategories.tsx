@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
   Platform,
 } from 'react-native'
 import { useLocalSearchParams, Stack, useRouter } from 'expo-router'
@@ -14,14 +13,10 @@ import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { useHymns } from '@/store/library'
 import ListHymns from '@/components/util/ListHymns'
-import { colors, fontFamily } from '@/constants/styles'
-import SongSVG from '@/components/svg/SongSvg'
-import ShuffleSVG from '@/components/svg/ShuffleSVG'
-import ItemDivider from '@/components/util/ItemDivider'
 import { ListHeaderComponent } from '@/components/util/ListHeaderComponent'
 
 export default function SubCategories() {
-  const { idQueue, category, id, subCategory } = useLocalSearchParams()
+  const { idQueue, category, subCategory } = useLocalSearchParams()
 
   const router = useRouter()
 

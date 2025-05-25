@@ -1,10 +1,6 @@
 import { colors, fontFamily, fontSize } from '@/constants/styles'
-import { Hymn } from '@/types/hymnsTypes'
 import { Ionicons } from '@expo/vector-icons'
-import { useRef } from 'react'
-import { useState } from 'react'
 import {
-  Dimensions,
   Modal,
   StyleSheet,
   TouchableOpacity,
@@ -47,7 +43,7 @@ export const ModalHymnItem = ({
       })
       setModalVisible(false)
     } catch (error) {
-      Alert.alert('Erro', 'Não foi possível compartilhar a letra')
+      Alert.alert('Erro', `Não foi possível compartilhar a letra ${error}`)
     }
   }
 

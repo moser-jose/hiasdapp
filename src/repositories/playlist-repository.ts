@@ -1,4 +1,4 @@
-import { Hymn, Playlist } from '@/types/hymnsTypes'
+import { Playlist } from '@/types/hymnsTypes'
 
 export interface PlaylistRepository {
   create(playlist: Playlist): Promise<void>

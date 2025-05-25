@@ -7,7 +7,6 @@ import React from 'react'
 import {
   FlatList,
   Platform,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,

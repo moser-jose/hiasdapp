@@ -13,12 +13,9 @@ import { Ionicons } from '@expo/vector-icons'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { memo, useEffect, useRef, useState } from 'react'
 import {
-  Alert,
   Dimensions,
-  Modal,
   SafeAreaView,
   ScrollView,
-  Share,
   StyleSheet,
   Text,
   TouchableOpacity,

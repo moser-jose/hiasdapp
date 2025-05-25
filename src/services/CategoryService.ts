@@ -24,7 +24,7 @@ class CategoryService extends BaseRealmService implements CategoryRepository {
         //this.close()
       })
     } catch (error) {
-      console.error('Error importing hymnal data:', error)
+      console.error('Error importing categories:', error)
       throw error
     }
   }
