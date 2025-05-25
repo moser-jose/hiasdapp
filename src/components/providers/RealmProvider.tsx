@@ -39,7 +39,7 @@ export function RealmProvider({ children }: { children: React.ReactNode }) {
       console.log('está nullo 2')
       initializeData()
     }
-  }, [initialized, checkIfDatabaseEmpty, create])
+  }, [initialized, checkIfDatabaseEmpty, create, setHymns, setCategories])
 
   if (error) {
     return (

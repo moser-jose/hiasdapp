@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { hymnService } from '../services/HymnService'
-import { Hymn, Playlist } from '@/types/hymnsTypes'
+import { Playlist } from '@/types/hymnsTypes'
 import { playlistService } from '../services/PlaylistService'
 
 export function usePlaylist() {

@@ -3,7 +3,7 @@ import { ListHymnsFilter } from '@/helpers/filter'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { usePlayerStore, useQueue } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
-import { Hymn, ListHymnsProps, Playlist } from '@/types/hymnsTypes'
+import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
@@ -12,15 +12,12 @@ import {
   Text,
   View,
 } from 'react-native'
-import { RepeatMode, Track } from 'react-native-track-player'
+import { Track } from 'react-native-track-player'
 import { useShallow } from 'zustand/react/shallow'
 import HymnsCard from './HymnsCard'
 import HymnsItem from './HymnsItem'
 import ItemDivider from './ItemDivider'
 import { ListHeaderComponent } from './ListHeaderComponent'
-import { colors } from '@/constants/styles'
-import { usePlaylist } from '@/hooks/usePlaylist'
-import { useFavorites } from '@/store/library'
 
 const TAMANHO_PAGINA = 20
 function ListHymns({
@@ -94,7 +91,7 @@ function ListHymns({
     if (hymns.length === 0) {
       return (
         <View style={{ padding: 16, alignItems: 'center' }}>
-          <Text>No hymns found</Text>
+          <Text>Não foram encontrados hinos</Text>
         </View>
       )
     }

@@ -1,4 +1,4 @@
-import TrackPlayer, { Event, State } from 'react-native-track-player'
+import TrackPlayer, { Event } from 'react-native-track-player'
 import { usePlayerStore } from '@/store/playerStore'
 
 // This service needs to be registered with the native modules

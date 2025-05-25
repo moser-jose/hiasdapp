@@ -1,8 +1,7 @@
-import { usePlayerStore, useQueue } from '@/store/playerStore'
+import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { useCallback, useRef } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { useEffect } from 'react'
 import { Hymn } from '@/types/hymnsTypes'
 import { Track } from 'react-native-track-player'
 import { useLibraryStore } from '@/store/library'
@@ -26,9 +25,7 @@ export const useTrackPlayerShuffleMode = () => {
       }))
     )
 
-  const play = usePlayerStore(useShallow(state => state.play))
-
-  const { skipTo, add, reset } = usePlayerStore(
+  const { add, reset } = usePlayerStore(
     useShallow(state => ({
       add: state.add,
       reset: state.reset,
@@ -36,7 +33,6 @@ export const useTrackPlayerShuffleMode = () => {
     }))
   )
   const queueOffset = useRef(0)
-  const { activeQueueId, setActiveQueueId } = useQueue()
 
   /* const handleShufflePlay = async () => {
     const shuffledTracks = [...hymns]
@@ -56,7 +52,10 @@ export const useTrackPlayerShuffleMode = () => {
     }
   } */
 
-  const offShuffle = async (currentActiveHymn, activeHymns) => {
+  const offShuffle = async (
+    currentActiveHymn: Track | Hymn | null,
+    activeHymns: Track[] | Hymn[]
+  ) => {
     const originalOrderHymns = [...activeHymns].sort((a, b) => {
       if (a.number && b.number) {
         return a.number - b.number
@@ -69,10 +68,6 @@ export const useTrackPlayerShuffleMode = () => {
       : -1
 
     //console.log('originalOrderHymns', originalOrderHymns)
-    console.log('activeHymnIndex', activeHymnIndex)
-    console.log('activeHymn', activeHymn)
-    console.log('activeHymn.id', activeHymn?.id)
-
     let reorderedHymns = originalOrderHymns
     if (activeHymnIndex > -1) {
       const beforeActive = originalOrderHymns.slice(0, activeHymnIndex)
@@ -94,7 +89,10 @@ export const useTrackPlayerShuffleMode = () => {
     setActiveHymns(reorderedHymns)
   }
 
-  const onShuffle = async (currentActiveHymn, activeHymns) => {
+  const onShuffle = async (
+    currentActiveHymn: Track | Hymn | null,
+    activeHymns: Track[] | Hymn[]
+  ) => {
     const shuffledTracks = [...activeHymns]
     for (let i = shuffledTracks.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -163,19 +161,16 @@ export const useTrackPlayerShuffleMode = () => {
       if (!shuffle && !activeHymns?.length) {
         //Shuffle ligado e não tem hinos  shuffle na fila
         onShuffle(currentActiveHymn, hymns)
-        console.log('KAYS', shuffle)
       } else if (shuffle && !activeHymns?.length) {
         //Shuffle desligado e não tem hinos  shuffle na fila
         await handleHymnSelect(activeHymn as Hymn)
-        console.log('OKAPAP', shuffle)
       } else if (!shuffle && activeHymns?.length) {
         //Shuffle ligado e tem hinos  shuffle na fila
-        console.log('OKAfgd', shuffle)
+
         onShuffle(currentActiveHymn, activeHymns)
       } else if (shuffle && activeHymns?.length) {
         //Shuffle desligado e tem hinos  shuffle na fila
         offShuffle(currentActiveHymn, activeHymns)
-        console.log('MKJK', shuffle)
       }
 
       setShuffle()
@@ -186,10 +181,10 @@ export const useTrackPlayerShuffleMode = () => {
     shuffle,
     activeHymn,
     activeHymns,
-    setQueue,
-    setActiveHymns,
     setShuffle,
-    setActiveHymn,
+    hymns,
+    onShuffle,
+    offShuffle,
   ])
 
   return {

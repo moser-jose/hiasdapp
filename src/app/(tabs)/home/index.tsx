@@ -12,12 +12,6 @@ import ListHymns from '@/components/util/ListHymns'
 import React from 'react'
 import { generateTracksListId } from '@/helpers/j'
 import ListPlayLists from '@/components/util/ListPlayLists'
-type Playlist = {
-  title: string
-  hymns: number
-}
-
-type dat = Playlist[]
 
 const HomeScreen = () => {
   const categories = useCategories()

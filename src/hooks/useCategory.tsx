@@ -5,7 +5,6 @@ import { Category } from '@/types/hymnsTypes'
 export function useCategory() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
-  const [realm, setRealm] = useState<Realm | null>(null)
 
   const createCategory = async (data: Category[]) => {
     try {
@@ -45,6 +44,5 @@ export function useCategory() {
     getCategoryById,
     isLoading,
     error,
-    isRealmReady: realm !== null,
   }
 }

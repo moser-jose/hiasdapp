@@ -16,7 +16,7 @@ import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 
 export default function Categories() {
-  const { id, name, subCategories } = useLocalSearchParams()
+  const { name, subCategories } = useLocalSearchParams()
 
   const allSubCategories = Object.values(
     JSON.parse(subCategories as string) as SubCategory[]

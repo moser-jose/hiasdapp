@@ -3,13 +3,11 @@ import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { Hymn } from '@/types/hymnsTypes'
 import ListHymns from '@/components/util/ListHymns'
 import { useHymns } from '@/store/library'
-import { colors, fontFamily } from '@/constants/styles'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 export default function PlaylistHymns() {
-  const { id, name, hymnsId } = useLocalSearchParams()
+  const { name, hymnsId } = useLocalSearchParams()
   function tryParseHymnsId(str: string) {
     try {
       // Tenta converter de JSON primeiro

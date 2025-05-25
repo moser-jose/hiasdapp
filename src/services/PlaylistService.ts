@@ -1,4 +1,4 @@
-import { Hymn as HymnType, Playlist } from '@/types/hymnsTypes'
+import { Playlist } from '@/types/hymnsTypes'
 import { PlaylistRepository } from '@/repositories/playlist-repository'
 import { BaseRealmService } from './BaseRealmService'
 

@@ -10,7 +10,7 @@ type PlayListItemProps = {
   onPress?: () => void
 }
 
-const PlayListItem = ({ id, playlist, onPress }: PlayListItemProps) => {
+const PlayListItem = ({ playlist }: PlayListItemProps) => {
   return (
     <TouchableOpacity
       style={styles.container}
