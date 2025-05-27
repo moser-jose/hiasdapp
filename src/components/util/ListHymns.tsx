@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import { ListHymnsFilter } from '@/helpers/filter'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
-import { usePlayerStore, useQueue } from '@/store/playerStore'
+import { usePlayerStore } from '@/store/playerStore'
 import { useStateStore } from '@/store/stateStore'
 import { Hymn, ListHymnsProps } from '@/types/hymnsTypes'
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -27,25 +26,30 @@ function ListHymns({
   ...listHymnsProps
 }: ListHymnsProps) {
   const [displayedHymns, setDisplayedHymns] = useState<Hymn[] | Track[]>([])
-  const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [allLoaded, setAllLoaded] = useState(false)
-  const shuffle = useStateStore(useShallow(state => state.shuffle))
-  const setShuffle = useStateStore(useShallow(state => state.setShuffle))
 
-  const play = usePlayerStore(useShallow(state => state.play))
-
-  const { skipTo, add, reset } = usePlayerStore(
+  const { shuffle, setShuffle } = useStateStore(
     useShallow(state => ({
-      add: state.add,
-      reset: state.reset,
-      skipTo: state.skipTo,
+      shuffle: state.shuffle,
+      setShuffle: state.setShuffle,
     }))
   )
-  const queueOffset = useRef(0)
-  const { activeQueueId, setActiveQueueId } = useQueue()
 
-  const search = useNavigationSearch({
+  const { skipTo, add, reset, play, activeQueueId, setActiveQueueId } =
+    usePlayerStore(
+      useShallow(state => ({
+        add: state.add,
+        reset: state.reset,
+        skipTo: state.skipTo,
+        play: state.play,
+        activeQueueId: state.activeQueueId,
+        setActiveQueueId: state.setActiveQueueId,
+      }))
+    )
+  const queueOffset = useRef(0)
+
+  const [searchValue] = useNavigationSearch({
     searchBarOptions: {
       placeholder: 'Busque hinos pelo número, titulo, autor, estrofe',
     },
@@ -63,7 +67,6 @@ function ListHymns({
 
   const loadMoreHymns = useCallback(() => {
     if (isLoading || allLoaded) return
-
     setIsLoading(true)
     setTimeout(() => {
       const nextItems = hymns.slice(
@@ -72,7 +75,6 @@ function ListHymns({
       )
       if (nextItems.length > 0) {
         setDisplayedHymns(prev => [...prev, ...nextItems])
-        setPage(prev => prev + 1)
       }
       if (displayedHymns.length + nextItems.length >= hymns.length) {
         setAllLoaded(true)
@@ -82,10 +84,9 @@ function ListHymns({
   }, [hymns, displayedHymns, isLoading, allLoaded])
 
   const filteredSearch: Hymn[] | Track[] = useMemo(() => {
-    if (!search) return displayedHymns as Hymn[]
-    const filterPredicate = ListHymnsFilter(search)
-    return hymns.filter(filterPredicate)
-  }, [displayedHymns, hymns, search])
+    if (!searchValue) return displayedHymns as Hymn[]
+    return hymns.filter(ListHymnsFilter(searchValue))
+  }, [displayedHymns, hymns, searchValue])
 
   const renderFooter = () => {
     if (hymns.length === 0) {
@@ -112,7 +113,6 @@ function ListHymns({
     const afterTracks = hymns.slice(trackIndex + 1)
     await reset()
 
-    // we construct the new queue
     await add(selectedTrack)
     await add(afterTracks)
     await add(beforeTracks)
