@@ -11,22 +11,33 @@ import { logoApp } from '@/constants/images'
 import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { usePlayerStore } from '@/store/playerStore'
-import { useStateStore } from '@/store/stateStore'
 import { defaultStyles } from '@/styles'
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
   View,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  StatusBar,
 } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { LinearGradient } from 'react-native-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/react/shallow'
+import { PanGestureHandler } from 'react-native-gesture-handler'
+import type { PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  runOnJS,
+} from 'react-native-reanimated'
 
 // Constantes
 const TABLET_BREAKPOINT = 768
@@ -46,7 +57,6 @@ interface TrackInfoProps {
   isLandscape: boolean
 }
 
-// Função utilitária para calcular tamanhos responsivos
 const getResponsiveSize = (baseSize: number) => {
   const { width } = Dimensions.get('window')
   const isSmallDevice = width < 375
@@ -59,7 +69,6 @@ const getResponsiveSize = (baseSize: number) => {
   return baseSize
 }
 
-// Componente para o artwork do player
 const PlayerArtwork = memo(
   ({
     artwork,
@@ -70,8 +79,6 @@ const PlayerArtwork = memo(
     top: number
     bottom: number
   }) => {
-    const viewLyric = useStateStore(useShallow(state => state.viewLyric))
-    const viewPlayList = useStateStore(useShallow(state => state.viewPlaylist))
     const { width, height } = useWindowDimensions()
     const isLandscape = width > height
     const isTablet = width >= TABLET_BREAKPOINT
@@ -93,7 +100,7 @@ const PlayerArtwork = memo(
     const bottomMargin = isTablet ? bottom + 20 : bottom
 
     // Return após todos os hooks serem chamados
-    if (viewLyric || viewPlayList) return null
+    //if (viewLyric || viewPlayList) return null
 
     return (
       <View
@@ -110,8 +117,8 @@ const PlayerArtwork = memo(
           style={[
             styles.artworkImageContainer,
             {
-              width: artworkSize,
-              height: artworkSize,
+              width: artworkSize + 20,
+              height: artworkSize + 20,
               aspectRatio: 1,
             },
           ]}
@@ -130,7 +137,6 @@ const PlayerArtwork = memo(
   }
 )
 
-// Componente para o indicador de arraste
 const DismissPlayerSimbol = memo(() => {
   const { top } = useSafeAreaInsets()
   const { width } = useWindowDimensions()
@@ -153,7 +159,6 @@ const DismissPlayerSimbol = memo(() => {
   )
 })
 
-// Componente para informações da faixa
 const TrackInfo = memo(({ displayHymn, isLandscape }: TrackInfoProps) => {
   const { width } = useWindowDimensions()
   const isTablet = width >= TABLET_BREAKPOINT
@@ -187,12 +192,6 @@ const TrackInfo = memo(({ displayHymn, isLandscape }: TrackInfoProps) => {
               <ToogleFavorites id={displayHymn.id as number} />
             </View>
           </View>
-
-          {displayHymn.englishTitle && (
-            <Text style={styles.trackEnglishTitle}>
-              {displayHymn.englishTitle}
-            </Text>
-          )}
           <Authors
             style={styles.authors}
             authors={Object.values(displayHymn.authors)}
@@ -204,7 +203,6 @@ const TrackInfo = memo(({ displayHymn, isLandscape }: TrackInfoProps) => {
   )
 })
 
-// Componente para botões de controle
 const PlayerButtons = memo(() => {
   const { width, height } = useWindowDimensions()
   const isLandscape = width > height
@@ -227,7 +225,6 @@ const PlayerButtons = memo(() => {
   )
 })
 
-// Tela principal
 const PlayerScreen = () => {
   const activeHymn = usePlayerStore(useShallow(state => state.activeHymn))
   const { background } = usePlayerBackground(logoApp)
@@ -238,7 +235,6 @@ const PlayerScreen = () => {
   const isTablet = width >= TABLET_BREAKPOINT
   const isLargeScreen = width >= LARGE_SCREEN_BREAKPOINT
 
-  // Calcular valores responsivos
   const responsiveStyles = useMemo(() => {
     return createResponsiveStyles({
       width,
@@ -257,6 +253,50 @@ const PlayerScreen = () => {
 
   const displayHymn = activeHymn || prevActiveHymnRef.current
 
+  const scrollViewRef = useRef<ScrollView>(null)
+  const [shouldScroll, setShouldScroll] = useState(false)
+  const [showHeader, setShowHeader] = useState(false)
+
+  useEffect(() => {
+    setShouldScroll(true)
+  }, [displayHymn])
+
+  const handleContentSizeChange = () => {
+    if (shouldScroll) {
+      scrollViewRef.current?.scrollToEnd({ animated: true })
+      setShouldScroll(false)
+    }
+  }
+
+  function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
+    const offsetY = event.nativeEvent.contentOffset.y
+    setShowHeader(offsetY > 40)
+  }
+
+  const translateY = useSharedValue(0)
+
+  function onGestureEvent(event: PanGestureHandlerGestureEvent) {
+    'worklet'
+    translateY.value = event.nativeEvent.translationY
+  }
+
+  function onGestureEnd(event: PanGestureHandlerGestureEvent) {
+    'worklet'
+    if (event.nativeEvent.translationY > 10) {
+      runOnJS(handleClose)()
+    } else {
+      translateY.value = withSpring(0)
+    }
+  }
+
+  function handleClose() {
+    console.log('Fechar player')
+  }
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }))
+
   // Preparar conteúdo condicional
   const renderContent = () => {
     if (!displayHymn) {
@@ -271,35 +311,69 @@ const PlayerScreen = () => {
     }
 
     return (
-      <LinearGradient
-        style={styles.container}
-        colors={
-          background
-            ? [background.background, background.primary]
-            : [colors.background]
-        }
-      >
-        <View style={styles.overlayContainer}>
-          <DismissPlayerSimbol />
-
-          <View style={responsiveStyles.mainContent}>
-            <PlayerArtwork artwork={logoApp} top={top} bottom={bottom} />
-            <LyricsInPlayer lyrics={displayHymn?.lyrics} />
-            <View style={responsiveStyles.playerControlsArea}>
-              <View style={styles.controlsWrapper}>
-                <TrackInfo
-                  displayHymn={displayHymn}
-                  isLandscape={isLandscape}
-                />
-                <PlayerProgressBar style={responsiveStyles.progressBar} />
-                <PlayerControls style={responsiveStyles.controls} />
+      <>
+        <StatusBar
+          backgroundColor="red"
+          barStyle="light-content"
+          translucent={true}
+        />
+        <PanGestureHandler
+          enabled={true}
+          onGestureEvent={onGestureEvent}
+          onHandlerStateChange={onGestureEnd}
+          simultaneousHandlers={scrollViewRef}
+        >
+          <Animated.View style={[{ flex: 1 }, animatedStyle]}>
+            {showHeader && (
+              <View style={styles.header}>
+                <Text style={styles.headerText}>Meu Header</Text>
               </View>
-              <PlayerVolumeBar style={responsiveStyles.volumeBar} />
-              <PlayerButtons />
-            </View>
-          </View>
-        </View>
-      </LinearGradient>
+            )}
+            <ScrollView
+              style={{ flex: 1 }}
+              ref={scrollViewRef}
+              onScroll={handleScroll}
+              scrollEventThrottle={16}
+            >
+              <LinearGradient
+                style={styles.container}
+                colors={
+                  background
+                    ? [background.background, background.primary]
+                    : [colors.background]
+                }
+              >
+                <View style={styles.overlayContainer}>
+                  <DismissPlayerSimbol />
+
+                  <View style={responsiveStyles.mainContent}>
+                    <PlayerArtwork
+                      artwork={logoApp}
+                      top={top}
+                      bottom={bottom}
+                    />
+                    <View style={responsiveStyles.playerControlsArea}>
+                      <View style={styles.controlsWrapper}>
+                        <TrackInfo
+                          displayHymn={displayHymn}
+                          isLandscape={isLandscape}
+                        />
+                        <PlayerProgressBar
+                          style={responsiveStyles.progressBar}
+                        />
+                        <PlayerControls style={responsiveStyles.controls} />
+                      </View>
+                      <PlayerVolumeBar style={responsiveStyles.volumeBar} />
+                      <PlayerButtons />
+                    </View>
+                  </View>
+                  <LyricsInPlayer lyrics={displayHymn?.lyrics} />
+                </View>
+              </LinearGradient>
+            </ScrollView>
+          </Animated.View>
+        </PanGestureHandler>
+      </>
     )
   }
 
@@ -307,7 +381,6 @@ const PlayerScreen = () => {
   return renderContent()
 }
 
-// Criador de estilos responsivos
 const createResponsiveStyles = ({
   width,
   height,
@@ -326,7 +399,8 @@ const createResponsiveStyles = ({
       marginBottom: marginVertical,
     },
     progressBar: {
-      marginVertical: marginVertical + 15,
+      marginTop: marginVertical,
+      marginBottom: marginVertical + 15,
     },
     volumeBar: {
       marginTop: marginVertical - 10,
@@ -338,12 +412,12 @@ const createResponsiveStyles = ({
     mainContent: {
       flex: 1,
       flexDirection: isLandscape ? 'row' : 'column',
-      paddingHorizontal: isTablet ? 20 : 10,
+      paddingHorizontal: isTablet ? 20 : 16,
     },
     playerControlsArea: {
       flex: isLandscape ? 0.6 : 1,
       justifyContent: 'flex-end',
-      paddingBottom: isTablet ? 20 : 10,
+      paddingBottom: isTablet ? 20 : 16,
     },
   })
 }
@@ -417,20 +491,19 @@ const styles = StyleSheet.create({
     marginVertical: 0,
   },
   trackInfoContainer: {
-    minHeight: 80,
-    paddingVertical: 5,
+    //minHeight: 80,
+    //paddingVertical: 5,
   },
   trackNumberView: {
-    marginTop: 12,
+    //marginTop: 12,
     color: colors.second,
     fontFamily: fontFamily.plusJakarta.bold,
     fontSize: getResponsiveSize(16),
   },
   trackTitleContainer: {
     flex: 1,
-    minHeight: 98,
-    height: 110,
-    //maxHeight: 100,
+    minHeight: 80,
+    height: '100%',
     overflow: 'hidden',
     justifyContent: 'center',
   },
@@ -443,6 +516,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: fontFamily.plusJakarta.bold,
     fontSize: getResponsiveSize(20),
+  },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 })
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { hymnService } from '../services/HymnService'
 import { categoryService } from '../services/CategoryService'
 import { Category } from '@/types/hymnsTypes'
@@ -18,7 +18,6 @@ export function useRealm() {
       setIsLoading(true)
       categoryService.create(data.categories)
       hymnService.create(data.hymns)
-      console.log('foi criada')
     } catch (err) {
       setError(err as Error)
     } finally {
@@ -100,7 +99,7 @@ export function useRealm() {
         categoryService.getAll(),
       ])
 
-      return hymns?.length === 0 && category?.length === 0
+      return hymns.length === 0 && category.length === 0
     } catch (err) {
       setError(err as Error)
       return true

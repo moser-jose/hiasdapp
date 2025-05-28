@@ -38,7 +38,7 @@ export const PlayerControls = ({ style, styleRow }: PlayerControlsProps) => {
       <View style={[styles.row, styleRow]}>
         <PlayerShuffleToogle />
         <SkipToPreviousButton width={30} height={35} />
-        <PlayPauseButton width={55} height={55} />
+        <PlayPauseButton width={70} height={70} />
         <SkipToNextButton width={30} height={29} />
         <PlayerRepeatToogle />
       </View>

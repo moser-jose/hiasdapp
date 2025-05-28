@@ -1,13 +1,21 @@
 import React from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { Hymn } from '@/types/hymnsTypes'
-import ListHymns from '@/components/util/ListHymns'
-import { useHymns } from '@/store/library'
+import ListHymns from '@/components/util/ListHymnscop'
+import { useLibraryStore } from '@/store/library'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
 
 export default function PlaylistHymns() {
   const { name, hymnsId } = useLocalSearchParams()
+
+  const { hymns } = useLibraryStore(
+    useShallow(state => ({
+      hymns: state.hymns,
+    }))
+  )
+
   function tryParseHymnsId(str: string) {
     try {
       // Tenta converter de JSON primeiro
@@ -26,8 +34,7 @@ export default function PlaylistHymns() {
       return !isNaN(num) ? [num] : []
     }
   }
-  console.log(hymnsId)
-  const hymns = useHymns().filter((hymn: Hymn) =>
+  const hymnsAll = hymns.filter((hymn: Hymn) =>
     tryParseHymnsId(hymnsId as string).includes(hymn.id)
   )
 
@@ -44,7 +51,7 @@ export default function PlaylistHymns() {
           ),
         }}
       />
-      <ListHymns hymns={hymns} horizontal={false} />
+      <ListHymns hymns={hymnsAll} horizontal={false} />
     </>
   )
 }

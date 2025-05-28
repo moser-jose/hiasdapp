@@ -51,7 +51,7 @@ import { usePlayerStore } from '@/store/playerStore'
   })
 } */
 
-module.exports = async function PlaybackService() {
+export default async function PlaybackService() {
   const { play, pause, skipToNext, skipToPrevious, reset } =
     usePlayerStore.getState()
   TrackPlayer.addEventListener(Event.RemotePlay, () => play())

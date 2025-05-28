@@ -385,14 +385,14 @@ export default function LyricsScreen() {
                     color={colors.primary}
                   />
                 </TouchableOpacity>
-                <ModalHymnItem
+                {/* <ModalHymnItem
                   title={title.toString()}
                   number={Number(number)}
                   lyrics={lyricsContent.replaceAll('[CHORUS_START]', '')}
                   modalPosition={modalPosition}
                   modalVisible={modalVisible}
                   setModalVisible={setModalVisible}
-                />
+                /> */}
               </View>
             </View>
           </View>

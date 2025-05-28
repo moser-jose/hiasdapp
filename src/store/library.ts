@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react'
-import { Hymn, Category } from '@/types/hymnsTypes'
+import { Hymn, Category, Playlist } from '@/types/hymnsTypes'
 import { Track } from 'react-native-track-player'
 import { create } from 'zustand'
 import * as msgpack from '@msgpack/msgpack'
 import { useShallow } from 'zustand/react/shallow'
 import { useRealm } from '@/hooks/useRealm'
+import { usePlaylist } from '@/hooks/usePlaylist'
 
 interface LibraryState {
   hymns: Hymn[]
@@ -12,20 +13,24 @@ interface LibraryState {
   favorites: Hymn[]
   lyrics: Hymn | null
   clickPlay: number
+  playlists: Playlist[]
   setHymns: (hymns: Hymn[]) => void
   setCategories: (categories: Category[]) => void
   setFavorites: (favorites: Hymn[]) => void
   addToPlayList: (hymn: Track | Hymn, playlistName: string) => void
   setLyrics: (lyrics: Hymn | null) => void
   setClickPlay: (clickPlay: number) => void
+  setPlaylists: (playlists: Playlist[]) => void
 }
 
 export const useLibraryStore = create<LibraryState>()(set => ({
   hymns: [],
   categories: [],
   favorites: [],
+  isFavorite: false,
   lyrics: null,
   clickPlay: 0,
+  playlists: [],
   setLyrics: (lyrics: Hymn | null) => set({ lyrics: lyrics }),
   setHymns: hymns => set({ hymns }),
   setCategories: categories => set({ categories }),
@@ -33,17 +38,16 @@ export const useLibraryStore = create<LibraryState>()(set => ({
   addToPlayList: () => {},
   setClickPlay: clickPlay =>
     set({ clickPlay: clickPlay === 2 ? 1 : clickPlay + 1 }),
+  setPlaylists: playlists => {
+    set({ playlists })
+  },
 }))
-
-export const useHymns = () => useLibraryStore(useShallow(state => state.hymns))
-
-export const useCategories = () =>
-  useLibraryStore(useShallow(state => state.categories))
 
 export const useInitLibrary = () => {
   const setHymns = useLibraryStore(state => state.setHymns)
+  const setFavorites = useLibraryStore(state => state.setFavorites)
   const setCategories = useLibraryStore(state => state.setCategories)
-  const { getAllHymns, getAllCategories } = useRealm()
+  const { getAllHymns, getAllCategories, getFavoriteHymns } = useRealm()
   React.useEffect(() => {
     getAllHymns().then(realmHymns => {
       if (realmHymns.length > 0) {
@@ -52,6 +56,14 @@ export const useInitLibrary = () => {
       }
     })
   }, [getAllHymns, setHymns])
+
+  React.useEffect(() => {
+    getFavoriteHymns().then(hymns => {
+      if (hymns) {
+        setFavorites(hymns)
+      }
+    })
+  }, [getFavoriteHymns, setFavorites])
 
   React.useEffect(() => {
     getAllCategories().then(realmCategories => {
@@ -65,48 +77,20 @@ export const useInitLibrary = () => {
   }, [getAllCategories, setCategories])
 }
 
-export const useFavorites = () => {
-  const favorites = useLibraryStore(useShallow(state => state.favorites))
-  const setFavorites = useLibraryStore(state => state.setFavorites)
-  const { toggleFavorite, isFavorite, getFavoriteHymns } = useRealm()
-
-  const toggleFavoriteAndUpdate = async (hymnId: number) => {
-    // Update in Realm database
-    await toggleFavorite(hymnId)
-    // Refresh favorites in store
-    const updatedFavorites = await getFavoriteHymns()
-    if (updatedFavorites) {
-      const favorites = msgpack.decode(
-        msgpack.encode(updatedFavorites)
-      ) as Hymn[]
-      setFavorites(favorites)
-    }
-  }
-
-  const checkIsFavorite = async (hymnId: number) => {
-    return await isFavorite(hymnId)
-  }
-
-  const loadFavorites = async () => {
-    const realmFavorites = await getFavoriteHymns()
-    if (realmFavorites) {
-      const favorites = msgpack.decode(msgpack.encode(realmFavorites)) as Hymn[]
-      setFavorites(favorites)
-      return favorites
-    }
-    return []
-  }
+export const usePlaylists = () => {
+  const playlists = useLibraryStore(useShallow(state => state.playlists))
+  const setPlaylists = useLibraryStore(useShallow(state => state.setPlaylists))
+  const { getAllPlaylists } = usePlaylist()
 
   React.useEffect(() => {
-    loadFavorites()
-  }, [])
+    const loadPlaylists = async () => {
+      const playlists = await getAllPlaylists()
+      setPlaylists(playlists)
+    }
+    loadPlaylists()
+  }, [getAllPlaylists, setPlaylists])
 
-  return {
-    favorites,
-    toggleFavorite: toggleFavoriteAndUpdate,
-    isFavorite: checkIsFavorite,
-    loadFavorites,
-  }
+  return { playlists, setPlaylists }
 }
 
 export const useLyrics = (hymnId: number | null) => {

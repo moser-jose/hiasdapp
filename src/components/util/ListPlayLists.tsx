@@ -1,28 +1,25 @@
 /* eslint-disable react/prop-types */
 
 import { ListPlaylistsProps, Playlist } from '@/types/hymnsTypes'
-import { memo, useEffect, useState } from 'react'
+import { memo } from 'react'
 import { FlatList } from 'react-native'
 
 import ItemDivider from './ItemDivider'
 import PlaylistCard from './PlaylistCard'
-import { useFavorites } from '@/store/library'
-import { usePlaylist } from '@/hooks/usePlaylist'
+import { useLibraryStore } from '@/store/library'
 import PlayListItem from './PlayListItem'
+import { useShallow } from 'zustand/react/shallow'
 
 function ListPlayLists({
   horizontal = false,
   ...listHymnsProps
 }: ListPlaylistsProps) {
-  const [playlists, setPlaylists] = useState<Playlist[]>([])
-  const usePlaylists = usePlaylist()
-  const favorites = useFavorites()
-
-  useEffect(() => {
-    usePlaylists.getAllPlaylists().then(itens => {
-      setPlaylists(itens)
-    })
-  }, [])
+  const { favorites, playlists } = useLibraryStore(
+    useShallow(state => ({
+      favorites: state.favorites,
+      playlists: state.playlists,
+    }))
+  )
 
   const dataPlaylists = () => {
     const newPlaylists = playlists.map(item => {
@@ -32,9 +29,9 @@ function ListPlayLists({
         hymns: item.hymns.map(hymn => hymn),
       }
     })
-    if (favorites.favorites.length) {
+    if (favorites.length) {
       const array: number[] = []
-      favorites.favorites.map(favorite => array.push(favorite.id))
+      favorites.map(favorite => array.push(favorite.id))
 
       const dataFavorites = {
         id: 100,
