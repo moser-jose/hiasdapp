@@ -1,12 +1,13 @@
 import { colors } from '@/constants/styles'
-import { useFavorites } from '@/store/library'
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
 import HeartFullSVG from '../svg/HeartFullSvg'
 import HeartSVG from '../svg/HeartSvg'
+import { useFavorites } from '@/helpers/fav'
 
 const ToogleFavorites = ({ id }: { id: number }) => {
-  const { toggleFavorite, isFavorite } = useFavorites()
+  const { isFavorite, toggleFavorite } = useFavorites()
+
   const [isFav, setIsFav] = useState(false)
   const animatedValue = useRef(new Animated.Value(0)).current
   const pulseAnimation = useRef(new Animated.Value(1)).current

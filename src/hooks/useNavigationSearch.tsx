@@ -1,25 +1,38 @@
 import { colors } from '@/constants/styles'
 import { useNavigation } from 'expo-router'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { SearchBarProps } from 'react-native-screens'
+
+interface UseNavigationSearchProps {
+  searchBarOptions?: SearchBarProps
+  debounceMs?: number
+}
 
 const defaultSearchOptions: SearchBarProps = {
   tintColor: colors.primary,
   hideWhenScrolling: false,
 }
-export const useNavigationSearch = ({
-  searchBarOptions,
-}: {
-  searchBarOptions?: SearchBarProps
-}) => {
-  const [search, setSearch] = useState('')
 
+export function useNavigationSearch({
+  searchBarOptions,
+  debounceMs = 0,
+}: UseNavigationSearchProps = {}): [string, (value: string) => void] {
+  const [search, setSearch] = useState('')
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
   const navigation = useNavigation()
 
+  // Handler with debounce support
   const handleOnChangeText: SearchBarProps['onChangeText'] = ({
     nativeEvent: { text },
   }) => {
-    setSearch(text)
+    if (debounceMs > 0) {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current)
+      debounceTimeout.current = setTimeout(() => {
+        setSearch(text)
+      }, debounceMs)
+    } else {
+      setSearch(text)
+    }
   }
 
   useLayoutEffect(() => {
@@ -28,9 +41,14 @@ export const useNavigationSearch = ({
         ...defaultSearchOptions,
         ...searchBarOptions,
         onChangeText: handleOnChangeText,
+        value: search,
       },
     })
-  }, [navigation, searchBarOptions])
+    // Limpeza do debounce ao desmontar
+    return () => {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current)
+    }
+  }, [navigation, searchBarOptions, search])
 
-  return search
+  return [search, setSearch]
 }

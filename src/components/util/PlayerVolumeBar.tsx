@@ -27,7 +27,7 @@ export const PlayerVolumeBar = ({ style }: ViewProps) => {
         <Ionicons
           name="volume-low"
           size={20}
-          color={colors.icon}
+          color="rgba(255, 255, 255, 0.83)"
           style={{ opacity: 0.8 }}
         />
 
@@ -48,7 +48,7 @@ export const PlayerVolumeBar = ({ style }: ViewProps) => {
             }}
             renderBubble={() => null}
             theme={{
-              maximumTrackTintColor: colors.textMuted,
+              maximumTrackTintColor: 'rgba(255, 255, 255, 0.36)',
               minimumTrackTintColor: colors.green,
             }}
             thumbWidth={0}
@@ -59,7 +59,7 @@ export const PlayerVolumeBar = ({ style }: ViewProps) => {
         <Ionicons
           name="volume-high"
           size={20}
-          color={colors.icon}
+          color="rgba(255, 255, 255, 0.83)"
           style={{ opacity: 0.8 }}
         />
       </View>

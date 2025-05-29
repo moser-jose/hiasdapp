@@ -2,9 +2,15 @@ import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
 import { memo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
-import { useCategories } from '@/store/library'
+import { useLibraryStore } from '@/store/library'
+import { useShallow } from 'zustand/react/shallow'
 const CategoriesScreen = () => {
-  const categories = useCategories()
+  const { categories } = useLibraryStore(
+    useShallow(state => ({
+      categories: state.categories,
+    }))
+  )
+
   return (
     <View style={defaultStyles.container}>
       <ScrollView
@@ -16,10 +22,6 @@ const CategoriesScreen = () => {
           categories={categories}
           showsVerticalScrollIndicator={false}
           scrollEnabled={false}
-          /* maxToRenderPerBatch={10}
-          removeClippedSubviews={true}
-          windowSize={5}
-          initialNumToRender={8} */
           numColumns={2}
         />
       </ScrollView>

@@ -4,21 +4,18 @@ import { usePlayerStore } from '@/store/playerStore'
 import { hymnsCard } from '@/styles'
 import { Author, HymnsProps } from '@/types/hymnsTypes'
 import { router } from 'expo-router'
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useShallow } from 'zustand/react/shallow'
 import ActiveHymnsDownloadSVG from '../svg/ActiveHymnsDownloadSvg'
 import Authors from './Authors'
 import PlayButton from './PlayButton'
-import ToogleFavorites from './ToogleFavorites'
 const HymnsCard = ({
   hymn,
   style,
   id,
   onHymnSelect: handleHymnSelect,
 }: HymnsProps) => {
-  const [favorites, setFavorites] = useState(false)
-
   const { isPlaying, activeHymn } = usePlayerStore(
     useShallow(state => ({
       isPlaying: state.isPlaying,
@@ -53,16 +50,10 @@ const HymnsCard = ({
           <View style={hymnsCard.cardTittle}>
             <View style={hymnsCard.viewTittle}>
               <Text style={hymnsCard.title}>
-                {truncateText(hymn.title, 15)}
+                {truncateText(hymn.title, 17)}
               </Text>
               <ActiveHymnsDownloadSVG color={colors.green} />
             </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setFavorites(!favorites)}
-            >
-              <ToogleFavorites id={hymn.id as number} />
-            </TouchableOpacity>
           </View>
           <Text style={hymnsCard.baseTitle}>{hymn.englishTitle}</Text>
           <Authors
@@ -80,13 +71,7 @@ const HymnsCard = ({
         height={36}
         width={36}
         activeHymnId={activeHymn?.id as number}
-        handleHymnSelect={
-          /* () =>
-          isPlaying ? pause() : activeHymn?.id === id ? play() : play(hymn)
-         */
-
-          () => handleHymnSelect(hymn)
-        }
+        handleHymnSelect={() => handleHymnSelect(hymn)}
       />
     </TouchableOpacity>
   )

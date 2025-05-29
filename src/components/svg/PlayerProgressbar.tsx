@@ -40,7 +40,7 @@ export const PlayerProgressBar = ({ style }: ViewProps) => {
         renderBubble={() => null}
         theme={{
           minimumTrackTintColor: colors.green,
-          maximumTrackTintColor: colors.textMuted,
+          maximumTrackTintColor: 'rgba(255, 255, 255, 0.36)',
         }}
         onSlidingStart={() => (isSliding.value = true)}
         onValueChange={async value => {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   timeText: {
-    color: colors.second,
+    color: 'rgba(255, 255, 255, 0.83)',
     fontFamily: fontFamily.plusJakarta.regular,
     fontSize: fontSize.xs,
     letterSpacing: 0.7,

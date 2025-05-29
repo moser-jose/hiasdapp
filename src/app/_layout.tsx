@@ -19,6 +19,7 @@ import {
 import { BirthstoneBounce_500Medium } from '@expo-google-fonts/birthstone-bounce'
 import { useInitLibrary } from '@/store/library'
 import { RealmProvider } from '@/components/providers/RealmProvider'
+import React from 'react'
 
 SplashScreen.preventAutoHideAsync()
 

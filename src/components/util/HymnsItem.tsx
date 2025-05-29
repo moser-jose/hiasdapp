@@ -61,12 +61,12 @@ function HymnsItem({ hymn, id, onHymnSelect: handleHymnSelect }: HymnsProps) {
 
   const handleDownload = () => {
     // Implementar lógica de download
-    setModalVisible(false)
+    setModalVisible(value => !value)
   }
 
   const handleShare = () => {
     // Implementar lógica de compartilhamento
-    setModalVisible(false)
+    setModalVisible(value => !value)
   }
 
   const handleSpreedPress = () => {
@@ -368,4 +368,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
 })
+
 export default memo(HymnsItem)

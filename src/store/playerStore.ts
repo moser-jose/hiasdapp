@@ -49,8 +49,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setupPlayer: async () => {
     await TrackPlayer.setupPlayer({
       maxCacheSize: 1024 * 10,
-      // Add more options as needed:
-
       autoHandleInterruptions: true,
       backBuffer: 60, // Keep 60 seconds of audio loaded before current position
     })

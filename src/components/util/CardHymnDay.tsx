@@ -20,7 +20,6 @@ import { truncateText, truncateTextWords } from '@/helpers/textsWords'
 import PlayButton from './PlayButton'
 import { usePlayerStore } from '@/store/playerStore'
 import { useShallow } from 'zustand/react/shallow'
-import CategoriesSVG from '../svg/CategoriesSvg'
 import CategoriesOutlineSVG from '../svg/CategoriesOutlineSvg'
 
 interface CardHymnDayProps {
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 16,
-    marginTop: 16,
+    marginTop: 10,
     position: 'relative',
   },
   content: {

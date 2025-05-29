@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
 import { useHymns } from '@/store/library'
-import ListHymns from '@/components/util/ListHymns'
+import ListHymns from '@/components/util/ListHymnscop'
 import { ListHeaderComponent } from '@/components/util/ListHeaderComponent'
 
 export default function SubCategories() {
