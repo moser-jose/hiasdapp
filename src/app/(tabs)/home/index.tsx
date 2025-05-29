@@ -4,7 +4,7 @@ import { View, ScrollView } from 'react-native'
 import { memo } from 'react'
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import { colors } from '@/constants/styles'
-import { useFavorites, useLibraryStore } from '@/store/library'
+import { useLibraryStore } from '@/store/library'
 import ListHymns from '@/components/util/ListHymnscop'
 
 import React from 'react'
@@ -13,53 +13,69 @@ import HymnsSvg from '@/components/svg/HymnsSvg'
 import { useShallow } from 'zustand/react/shallow'
 import CardHymnDay from '@/components/util/CardHymnDay'
 import CategoriesSvg from '@/components/svg/CategoriesSvg'
+import { ListCategories } from '@/components/util/ListCategories'
+import { useStateStore } from '@/store/modal'
+import { ModalChangeHymnal } from '@/components/util/ModalChangeHymnal'
+
 const HomeScreen = () => {
   //const { favorites } = useFavorites()
-  const { playlists, hymns, categories, favorites } = useLibraryStore(
+  const { changeHymns } = useStateStore(
     useShallow(state => ({
-      playlists: state.playlists,
+      changeHymns: state.changeHymns,
+    }))
+  )
+  const setChangeHymns = useStateStore(state => state.setChangeHymns)
+  const { hymns, categories, favorites } = useLibraryStore(
+    useShallow(state => ({
       favorites: state.favorites,
       hymns: state.hymns,
       categories: state.categories,
     }))
   )
 
-  console.log('playlists', playlists)
+  function handleSelectHymnal(hymnal: { id: string; name: string }) {
+    setChangeHymns(false)
+  }
 
   return (
-    <View style={defaultStyles.container}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={{ paddingTop: 10, paddingBottom: 90 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <Separator title="Hinos" more>
-          <HymnsSvg color={colors.green} height={16} width={16} />
-        </Separator>
-        <ListHymns id={generateTracksListId('home')} hymns={hymns} horizontal />
+    <>
+      <View style={defaultStyles.container}>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 90 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Separator title="Hinos" more>
+            <HymnsSvg color={colors.green} height={16} width={16} />
+          </Separator>
+          <ListHymns
+            id={generateTracksListId('home')}
+            hymns={hymns}
+            horizontal
+          />
 
-        {favorites?.length > 0 && (
-          <>
-            <Separator title="Favoritos" more>
-              <HeartFullSVG color={colors.green} height={16} width={16} />
-            </Separator>
+          <CardHymnDay hymns={hymns} categories={categories} />
 
-            <ListHymns hymns={favorites} horizontal />
-          </>
-        )}
+          <Separator title="Categorias" more>
+            <CategoriesSvg color={colors.green} height={16} width={16} />
+          </Separator>
+          <ListCategories
+            categories={categories}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
 
-        <CardHymnDay hymns={hymns} categories={categories} />
+          {favorites?.length > 0 && (
+            <>
+              <Separator title="Favoritos" more>
+                <HeartFullSVG color={colors.green} height={16} width={16} />
+              </Separator>
 
-        <Separator title="Categorias" more>
-          <CategoriesSvg color={colors.green} height={16} width={16} />
-        </Separator>
-        {/*  <ListCategories
-          categories={categories}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        /> */}
+              <ListHymns hymns={favorites} horizontal />
+            </>
+          )}
 
-        {/* {playlists.length > 0 && (
+          {/* {playlists.length > 0 && (
           <>
             <Separator title="Coletâneas" more>
               <PlaylistsSVG color={colors.green} height={16} width={16} />
@@ -67,7 +83,7 @@ const HomeScreen = () => {
             <ListPlayLists horizontal showsHorizontalScrollIndicator={false} />
           </>
         )} */}
-        {/* 
+          {/* 
 
         
 
@@ -81,8 +97,14 @@ const HomeScreen = () => {
 
         <ListHymnsCard hymns={hymns} handleHymnSelect={handleHymnSelect} />
        */}
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+      <ModalChangeHymnal
+        visible={changeHymns}
+        onClose={() => setChangeHymns(false)}
+        onSelect={handleSelectHymnal}
+      />
+    </>
   )
 }
 

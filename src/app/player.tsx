@@ -12,32 +12,21 @@ import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { usePlayerStore } from '@/store/playerStore'
 import { defaultStyles } from '@/styles'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
   View,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  StatusBar,
 } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { LinearGradient } from 'react-native-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/react/shallow'
-import { PanGestureHandler } from 'react-native-gesture-handler'
-import type { PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  runOnJS,
-} from 'react-native-reanimated'
+import { useStateStore } from '@/store/stateStore'
 
 // Constantes
 const TABLET_BREAKPOINT = 768
@@ -253,51 +242,8 @@ const PlayerScreen = () => {
 
   const displayHymn = activeHymn || prevActiveHymnRef.current
 
-  const scrollViewRef = useRef<ScrollView>(null)
-  const [shouldScroll, setShouldScroll] = useState(false)
-  const [showHeader, setShowHeader] = useState(false)
+  const viewLyric = useStateStore(useShallow(state => state.viewLyric))
 
-  useEffect(() => {
-    setShouldScroll(true)
-  }, [displayHymn])
-
-  const handleContentSizeChange = () => {
-    if (shouldScroll) {
-      scrollViewRef.current?.scrollToEnd({ animated: true })
-      setShouldScroll(false)
-    }
-  }
-
-  function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
-    const offsetY = event.nativeEvent.contentOffset.y
-    setShowHeader(offsetY > 40)
-  }
-
-  const translateY = useSharedValue(0)
-
-  function onGestureEvent(event: PanGestureHandlerGestureEvent) {
-    'worklet'
-    translateY.value = event.nativeEvent.translationY
-  }
-
-  function onGestureEnd(event: PanGestureHandlerGestureEvent) {
-    'worklet'
-    if (event.nativeEvent.translationY > 10) {
-      runOnJS(handleClose)()
-    } else {
-      translateY.value = withSpring(0)
-    }
-  }
-
-  function handleClose() {
-    console.log('Fechar player')
-  }
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
-  }))
-
-  // Preparar conteúdo condicional
   const renderContent = () => {
     if (!displayHymn) {
       return (
@@ -312,67 +258,37 @@ const PlayerScreen = () => {
 
     return (
       <>
-        <StatusBar
-          backgroundColor="red"
-          barStyle="light-content"
-          translucent={true}
-        />
-        <PanGestureHandler
-          enabled={true}
-          onGestureEvent={onGestureEvent}
-          onHandlerStateChange={onGestureEnd}
-          simultaneousHandlers={scrollViewRef}
+        <LinearGradient
+          style={styles.container}
+          colors={
+            background
+              ? [background.background, background.primary]
+              : [colors.background]
+          }
         >
-          <Animated.View style={[{ flex: 1 }, animatedStyle]}>
-            {showHeader && (
-              <View style={styles.header}>
-                <Text style={styles.headerText}>Meu Header</Text>
-              </View>
-            )}
-            <ScrollView
-              style={{ flex: 1 }}
-              ref={scrollViewRef}
-              onScroll={handleScroll}
-              scrollEventThrottle={16}
-            >
-              <LinearGradient
-                style={styles.container}
-                colors={
-                  background
-                    ? [background.background, background.primary]
-                    : [colors.background]
-                }
-              >
-                <View style={styles.overlayContainer}>
-                  <DismissPlayerSimbol />
+          <View style={{ flex: 1 }}>
+            <View style={styles.overlayContainer}>
+              <DismissPlayerSimbol />
 
-                  <View style={responsiveStyles.mainContent}>
-                    <PlayerArtwork
-                      artwork={logoApp}
-                      top={top}
-                      bottom={bottom}
+              <View style={responsiveStyles.mainContent}>
+                <PlayerArtwork artwork={logoApp} top={top} bottom={bottom} />
+                <View style={responsiveStyles.playerControlsArea}>
+                  <View style={styles.controlsWrapper}>
+                    <TrackInfo
+                      displayHymn={displayHymn}
+                      isLandscape={isLandscape}
                     />
-                    <View style={responsiveStyles.playerControlsArea}>
-                      <View style={styles.controlsWrapper}>
-                        <TrackInfo
-                          displayHymn={displayHymn}
-                          isLandscape={isLandscape}
-                        />
-                        <PlayerProgressBar
-                          style={responsiveStyles.progressBar}
-                        />
-                        <PlayerControls style={responsiveStyles.controls} />
-                      </View>
-                      <PlayerVolumeBar style={responsiveStyles.volumeBar} />
-                      <PlayerButtons />
-                    </View>
+                    <PlayerProgressBar style={responsiveStyles.progressBar} />
+                    <PlayerControls style={responsiveStyles.controls} />
                   </View>
-                  <LyricsInPlayer lyrics={displayHymn?.lyrics} />
+                  <PlayerVolumeBar style={responsiveStyles.volumeBar} />
+                  <PlayerButtons />
                 </View>
-              </LinearGradient>
-            </ScrollView>
-          </Animated.View>
-        </PanGestureHandler>
+              </View>
+            </View>
+          </View>
+          {viewLyric && <LyricsInPlayer lyrics={displayHymn?.lyrics} />}
+        </LinearGradient>
       </>
     )
   }

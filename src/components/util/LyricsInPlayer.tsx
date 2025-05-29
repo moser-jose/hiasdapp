@@ -1,5 +1,4 @@
 import { colors, fontFamily } from '@/constants/styles'
-import { useStateStore } from '@/store/stateStore'
 import { Lyrics, Verse } from '@/types/hymnsTypes'
 import React from 'react'
 import {
@@ -9,85 +8,100 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import FloatingPlayer from './FloatingPlayer'
+import { useStateStore } from '@/store/stateStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const LyricsInPlayer = ({ lyrics }: { lyrics: Lyrics }) => {
   const { top, bottom } = useSafeAreaInsets()
-  const viewLyric = useStateStore(useShallow(state => state.viewLyric))
+  const { setViewLyric } = useStateStore(
+    useShallow(state => ({
+      setViewLyric: state.setViewLyric,
+    }))
+  )
 
-  //if (!viewLyric) return null
   return (
-    <SafeAreaView
+    <View
       style={{
-        overflow: 'hidden',
-        height: 350,
-        backgroundColor: 'rgba(0, 0, 0, 0.26)',
-        padding: 16,
-        borderRadius: 20,
-        marginHorizontal: 16,
-        position: 'relative',
-        marginBottom: 30,
-        boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+        ...styles.viewLyrics,
+        top: top + 30,
       }}
     >
-      {Object.values(lyrics.verses).map(({ verse, number }: Verse, index) => {
-        return (
-          <View key={index}>
-            {number && <Text style={styles.text}>{number}</Text>}
-            <Text style={styles.text}>{verse}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          setViewLyric()
+        }}
+        activeOpacity={0.8}
+        style={styles.closeButton}
+      >
+        <Text style={styles.textButton}>Fechar letra</Text>
+      </TouchableOpacity>
 
-            {Object.values(lyrics.chorus)[index]?.choir ? (
-              <>
-                <Text style={styles.text}>Coro</Text>
-                <Text style={styles.text}>
-                  {Object.values(lyrics.chorus)[index]?.choir}
-                </Text>
-              </>
-            ) : (
-              Object.values(lyrics.chorus)[0]?.choir && (
+      <ScrollView
+        style={{ marginBottom: 60 }}
+        showsVerticalScrollIndicator={true}
+        indicatorStyle="white"
+      >
+        {Object.values(lyrics.verses).map(({ verse, number }: Verse, index) => {
+          return (
+            <View key={index}>
+              {number && <Text style={styles.text}>{number}</Text>}
+              <Text style={styles.text}>{verse}</Text>
+
+              {Object.values(lyrics.chorus)[index]?.choir ? (
                 <>
                   <Text style={styles.text}>Coro</Text>
                   <Text style={styles.text}>
-                    {Object.values(lyrics.chorus)[0]?.choir}
+                    {Object.values(lyrics.chorus)[index]?.choir}
                   </Text>
                 </>
-              )
-            )}
-          </View>
-        )
-      })}
-      <View style={styles.view}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            console.log('Ver letra completa')
-          }}
-          style={styles.viewButton}
-        >
-          <Text style={styles.textButton}>Ver letra completa</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+              ) : (
+                Object.values(lyrics.chorus)[0]?.choir && (
+                  <>
+                    <Text style={styles.text}>Coro</Text>
+                    <Text style={styles.text}>
+                      {Object.values(lyrics.chorus)[0]?.choir}
+                    </Text>
+                  </>
+                )
+              )}
+            </View>
+          )
+        })}
+      </ScrollView>
+      <FloatingPlayer
+        style={[styles.floatingPlayer, { bottom: bottom - 26 }]}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  viewButton: {
-    justifyContent: 'center',
-    backgroundColor: colors.green,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    width: 170,
-  },
-  view: {
-    backgroundColor: 'rgb(237, 229, 229)',
+  viewLyrics: {
+    overflow: 'hidden',
+    backgroundColor: 'rgba(0, 0, 0, 0.91)',
+    padding: 16,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginBottom: 30,
+    boxShadow: '0 0 10px 0 rgba(255, 255, 255, 0.08)',
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 8,
+  },
+  closeButton: {
+    justifyContent: 'center',
+    backgroundColor: colors.green,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    boxShadow: '0 0 10px 0 rgba(255, 255, 255, 0.15)',
+    zIndex: 1000,
   },
   text: {
     color: colors.white,
@@ -99,8 +113,14 @@ const styles = StyleSheet.create({
   textButton: {
     color: colors.text,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: 14,
+    fontSize: 12,
     letterSpacing: 0.5,
+  },
+  floatingPlayer: {
+    borderRadius: 4,
+    left: 8,
+    position: 'absolute',
+    right: 8,
   },
 })
 
