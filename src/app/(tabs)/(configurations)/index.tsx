@@ -1,5 +1,5 @@
 import { defaultStyles } from '@/styles'
-import { colors, fontSize } from '@/constants/styles'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
 import { memo } from 'react'
 import {
   View,
@@ -63,11 +63,47 @@ const ConfigurationsScreen = () => {
       />
       <MenuItem
         icon={
-          <ConfigurationsSVG color={colors.primary} width={24} height={24} />
+          <Ionicons name="share-outline" size={24} color={colors.primary} />
+        }
+        title="Compartilhar"
+        description="Compartilhe o app com seus amigos"
+        onPress={() => router.push('/(tabs)/(configurations)/share')}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="information-circle-outline"
+            size={24}
+            color={colors.primary}
+          />
         }
         title="Sobre o app"
         description="Versão, termos e privacidade"
         onPress={() => router.push('/(tabs)/(configurations)/about')}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="lock-closed-outline"
+            size={24}
+            color={colors.primary}
+          />
+        }
+        title="Política de privacidade"
+        description="Política de privacidade"
+        onPress={() => router.push('/(tabs)/(configurations)/privacy')}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="document-text-outline"
+            size={24}
+            color={colors.primary}
+          />
+        }
+        title="Termos de uso"
+        description="Termos de uso"
+        onPress={() => router.push('/(tabs)/(configurations)/terms')}
       />
       <MenuItem
         icon={
@@ -128,8 +164,9 @@ const styles = StyleSheet.create({
   },
   menuDescription: {
     fontSize: fontSize.xsm,
-    color: colors.textMuted,
+    color: 'rgba(65, 68, 71, 0.64)',
     marginTop: 2,
+    fontFamily: fontFamily.plusJakarta.regular,
   },
   footer: {
     marginTop: 32,

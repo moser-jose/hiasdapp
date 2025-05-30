@@ -1,12 +1,7 @@
-import { defaultStyles } from '@/styles'
-import { View } from 'react-native'
 import ListPlayLists from '@/components/util/ListPlayLists'
+import { defaultStyles } from '@/styles'
 function PlaylistsScreen() {
-  return (
-    <View style={defaultStyles.container}>
-      <ListPlayLists />
-    </View>
-  )
+  return <ListPlayLists style={defaultStyles.container} />
 }
 
 export default PlaylistsScreen

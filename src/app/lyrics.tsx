@@ -385,14 +385,14 @@ export default function LyricsScreen() {
                     color={colors.primary}
                   />
                 </TouchableOpacity>
-                {/* <ModalHymnItem
+                <ModalHymnItem
                   title={title.toString()}
                   number={Number(number)}
                   lyrics={lyricsContent.replaceAll('[CHORUS_START]', '')}
                   modalPosition={modalPosition}
                   modalVisible={modalVisible}
                   setModalVisible={setModalVisible}
-                /> */}
+                />
               </View>
             </View>
           </View>
@@ -400,7 +400,7 @@ export default function LyricsScreen() {
 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
-          style={{ top: 173 }}
+          style={{ top: 173, marginBottom: 100 }}
           //showsVerticalScrollIndicator={false}
         >
           <View style={styles.lyricsContainer}>
@@ -443,7 +443,7 @@ const styles = StyleSheet.create({
   authorsTitle: {
     color: colors.textMuted,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.xsm,
+    fontSize: fontSize.xs,
   },
 
   backButton: {
@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
   textSizeLabel: {
     color: colors.textMuted,
     fontFamily: fontFamily.plusJakarta.medium,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
   },
   title: {
     color: colors.text,
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.smB,
   },
   titleContainer: {
-    marginTop: 10,
+    marginTop: 6,
   },
   titleContainerFavorite: {
     alignItems: 'center',

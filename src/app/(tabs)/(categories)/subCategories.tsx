@@ -11,16 +11,22 @@ import { Ionicons } from '@expo/vector-icons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { getBackgroundSource } from '@/helpers/getBackgroundSource'
-import { useHymns } from '@/store/library'
-import ListHymns from '@/components/util/ListHymnscop'
+import { useLibraryStore } from '@/store/library'
+import ListHymns from '@/components/util/ListHymns'
 import { ListHeaderComponent } from '@/components/util/ListHeaderComponent'
+import { useShallow } from 'zustand/react/shallow'
 
 export default function SubCategories() {
   const { idQueue, category, subCategory } = useLocalSearchParams()
+  const { hymns } = useLibraryStore(
+    useShallow(state => ({
+      hymns: state.hymns,
+    }))
+  )
 
   const router = useRouter()
 
-  const hymns = useHymns().filter(
+  const hymnsFiltered = hymns.filter(
     hymn => hymn.category?.subCategory?.name === subCategory
   )
 
@@ -62,9 +68,9 @@ export default function SubCategories() {
         <ListHymns
           style={styles.listView}
           ListHeaderComponent={
-            <ListHeaderComponent hymns={hymns} id={idQueue as string} />
+            <ListHeaderComponent hymns={hymnsFiltered} id={idQueue as string} />
           }
-          hymns={hymns}
+          hymns={hymnsFiltered}
           id={idQueue as string}
           horizontal={false}
         />

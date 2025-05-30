@@ -5,7 +5,7 @@ import { memo } from 'react'
 import HeartFullSVG from '@/components/svg/HeartFullSvg'
 import { colors } from '@/constants/styles'
 import { useLibraryStore } from '@/store/library'
-import ListHymns from '@/components/util/ListHymnscop'
+import ListHymns from '@/components/util/ListHymns'
 
 import React from 'react'
 import { generateTracksListId } from '@/helpers/j'
@@ -18,7 +18,6 @@ import { useStateStore } from '@/store/modal'
 import { ModalChangeHymnal } from '@/components/util/ModalChangeHymnal'
 
 const HomeScreen = () => {
-  //const { favorites } = useFavorites()
   const { changeHymns } = useStateStore(
     useShallow(state => ({
       changeHymns: state.changeHymns,
