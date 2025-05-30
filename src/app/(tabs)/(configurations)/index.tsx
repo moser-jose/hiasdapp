@@ -8,9 +8,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native'
-import ConfigurationsSVG from '@/components/svg/ConfigurationsSvg'
 import { Ionicons } from '@expo/vector-icons'
-import Separator from '@/components/util/Separator'
 import { useRouter } from 'expo-router'
 
 interface MenuItemProps {
@@ -119,7 +117,7 @@ const ConfigurationsScreen = () => {
       />
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          © 2024 SeuApp. Todos os direitos reservados.
+          © {new Date().getFullYear()} HIA7D. Todos os direitos reservados.
         </Text>
       </View>
     </ScrollView>
@@ -158,7 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   menuTitle: {
-    fontSize: fontSize.smB,
+    fontSize: fontSize.sm,
     color: colors.text,
     fontWeight: '500',
   },
@@ -175,6 +173,7 @@ const styles = StyleSheet.create({
   footerText: {
     color: colors.textMuted,
     fontSize: fontSize.xs,
+    fontFamily: fontFamily.plusJakarta.medium,
   },
 })
 
