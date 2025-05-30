@@ -1,6 +1,6 @@
 import { defaultStyles } from '@/styles'
-import { colors, fontSize } from '@/constants/styles'
-import { View, Text, StyleSheet } from 'react-native'
+import { colors, fontFamily, fontSize } from '@/constants/styles'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Stack } from 'expo-router'
 
 export default function ThemeScreen() {
@@ -22,11 +22,32 @@ export default function ThemeScreen() {
           },
         }}
       />
-      <View style={defaultStyles.container}>
-        <Text style={styles.title}>Política de privacidade</Text>
-        <Text style={styles.subtitle}>Política de privacidade do app.</Text>
-        {/* Adicione opções de seleção de tema aqui */}
-      </View>
+      <ScrollView
+        style={[defaultStyles.container, { padding: 16 }]}
+        accessible
+        accessibilityLabel="Política de Privacidade"
+      >
+        <Text style={styles.paragraph}>
+          Sua privacidade é importante para nós. Este aplicativo não coleta,
+          armazena ou compartilha nenhum dado pessoal dos usuários.
+        </Text>
+        <Text style={styles.sectionTitle}>1. Segurança</Text>
+        <Text style={styles.paragraph}>
+          Mesmo não coletando dados, adotamos as melhores práticas de segurança
+          para garantir a integridade e o bom funcionamento do aplicativo.
+        </Text>
+        <Text style={styles.sectionTitle}>2. Alterações nesta Política</Text>
+        <Text style={styles.paragraph}>
+          Podemos atualizar esta Política de Privacidade periodicamente.
+          Notificaremos sobre alterações significativas por meio do aplicativo
+          ou outros meios.
+        </Text>
+        <Text style={styles.sectionTitle}>3. Contato</Text>
+        <Text style={styles.paragraph}>
+          Em caso de dúvidas sobre esta Política de Privacidade, entre em
+          contato pelo e-mail: suporteha7d@gmail.com
+        </Text>
+      </ScrollView>
     </>
   )
 }
@@ -34,14 +55,22 @@ export default function ThemeScreen() {
 const styles = StyleSheet.create({
   title: {
     fontSize: fontSize.xl,
-    fontWeight: 'bold',
     color: colors.primary,
     marginBottom: 12,
     marginTop: 16,
+    fontFamily: fontFamily.plusJakarta.regular,
   },
-  subtitle: {
+  sectionTitle: {
+    fontSize: fontSize.sm,
+    fontWeight: 'bold',
+    color: colors.text,
+    marginTop: 16,
+    marginBottom: 4,
+  },
+  paragraph: {
     fontSize: fontSize.sm,
     color: colors.textMuted,
-    marginBottom: 24,
+    marginBottom: 12,
+    lineHeight: 20,
   },
 })
