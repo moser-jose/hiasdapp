@@ -1,9 +1,9 @@
-import { defaultStyles } from '@/styles'
-import { View, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { memo } from 'react'
 import { ListCategories } from '@/components/util/ListCategories'
 import { useLibraryStore } from '@/store/library'
 import { useShallow } from 'zustand/react/shallow'
+import { defaultStyles } from '@/styles'
 const CategoriesScreen = () => {
   const { categories } = useLibraryStore(
     useShallow(state => ({
@@ -12,20 +12,18 @@ const CategoriesScreen = () => {
   )
 
   return (
-    <View style={defaultStyles.container}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      showsVerticalScrollIndicator={false}
+      style={[defaultStyles.container, { paddingRight: 16 }]}
+    >
+      <ListCategories
+        categories={categories}
         showsVerticalScrollIndicator={false}
-        style={{ marginRight: 16 }}
-      >
-        <ListCategories
-          categories={categories}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
-          numColumns={2}
-        />
-      </ScrollView>
-    </View>
+        scrollEnabled={false}
+        numColumns={2}
+      />
+    </ScrollView>
   )
 }
 

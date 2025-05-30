@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import ChangeHymnsSVG from '../svg/ChangeHymnsSVG'
 import LogoSVG from '../svg/LogoSVG'
 import Topic from './Topic'
+import { useStateStore } from '@/store/modal'
+import { useShallow } from 'zustand/react/shallow'
 
 const Header = ({
   title,
@@ -13,6 +15,11 @@ const Header = ({
   text: string
   year: string
 }) => {
+  const { setChangeHymns } = useStateStore(
+    useShallow(state => ({
+      setChangeHymns: state.setChangeHymns,
+    }))
+  )
   return (
     <View style={styles.container}>
       <LogoSVG color="#29C17E" />
@@ -23,7 +30,11 @@ const Header = ({
           <Topic text={year} style={{ fontSize: fontSize.xs }} />
         </View>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setChangeHymns(true)
+        }}
+      >
         <ChangeHymnsSVG color={colors.primary} />
       </TouchableOpacity>
     </View>

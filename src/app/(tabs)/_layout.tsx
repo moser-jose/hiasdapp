@@ -17,9 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const { width, height } = Dimensions.get('window')
 
-// Calcular tamanhos responsivos
 const getResponsiveSizes = (screenWidth: number) => {
-  // Ajustar proporcionalmente com base na largura da tela
   const baseIconSize = Math.max(18, Math.min(22, screenWidth * 0.055))
   const baseFontSize = Math.max(10, Math.min(12, screenWidth * 0.03))
 
@@ -80,7 +78,6 @@ function TabsNavigation() {
   const [sizes, setSizes] = useState(responsiveSizes)
   let PLAYER_STYLES = {}
 
-  // Adicionar listener para mudanças de dimensão (rotação de tela, etc)
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
       'change',
@@ -93,18 +90,14 @@ function TabsNavigation() {
     return () => subscription.remove()
   }, [])
 
-  // Configuração responsiva para todos os dispositivos
   PLAYER_STYLES = {
     position: 'absolute' as const,
-    //left: dimensions.width * 0.04,
-    //right: dimensions.width * 0.04,
     borderRadius: 0,
   }
 
   if (Platform.OS === 'ios') {
     // Ajuste específico para iOS
     if (insets.bottom > 0) {
-      // Dispositivos com notch (iPhone X e mais recentes)
       PLAYER_STYLES = {
         ...PLAYER_STYLES,
         bottom: insets.bottom + dimensions.height * 0.05,
@@ -165,7 +158,7 @@ function TabsNavigation() {
         <Tabs.Screen
           name="(categories)"
           options={{
-            tabBarLabel: 'Seções',
+            tabBarLabel: 'Categorias',
             tabBarIcon: ({ color, focused }) => (
               <IconRenderer
                 color={color}
@@ -180,7 +173,7 @@ function TabsNavigation() {
         <Tabs.Screen
           name="(playlists)"
           options={{
-            tabBarLabel: 'Coletâneas',
+            tabBarLabel: 'Biblioteca',
             tabBarIcon: ({ color, focused }) => (
               <IconRenderer
                 color={color}

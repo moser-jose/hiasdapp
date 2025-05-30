@@ -1,7 +1,7 @@
 import React from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { Hymn } from '@/types/hymnsTypes'
-import ListHymns from '@/components/util/ListHymnscop'
+import ListHymns from '@/components/util/ListHymns'
 import { useLibraryStore } from '@/store/library'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'

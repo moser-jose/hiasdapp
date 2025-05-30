@@ -14,13 +14,12 @@ function HymnsScreen() {
   )
 
   return (
-    <View style={defaultStyles.container}>
-      <ListHymns
-        id={generateTracksListId('hymns')}
-        horizontal={false}
-        hymns={hymns}
-      />
-    </View>
+    <ListHymns
+      style={defaultStyles.container}
+      id={generateTracksListId('hymns')}
+      horizontal={false}
+      hymns={hymns}
+    />
   )
 }
 

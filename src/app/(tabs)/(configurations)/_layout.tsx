@@ -17,11 +17,17 @@ const ConfigurationsScreenLayout = () => {
             headerLargeTitleStyle: {
               color: colors.text,
             },
+            headerStyle: {
+              backgroundColor: colors.third,
+            },
             headerTintColor: colors.text,
-            headerBlurEffect: 'prominent',
-            headerShadowVisible: false,
+            //headerBlurEffect: 'prominent',
+            headerShadowVisible: true,
             headerTransparent: true,
-            headerTitle: 'Configurações',
+            headerTitle: 'Configurações',
+            headerTitleStyle: {
+              color: colors.text,
+            },
           }}
         />
       </Stack>
